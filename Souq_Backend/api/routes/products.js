@@ -83,4 +83,30 @@ router.delete("/:id", (request, response) => {
     });
 });
 
+// Update image
+router.put("/update", uploadImage.single('image'), (request, response) => {
+    const id = request.body.id;
+    
+    const file = request.file;
+    var filePath = ""
+    if(file != null){
+        filePath = file.path
+    }
+
+    const query = "UPDATE products SET image = ? WHERE id = ?"  
+    
+    const args = [filePath,id]
+
+    database.query(query, args, (error, result) => {
+        if(error) throw error
+
+        if(result['affectedRows']  == 1){
+            response.status(200).send("Product Image is updated")
+        }else{
+            response.status(500).send("Invalid Update")
+        }
+    });
+
+});
+
 module.exports = router
