@@ -46,4 +46,29 @@ router.get("/", (request, response) => {
     });
 }); 
 
+
+// Insert Product
+router.post("/insert",uploadImage.single('image'), (request, response) => {
+    const name = request.body.name
+    const price = request.body.price
+    const quantity = request.body.quantity
+    const supplier = request.body.supplier
+    const category = request.body.category
+    
+    const file = request.file;
+    var filePath = ""
+    if(file != null){
+        filePath = file.path
+    }
+   
+    const query = "INSERT INTO products(name, price, quantity, supplier, category, image) VALUES(?, ?, ?, ?, ?,?)"
+        
+    const args = [name, price, quantity, supplier, category, filePath]
+
+        database.query(query, args, (error, result) => {
+            if (error) throw error
+            response.status(200).send("Product Inserted")
+        });
+});
+
 module.exports = router
