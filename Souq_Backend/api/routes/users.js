@@ -10,7 +10,7 @@ const multer = require('multer')
 const storage = multer.diskStorage({
     // Place of picture
     destination: (request, file, callback) => {
-        callback(null, 'storage/');
+        callback(null, 'storage_user/');
     },
     filename: (request, file, callback) => {
         const avatarName = Date.now() + file.originalname;
