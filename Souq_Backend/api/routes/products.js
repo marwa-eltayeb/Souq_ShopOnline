@@ -35,7 +35,7 @@ router.get("/", (request, response) => {
 
 // Read products by category
 router.get("/", (request, response) => {
-    const category = request.param.category
+    const category = request.params.category
 
     const query = "SELECT * FROM products WHERE category = ?";
     const args = [category]
@@ -69,6 +69,18 @@ router.post("/insert",uploadImage.single('image'), (request, response) => {
             if (error) throw error
             response.status(200).send("Product Inserted")
         });
+});
+
+// Delete Product
+router.delete("/:id", (request, response) => {
+    const id = request.params.id;
+    const query = "DELETE FROM products WHERE id = ?"
+    const args = [id]
+
+    database.query(query, args, (error, result) => {
+        if(error) throw error
+        response.status(200).send("Product is deleted")
+    });
 });
 
 module.exports = router
