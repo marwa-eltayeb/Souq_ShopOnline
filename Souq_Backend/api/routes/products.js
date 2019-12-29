@@ -33,6 +33,17 @@ router.get("/", (request, response) => {
     })
 });
 
+// Read products by category
+router.get("/", (request, response) => {
+    const category = request.param.category
 
+    const query = "SELECT * FROM products WHERE category = ?";
+    const args = [category]
+
+    database.query(query, args, (error, result) => {
+        if(error) throw error
+        response.status(200).json(result)
+    });
+}); 
 
 module.exports = router
