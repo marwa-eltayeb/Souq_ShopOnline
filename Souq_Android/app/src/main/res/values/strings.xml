@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Souq</string>
-    <string name="splash">Splash</string>
+    <string name="splash">Splash screen</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_a_member_login">Already a member? Login</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="register">Register</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="forget_password">Forget password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="new_customer_create_your_account">New Customer? Create Your Account</string>
 </resources>
