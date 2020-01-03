@@ -6,14 +6,17 @@
     <string name="name">Name</string>
     <string name="address">Address</string>
     <string name="mobile_number">Mobile Number</string>
-    <string name="re_enter_password">Re-enter Password</string>
-    <string name="create_account">Create Account</string>
-    <string name="already_a_member_login">Already a member? Login</string>
     <string name="delete_account">Delete Account</string>
     <string name="register">Register</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_out">Sign Out</string>
     <string name="forget_password">Forget password</string>
     <string name="sign_in">Sign in</string>
-    <string name="new_customer_create_your_account">New Customer? Create Your Account</string>
+    <string name="new_customer_create_your_account">New Customer? <font color='#008CFF'>Create Your Account</font></string>
+    <string name="_2020_souq">2020 Souq by Marwa Eltayeb. All Rights Reserved</string>
+    <string name="eight_characters">Passwords must be at least 8 characters</string>
+    <string name="create_your_account">Create your account</string>
+    <string name="sign_in_already_a_customer">Sign-in. Already a customer?</string>
+    <string name="boldText">Sign-in.</string>
+    <string name="normalText">" "Already a customer?</string>
 </resources>
