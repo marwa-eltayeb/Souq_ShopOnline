@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.marwaeltayeb.souq">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,17 +15,22 @@
 
         <activity android:name=".LoginActivity" />
 
-        <activity android:name=".SignupActivity" />
-
-        <activity android:name=".SplashActivity" />
-
-        <activity android:name=".MainActivity">
+        <activity android:name=".SignupActivity"
+                  android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".SplashActivity" >
+
+        </activity>
+
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 </manifest>
