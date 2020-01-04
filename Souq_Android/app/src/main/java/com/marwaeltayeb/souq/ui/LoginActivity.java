@@ -1,7 +1,9 @@
-package com.marwaeltayeb.souq;
+package com.marwaeltayeb.souq.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.marwaeltayeb.souq.R;
 
 public class LoginActivity extends AppCompatActivity {
 

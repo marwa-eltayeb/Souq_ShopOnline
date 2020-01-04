@@ -1,4 +1,4 @@
-package com.marwaeltayeb.souq;
+package com.marwaeltayeb.souq.ui;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
@@ -8,6 +8,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 
+import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivitySignupBinding;
 
 public class SignupActivity extends AppCompatActivity {
