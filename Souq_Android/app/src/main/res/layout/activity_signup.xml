@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".SignupActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginBottom="@dimen/dimen24dp"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/company_name"
+                android:textSize="@dimen/dimen16sp" />
+
+            <!-- Name Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen8dp"
+                android:layout_marginBottom="@dimen/dimen8dp"
+                android:hint="@string/name"
+                android:paddingLeft="@dimen/dimen24dp"
+                android:paddingRight="@dimen/dimen24dp">
+
+                <EditText
+                    android:id="@+id/input_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--  Email Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen8dp"
+                android:layout_marginBottom="@dimen/dimen8dp"
+                android:hint="@string/email"
+                android:paddingLeft="@dimen/dimen24dp"
+                android:paddingRight="@dimen/dimen24dp">
+
+                <EditText
+                    android:id="@+id/input_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Password Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen8dp"
+                android:layout_marginBottom="@dimen/dimen8dp"
+                android:hint="@string/password"
+                android:paddingLeft="@dimen/dimen24dp"
+                android:paddingRight="@dimen/dimen24dp">
+
+                <EditText
+                    android:id="@+id/input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_info_black_24dp"
+                android:drawablePadding="@dimen/dimen10dp"
+                android:layout_marginBottom="@dimen/dimen24dp"
+                android:paddingLeft="@dimen/dimen24dp"
+                android:paddingRight="@dimen/dimen24dp"
+                android:text="@string/eight_characters"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen18sp" />
+
+            <!-- Signup Button -->
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen24dp"
+                android:layout_marginRight="@dimen/dimen24dp"
+                android:layout_marginBottom="@dimen/dimen24dp"
+                android:background="@color/yellow"
+                android:padding="@dimen/dimen12dp"
+                android:text="@string/create_your_account"
+                android:textAllCaps="false"
+                android:textSize="@dimen/dimen18sp" />
+
+            <TextView
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen24dp"
+                android:gravity="center"
+                tools:text="@string/sign_in_already_a_customer"
+                android:textSize="@dimen/dimen16sp" />
+        </LinearLayout>
+    </ScrollView>
+</layout>
