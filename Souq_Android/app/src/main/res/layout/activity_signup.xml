@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
@@ -33,7 +34,7 @@
                 android:paddingRight="@dimen/dimen24dp">
 
                 <EditText
-                    android:id="@+id/input_name"
+                    android:id="@+id/userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName" />
@@ -50,7 +51,7 @@
                 android:paddingRight="@dimen/dimen24dp">
 
                 <EditText
-                    android:id="@+id/input_email"
+                    android:id="@+id/userEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress" />
@@ -64,22 +65,27 @@
                 android:layout_marginBottom="@dimen/dimen8dp"
                 android:hint="@string/password"
                 android:paddingLeft="@dimen/dimen24dp"
-                android:paddingRight="@dimen/dimen24dp">
+                android:paddingRight="@dimen/dimen24dp"
+                app:passwordToggleContentDescription="Enter Your Password"
+                app:passwordToggleEnabled="true">
 
                 <EditText
-                    android:id="@+id/input_password"
+                    android:id="@+id/userPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen24dp"
                 android:drawableStart="@drawable/ic_info_black_24dp"
                 android:drawablePadding="@dimen/dimen10dp"
-                android:layout_marginBottom="@dimen/dimen24dp"
                 android:paddingLeft="@dimen/dimen24dp"
                 android:paddingRight="@dimen/dimen24dp"
                 android:text="@string/eight_characters"
@@ -88,7 +94,7 @@
 
             <!-- Signup Button -->
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btn_signup"
+                android:id="@+id/buttonSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen24dp"
@@ -101,13 +107,13 @@
                 android:textSize="@dimen/dimen18sp" />
 
             <TextView
-                android:id="@+id/login"
+                android:id="@+id/textViewLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen24dp"
                 android:gravity="center"
-                tools:text="@string/sign_in_already_a_customer"
-                android:textSize="@dimen/dimen16sp" />
+                android:textSize="@dimen/dimen16sp"
+                tools:text="@string/sign_in_already_a_customer" />
         </LinearLayout>
     </ScrollView>
 </layout>
