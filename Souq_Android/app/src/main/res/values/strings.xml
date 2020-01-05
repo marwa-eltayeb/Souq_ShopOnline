@@ -19,4 +19,14 @@
     <string name="sign_in_already_a_customer">Sign-in. Already a customer?</string>
     <string name="boldText">Sign-in.</string>
     <string name="normalText">" "Already a customer?</string>
+    <string name="enter_at_least_3_characters">Enter at least 3 characters</string>
+    <string name="email_required">Email Required</string>
+    <string name="enter_a_valid_email_address">Enter a valid email address</string>
+    <string name="password_required">Password Required</string>
+    <string name="password__at_least_8_characters">Password should be at least 8 characters</string>
+
+    <!--Server Information-->
+    <string name="LOCALHOST">http://192.168.1.4:</string>
+    <string name="PORT">3000</string>
+
 </resources>

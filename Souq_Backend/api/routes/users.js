@@ -71,8 +71,12 @@ router.post("/register",uploadImage.single('image'), (request, response) => {
     var gender = request.body.gender
     var age = request.body.age
     
-    if(typeof gender !== 'undefined' && gender !== null){
+    if(typeof gender == 'undefined' && gender == null){
         gender = "undertermined";
+    }
+
+    if(typeof age == 'undefined' && age == null){
+        age = 0;
     }
 
     const file = request.file;

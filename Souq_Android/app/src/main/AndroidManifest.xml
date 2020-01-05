@@ -11,12 +11,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".ui.LoginActivity" />
 
-        <activity android:name=".ui.SignupActivity"
-                  android:theme="@style/NoActionBar">
+        <activity
+            android:name=".ui.SignupActivity"
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -25,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.SplashActivity" >
+        <activity android:name=".ui.SplashActivity">
 
         </activity>
 
