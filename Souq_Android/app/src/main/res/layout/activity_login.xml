@@ -1,109 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/dimen24dp"
-    tools:context=".ui.LoginActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/dimen24dp"
-        android:paddingEnd="@dimen/dimen24dp"
-        android:text="@string/sign_in"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen30sp"
-        android:textStyle="bold" />
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dimen24dp"
+        tools:context=".ui.LoginActivity">
 
-    <!--  Email Label -->
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen8dp"
-        android:layout_marginBottom="@dimen/dimen8dp"
-        android:paddingStart="@dimen/dimen24dp"
-        android:paddingEnd="@dimen/dimen24dp">
-
-        <EditText
-            android:id="@+id/input_email"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress" />
-    </android.support.design.widget.TextInputLayout>
+            android:paddingStart="@dimen/dimen24dp"
+            android:paddingEnd="@dimen/dimen24dp"
+            android:text="@string/sign_in"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen30sp"
+            android:textStyle="bold" />
 
-    <!--  Password Label -->
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen8dp"
-        android:layout_marginBottom="@dimen/dimen8dp"
-        android:paddingStart="@dimen/dimen24dp"
-        android:paddingEnd="@dimen/dimen24dp"
-        app:passwordToggleEnabled="true">
-
-        <EditText
-            android:id="@+id/input_password"
+        <!--  Email Label -->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginTop="@dimen/dimen8dp"
+            android:layout_marginBottom="@dimen/dimen8dp"
+            android:paddingStart="@dimen/dimen24dp"
+            android:paddingEnd="@dimen/dimen24dp">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen24dp"
-        android:layout_marginTop="@dimen/dimen24dp"
-        android:layout_marginRight="@dimen/dimen24dp"
-        android:layout_marginBottom="@dimen/dimen24dp"
-        android:background="@color/yellow"
-        android:text="@string/sign_in"
-        android:textAllCaps="false"
-        android:textSize="@dimen/dimen18sp" />
+            <EditText
+                android:id="@+id/inputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen1dp"
-        android:layout_marginTop="@dimen/dimen10dp"
-        android:layout_marginBottom="@dimen/dimen10dp"
-        android:background="@color/gray" />
+        <!--  Password Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen8dp"
+            android:layout_marginBottom="@dimen/dimen8dp"
+            android:paddingStart="@dimen/dimen24dp"
+            android:paddingEnd="@dimen/dimen24dp"
+            app:passwordToggleEnabled="true">
 
-    <TextView
-        android:id="@+id/link_signup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen10dp"
-        android:gravity="center"
-        android:text="@string/new_customer_create_your_account"
-        android:textSize="@dimen/dimen14sp" />
+            <EditText
+                android:id="@+id/inputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
 
-    <TextView
-        android:id="@+id/forget_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/forget_password"
-        android:textSize="@dimen/dimen14sp" />
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/buttonLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen24dp"
+            android:layout_marginTop="@dimen/dimen24dp"
+            android:layout_marginRight="@dimen/dimen24dp"
+            android:layout_marginBottom="@dimen/dimen24dp"
+            android:background="@color/yellow"
+            android:text="@string/sign_in"
+            android:textAllCaps="false"
+            android:textSize="@dimen/dimen18sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen130dp"
-        android:gravity="center"
-        android:paddingStart="@dimen/dimen24dp"
-        android:paddingEnd="@dimen/dimen24dp"
-        android:text="@string/_2020_souq"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen14sp"
-        android:textStyle="bold" />
-</LinearLayout>
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen1dp"
+            android:layout_marginTop="@dimen/dimen10dp"
+            android:layout_marginBottom="@dimen/dimen10dp"
+            android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/textViewSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen10dp"
+            android:gravity="center"
+            android:text="@string/new_customer_create_your_account"
+            android:textSize="@dimen/dimen14sp" />
+
+        <TextView
+            android:id="@+id/forget_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/forget_password"
+            android:textSize="@dimen/dimen14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen130dp"
+            android:gravity="center"
+            android:paddingStart="@dimen/dimen24dp"
+            android:paddingEnd="@dimen/dimen24dp"
+            android:text="@string/_2020_souq"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</layout>
