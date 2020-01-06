@@ -18,10 +18,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityLoginBinding binding;
-
     private static final String TAG = "LoginActivity";
 
     @Override
@@ -34,10 +33,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void logInUser() {
-
         String email = binding.inputEmail.getText().toString();
         String password = binding.inputPassword.getText().toString();
-
 
         if (email.isEmpty()) {
             binding.inputEmail.setError(getString(R.string.email_required));
@@ -49,7 +46,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             binding.inputEmail.requestFocus();
             return;
         }
-
 
         if (password.isEmpty()) {
             binding.inputPassword.setError(getString(R.string.password_required));
@@ -63,15 +59,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-
         RetrofitClient.getInstance()
-                .getUserApi().logInUser(email,password).enqueue(new Callback<ResponseBody>() {
+                .getUserApi().logInUser(email, password).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 Toast.makeText(LoginActivity.this, response.body() + "", Toast.LENGTH_SHORT).show();
                 goToMainActivity();
-                // java.lang.IllegalArgumentException: Non-body HTTP method cannot contain @Body.
             }
 
             @Override
@@ -80,7 +74,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override

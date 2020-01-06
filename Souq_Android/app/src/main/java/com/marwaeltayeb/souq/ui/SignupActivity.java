@@ -25,7 +25,6 @@ import retrofit2.Response;
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivitySignupBinding binding;
-
     private static final String TAG = "SignupActivity";
 
     @Override
@@ -36,18 +35,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         binding.buttonSignUp.setOnClickListener(this);
         binding.textViewLogin.setOnClickListener(this);
 
-
         setBoldStyle();
-
     }
 
 
-    private void SignUpUser() {
-
+    private void signUpUser() {
         String name = binding.userName.getText().toString();
         String email = binding.userEmail.getText().toString();
         String password = binding.userPassword.getText().toString();
-
 
         if (name.isEmpty() || name.length() < 3) {
             binding.userName.setError(getString(R.string.enter_at_least_3_characters));
@@ -66,15 +61,16 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-
         if (password.isEmpty()) {
             binding.userPassword.setError(getString(R.string.password_required));
             binding.userPassword.requestFocus();
+            return;
         }
 
         if (password.length() < 8) {
             binding.userPassword.setError(getString(R.string.password__at_least_8_characters));
             binding.userPassword.requestFocus();
+            return;
         }
 
         RetrofitClient.getInstance()
@@ -91,8 +87,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(SignupActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
 
@@ -100,7 +94,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonSignUp:
-                SignUpUser();
+                signUpUser();
                 break;
             case R.id.textViewLogin:
                 goToLoginActivity();
@@ -118,7 +112,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         startActivity(intent);
     }
 
-
     private void setBoldStyle() {
         String boldText = getString(R.string.boldText);
         String normalText = getString(R.string.normalText);
@@ -126,6 +119,4 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         binding.textViewLogin.setText(str);
     }
-
-
 }
