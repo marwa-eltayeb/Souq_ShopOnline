@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen24dp"
-                android:drawableStart="@drawable/ic_info_black_24dp"
+                android:drawableStart="@drawable/ic_info"
                 android:drawablePadding="@dimen/dimen10dp"
                 android:paddingLeft="@dimen/dimen24dp"
                 android:paddingRight="@dimen/dimen24dp"
