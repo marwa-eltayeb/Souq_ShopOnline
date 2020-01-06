@@ -37,8 +37,8 @@ router.get("/", (request, response) => {
 
 // Login
 router.get("/login", (request, response) => {
-    const email = request.body.email
-    const password = request.body.password
+    const email = request.query.email
+    const password = request.query.password
     const query = "SELECT password FROM users WHERE email = ?";
     const args = [email]
     database.query(query, args, (error, result) => {
