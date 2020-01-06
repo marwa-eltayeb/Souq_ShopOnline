@@ -9,7 +9,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +16,7 @@ import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivitySignupBinding;
 import com.marwaeltayeb.souq.model.UserModel;
 import com.marwaeltayeb.souq.net.RetrofitClient;
+import com.marwaeltayeb.souq.utils.Validation;
 
 import okhttp3.ResponseBody;
 import retrofit2.Callback;
@@ -44,7 +44,13 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         String email = binding.userEmail.getText().toString();
         String password = binding.userPassword.getText().toString();
 
-        if (name.isEmpty() || name.length() < 3) {
+        if (name.isEmpty()) {
+            binding.userName.setError(getString(R.string.name_required));
+            binding.userName.requestFocus();
+            return;
+        }
+
+        if (Validation.isValidName(name)) {
             binding.userName.setError(getString(R.string.enter_at_least_3_characters));
             binding.userName.requestFocus();
             return;
@@ -55,7 +61,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             binding.userEmail.requestFocus();
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (Validation.isValidEmail(email)) {
             binding.userEmail.setError(getString(R.string.enter_a_valid_email_address));
             binding.userEmail.requestFocus();
             return;
@@ -67,7 +73,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        if (password.length() < 8) {
+        if (Validation.isValidPassword(password)) {
             binding.userPassword.setError(getString(R.string.password__at_least_8_characters));
             binding.userPassword.requestFocus();
             return;
@@ -108,7 +114,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void goToMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ProductActivity.class);
         startActivity(intent);
     }
 

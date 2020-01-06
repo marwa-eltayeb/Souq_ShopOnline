@@ -5,13 +5,13 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivityLoginBinding;
 import com.marwaeltayeb.souq.net.RetrofitClient;
+import com.marwaeltayeb.souq.utils.Validation;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             binding.inputEmail.requestFocus();
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (Validation.isValidEmail(email)) {
             binding.inputEmail.setError(getString(R.string.enter_a_valid_email_address));
             binding.inputEmail.requestFocus();
             return;
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        if (password.length() < 8) {
+        if (Validation.isValidPassword(password)) {
             binding.inputPassword.setError(getString(R.string.password__at_least_8_characters));
             binding.inputPassword.requestFocus();
             return;
@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void goToMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ProductActivity.class);
         startActivity(intent);
     }
 }
