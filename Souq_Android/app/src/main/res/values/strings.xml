@@ -28,5 +28,14 @@
     <!--Server Information-->
     <string name="LOCALHOST">http://192.168.1.4:</string>
     <string name="PORT">3000</string>
+    <string name="see_all">See All</string>
+    <string name="mobiles">Mobiles</string>
+    <string name="computers">Computers</string>
+    <string name="product">Product</string>
+    <string name="samsung_galaxy_a70">Samsung Galaxy A70</string>
+    <string name="share_product">Share Product</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="add_to_favourite">Add to Favourite</string>
+    <string name="_5399_egp">5399 EGP</string>
 
 </resources>
