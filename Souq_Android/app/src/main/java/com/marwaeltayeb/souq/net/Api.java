@@ -11,10 +11,10 @@ import retrofit2.http.Query;
 
 public interface UserApi {
 
-    @POST("register")
+    @POST("users/register")
     Call<ResponseBody> insertUser(@Body UserModel user);
 
 
-    @GET("login")
+    @GET("users/login")
     Call<ResponseBody> logInUser(@Query("email") String email, @Query("password") String password);
 }

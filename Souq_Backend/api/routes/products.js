@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
+// Deal with file
+const fileSystem = require('fs');
+
 // Upload and store images
 const multer = require('multer')
 
@@ -24,25 +27,66 @@ const uploadImage = multer({
 const database = require("../../config")
 
 
-// Read All products
+// Get All products
 router.get("/", (request, response) => {
-    const query = "SELECT * FROM products"
-    database.query(query, (error, result) => {
+    var page = request.query.page;
+    var page_size = request.query.page_size;
+
+    console.log(typeof page);
+
+    if(page == null){
+        page = 0;
+     }
+ 
+     if(page_size == null){
+        page_size = 20;
+     }
+
+     const args = [
+        parseInt(page_size),
+        parseInt(page)
+    ];
+    
+    const query = "SELECT * FROM products LIMIT ? OFFSET ?"
+    database.query(query,args, (error, result) => {
         if(error) throw error;
-        response.status(200).json(result)
+        response.status(200).json({
+            "error" : false,
+            "products" : result
+        })
     })
 });
 
-// Read products by category
+// Get products by category
 router.get("/", (request, response) => {
     const category = request.params.category
+    var page = request.query.page;
+    var page_size = request.query.page_size;
 
-    const query = "SELECT * FROM products WHERE category = ?";
-    const args = [category]
+    console.log(typeof page);
+
+    if(page == null){
+        page = 0;
+     }
+ 
+    if(page_size == null){
+        page_size = 20;
+    }
+
+    const args = [
+        category,
+        parseInt(page_size),
+        parseInt(page)
+    ];
+
+    const query = "SELECT * FROM products WHERE category = ? LIMIT ? OFFSET ?";
 
     database.query(query, args, (error, result) => {
         if(error) throw error
-        response.status(200).json(result)
+        response.status(200).json({
+            "error" : false,
+            "products" : result
+        })
     });
 }); 
 
@@ -83,7 +127,7 @@ router.delete("/:id", (request, response) => {
     });
 });
 
-// Update image
+// Update image of product
 router.put("/update", uploadImage.single('image'), (request, response) => {
     const id = request.body.id;
     
@@ -92,6 +136,21 @@ router.put("/update", uploadImage.single('image'), (request, response) => {
     if(file != null){
         filePath = file.path
     }
+
+    const selectQuery = "SELECT image FROM products WHERE id = ?"
+    database.query(selectQuery, id, (error, result) => {
+
+        console.log(result)
+        if(error) throw error
+        try {
+            // Get value from key image
+            var image = result[0]['image'];
+            // Delete old image 
+            fileSystem.unlinkSync(image);
+        } catch (err) {
+            console.error("Can't find file in storage/pictures Path");
+        }
+    });
 
     const query = "UPDATE products SET image = ? WHERE id = ?"  
     

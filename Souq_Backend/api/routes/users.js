@@ -26,12 +26,34 @@ const uploadImage = multer({
 // import file
 const database = require("../../config")
 
-// Read All users
+// Get All users
 router.get("/", (request, response) => {
-    const query = "SELECT * FROM users"
-    database.query(query, (error, result) => {
+    var page = request.query.page;
+    var page_size = request.query.page_size;
+
+    console.log(typeof page);
+
+    if(page == null){
+        page = 0;
+     }
+ 
+     if(page_size == null){
+        page_size = 25;
+     }
+
+     const args = [
+        parseInt(page_size),
+        parseInt(page)
+    ];
+
+    const query = "SELECT * FROM users LIMIT ? OFFSET ?"
+    database.query(query, args, (error, result) => {
         if(error) throw error;
-        response.status(200).json(result)
+        response.status(200).json({
+            "error" : false,
+            "users" : result
+        })
+
     })
 });
 
@@ -70,44 +92,50 @@ router.post("/register",uploadImage.single('image'), (request, response) => {
     const password = request.body.password
     var gender = request.body.gender
     var age = request.body.age
-    
-    if(typeof gender == 'undefined' && gender == null){
-        gender = "undertermined";
-    }
 
-    if(typeof age == 'undefined' && age == null){
-        age = 0;
-    }
+    const checkQuery = "SELECT id FROM users WHERE email = ?"
+    database.query(checkQuery, email , (error, result)  => {
+        if(error) throw error;
+        if(result.length != 0){
+            response.status(401).send("User Already Registered")
+        }else{
 
-    const file = request.file;
-    var filePath = ""
-    if(file != null){
-        filePath = file.path
-    }
-
-    if(password.length < 8){
-        response.status(500).send("Invalid Password")
-    }
+            // Register new user
+            if(typeof gender == 'undefined' && gender == null){
+                gender = "undertermined";
+            }
         
-    const query = "INSERT INTO users(name, email, password, gender, age, image) VALUES(?, ?, ?, ?, ?,?)"
+            if(typeof age == 'undefined' && age == null){
+                age = 0;
+            }
         
-    // Encrypt Password
-    bcrypt.hash(password, 10, (error, hashedPassword) => {
-        if(error) throw error
-
-        const args = [name, email, hashedPassword, gender, age, filePath]
-
-        database.query(query, args, (error, result) => {
-            if (error) throw error
-            response.status(200).send("Register Done")
-        });
-
+            const file = request.file;
+            var filePath = ""
+            if(file != null){
+                filePath = file.path
+            }
+        
+            if(password.length < 8){
+                response.status(500).send("Invalid Password")
+            }
+                
+            const query = "INSERT INTO users(name, email, password, gender, age, image) VALUES(?, ?, ?, ?, ?,?)"
+                
+            // Encrypt Password
+            bcrypt.hash(password, 10, (error, hashedPassword) => {
+                if(error) throw error
+        
+                const args = [name, email, hashedPassword, gender, age, filePath]
+        
+                database.query(query, args, (error, result) => {
+                    if (error) throw error
+                    response.status(200).send("Register Done")
+                });
+            });
+        }
     });
-
 });
     
-   
-
 // Delete User
 router.delete("/:id", (request, response) => {
     const id = request.params.id;
@@ -120,8 +148,6 @@ router.delete("/:id", (request, response) => {
     });
 });
  
-
-
 // Update two Info
 router.put("/info", (request, response) => {
     const id = request.body.id;
@@ -145,6 +171,47 @@ router.put("/info", (request, response) => {
         });
 
     });
+});
+
+// Update image of user
+router.put("/update", uploadImage.single('image'), (request, response) => {
+    const id = request.body.id;
+    
+    const file = request.file;
+    var filePath = ""
+    if(file != null){
+        filePath = file.path
+    }
+
+    const selectQuery = "SELECT image FROM users WHERE id = ?"
+    database.query(selectQuery, id, (error, result) => {
+
+        console.log(result)
+        if(error) throw error
+        try {
+            // Get value from key image
+            var image = result[0]['image'];
+            // Delete old image 
+            fileSystem.unlinkSync(image);
+        } catch (err) {
+            console.error("Can't find file in storage/pictures Path");
+        }
+    });
+
+    const query = "UPDATE users SET image = ? WHERE id = ?"  
+    
+    const args = [filePath,id]
+
+    database.query(query, args, (error, result) => {
+        if(error) throw error
+
+        if(result['affectedRows']  == 1){
+            response.status(200).send("User Image is updated")
+        }else{
+            response.status(500).send("Invalid Update")
+        }
+    });
+
 });
 
 module.exports = router
