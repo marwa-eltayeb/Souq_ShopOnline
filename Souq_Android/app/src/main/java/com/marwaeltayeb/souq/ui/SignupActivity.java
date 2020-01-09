@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivitySignupBinding;
-import com.marwaeltayeb.souq.model.UserModel;
+import com.marwaeltayeb.souq.model.User;
 import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.utils.Validation;
 
@@ -80,7 +80,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         RetrofitClient.getInstance()
-                .getApi().insertUser(new UserModel(name, email, password)).enqueue(new Callback<ResponseBody>() {
+                .getApi().insertUser(new User(name, email, password)).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
                 Toast.makeText(SignupActivity.this, response.body() + "", Toast.LENGTH_SHORT).show();

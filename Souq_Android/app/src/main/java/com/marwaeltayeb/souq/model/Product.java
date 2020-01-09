@@ -1,6 +1,6 @@
 package com.marwaeltayeb.souq.model;
 
-public class ProductModel {
+public class Product {
 
     private String productName;
     private double productPrice;
@@ -8,7 +8,7 @@ public class ProductModel {
     private String productSupplier;
     private String productCategory;
 
-    public ProductModel(String productName, double productPrice, int productQuantity, String productSupplier, String productCategory) {
+    public Product(String productName, double productPrice, int productQuantity, String productSupplier, String productCategory) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productQuantity = productQuantity;

@@ -1,7 +1,7 @@
 package com.marwaeltayeb.souq.net;
 
 import com.marwaeltayeb.souq.model.ProductApiResponse;
-import com.marwaeltayeb.souq.model.UserModel;
+import com.marwaeltayeb.souq.model.User;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 public interface Api {
 
     @POST("users/register")
-    Call<ResponseBody> insertUser(@Body UserModel user);
+    Call<ResponseBody> insertUser(@Body User user);
 
 
     @GET("users/login")

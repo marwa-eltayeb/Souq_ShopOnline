@@ -4,20 +4,20 @@ import android.arch.paging.PageKeyedDataSource;
 import android.support.annotation.NonNull;
 
 import com.marwaeltayeb.souq.model.ProductApiResponse;
-import com.marwaeltayeb.souq.model.ProductModel;
+import com.marwaeltayeb.souq.model.Product;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDataSource extends PageKeyedDataSource<Integer, ProductModel> {
+public class ProductDataSource extends PageKeyedDataSource<Integer, Product> {
 
     private static final int FIRST_PAGE = 1;
 
     static final int PAGE_SIZE = 20;
 
     @Override
-    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, ProductModel> callback) {
+    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, Product> callback) {
         RetrofitClient.getInstance()
                 .getApi().getProductByCategory()
                 .enqueue(new Callback<ProductApiResponse>() {
@@ -34,7 +34,7 @@ public class ProductDataSource extends PageKeyedDataSource<Integer, ProductModel
     }
 
     @Override
-    public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, ProductModel> callback) {
+    public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Product> callback) {
         RetrofitClient.getInstance()
                 .getApi().getProductByCategory()
                 .enqueue(new Callback<ProductApiResponse>() {
@@ -51,7 +51,7 @@ public class ProductDataSource extends PageKeyedDataSource<Integer, ProductModel
     }
 
     @Override
-    public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, ProductModel> callback) {
+    public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Product> callback) {
         RetrofitClient.getInstance()
                 .getApi().getProductByCategory()
                 .enqueue(new Callback<ProductApiResponse>() {

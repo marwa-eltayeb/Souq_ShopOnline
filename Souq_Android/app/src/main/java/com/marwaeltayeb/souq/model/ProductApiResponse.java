@@ -4,13 +4,13 @@ import java.util.List;
 
 public class ProductApiResponse {
 
-    private List<ProductModel> products;
+    private List<Product> products;
 
-    public List<ProductModel> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductModel> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 }

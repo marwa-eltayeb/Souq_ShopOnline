@@ -5,7 +5,7 @@ import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PageKeyedDataSource;
 import android.arch.paging.PagedList;
 
-import com.marwaeltayeb.souq.model.ProductModel;
+import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.net.ProductDataSourceFactory;
 
 import static com.marwaeltayeb.souq.net.ProductDataSourceFactory.productDataSource;
@@ -15,8 +15,8 @@ public class ProductViewModel {
 
 
     // Create liveData for PagedList and PagedKeyedDataSource
-    public LiveData<PagedList<ProductModel>> productPagedList;
-    private LiveData<PageKeyedDataSource<Integer, ProductModel>> liveDataSource;
+    public LiveData<PagedList<Product>> productPagedList;
+    private LiveData<PageKeyedDataSource<Integer, Product>> liveDataSource;
 
     // Constructor
     public ProductViewModel() {
