@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         RetrofitClient.getInstance()
-                .getUserApi().logInUser(email, password).enqueue(new Callback<ResponseBody>() {
+                .getApi().logInUser(email, password).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 

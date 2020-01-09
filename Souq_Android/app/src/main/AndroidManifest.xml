@@ -13,18 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".ui.SeeAllActivity"></activity>
         <activity
             android:name=".ui.LoginActivity"
-            android:parentActivityName=".ui.MainActivity">
+            android:parentActivityName=".ui.ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+                android:value=".ui.ProductActivity" />
         </activity>
-
         <activity
             android:name=".ui.SignupActivity"
-            android:theme="@style/NoActionBar">
+            android:theme="@style/NoActionBar"></activity>
+        <activity android:name=".ui.SplashActivity"></activity>
+        <activity android:name=".ui.ProductActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -32,13 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.SplashActivity">
-
-        </activity>
-
-        <activity android:name=".ui.MainActivity">
-
-        </activity>
     </application>
+
 </manifest>

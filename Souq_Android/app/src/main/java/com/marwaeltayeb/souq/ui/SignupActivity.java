@@ -80,7 +80,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         RetrofitClient.getInstance()
-                .getUserApi().insertUser(new UserModel(name, email, password)).enqueue(new Callback<ResponseBody>() {
+                .getApi().insertUser(new UserModel(name, email, password)).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
                 Toast.makeText(SignupActivity.this, response.body() + "", Toast.LENGTH_SHORT).show();
