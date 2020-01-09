@@ -11,13 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.model.ProductModel;
+import com.marwaeltayeb.souq.databinding.ProductListItemBinding;
+import com.marwaeltayeb.souq.model.Product;
 
-public class ProductAdapter extends PagedListAdapter<ProductModel, ProductAdapter.ProductViewHolder> {
+public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.ProductViewHolder> {
 
     private Context mContext;
-    private ProductModel product;
+    private Product product;
+
 
     public ProductAdapter(Context mContext) {
         super(DIFF_CALLBACK);
@@ -28,34 +29,37 @@ public class ProductAdapter extends PagedListAdapter<ProductModel, ProductAdapte
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item, parent, false);
-        return new ProductViewHolder(view);
+        ProductListItemBinding productListItemBinding = ProductListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new ProductViewHolder(productListItemBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder productViewHolder, int position) {
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         product = getItem(position);
+
+        holder.binding.txtProductName.setText(product.getProductName());
+
     }
 
-    public ProductModel getProductAt(int position) {
+    public Product getProductAt(int position) {
         return getItem(position);
     }
 
     @Override
-    public PagedList<ProductModel> getCurrentList() {
+    public PagedList<Product> getCurrentList() {
         return super.getCurrentList();
     }
 
     // It determine if two list objects are the same or not
-    private static DiffUtil.ItemCallback<ProductModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<ProductModel>() {
+    private static DiffUtil.ItemCallback<Product> DIFF_CALLBACK = new DiffUtil.ItemCallback<Product>() {
         @Override
-        public boolean areItemsTheSame(@NonNull ProductModel oldProduct, @NonNull ProductModel newProduct) {
+        public boolean areItemsTheSame(@NonNull Product oldProduct, @NonNull Product newProduct) {
             return oldProduct.getProductName().equals(newProduct.getProductName());
         }
 
         @SuppressLint("DiffUtilEquals")
         @Override
-        public boolean areContentsTheSame(@NonNull ProductModel oldProduct, @NonNull ProductModel newProduct) {
+        public boolean areContentsTheSame(@NonNull Product oldProduct, @NonNull Product newProduct) {
             return oldProduct.equals(newProduct);
         }
     };
@@ -63,10 +67,11 @@ public class ProductAdapter extends PagedListAdapter<ProductModel, ProductAdapte
     class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         // Create view instances
+        private final ProductListItemBinding binding;
 
-
-        private ProductViewHolder(View itemView) {
-            super(itemView);
+        private ProductViewHolder(ProductListItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
 
             // Register a callback to be invoked when this view is clicked.
             itemView.setOnClickListener(this);
