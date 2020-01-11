@@ -3,9 +3,11 @@ package com.marwaeltayeb.souq.net;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
+
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://192.168.1.4:3000/";
+    private static final String BASE_URL = LOCALHOST;
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
 
