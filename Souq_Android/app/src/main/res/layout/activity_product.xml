@@ -3,88 +3,94 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <ScrollView 
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/lightGray"
-        tools:context=".ui.ProductActivity">
+        android:layout_height="wrap_content">
 
-        <ViewFlipper
-            android:id="@+id/imageSlider"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:gravity="center"
-            android:scaleType="fitXY"
-            android:src="@drawable/slide1"
-            tools:background="@drawable/slide1"
-            android:textSize="@dimen/dimen16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewMobiles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="28dp"
-            android:text="@string/mobiles"
-            android:textSize="@dimen/dimen20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
-
-        <TextView
-            android:id="@+id/txtSeeAllMobiles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="28dp"
-            android:text="@string/see_all"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/dimen20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listOfMobiles"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewMobiles" />
+            android:background="@color/lightGray"
+            tools:context=".ui.ProductActivity">
 
-        <TextView
-            android:id="@+id/textViewComputers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="28dp"
-            android:text="@string/computers"
-            android:textSize="@dimen/dimen20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listOfMobiles" />
+            <ViewFlipper
+                android:id="@+id/imageSlider"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/slide1"
+                android:textSize="@dimen/dimen16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@drawable/slide1" />
 
-        <TextView
-            android:id="@+id/txtSeeAllComputers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="28dp"
-            android:text="@string/see_all"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/dimen20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listOfMobiles" />
+            <TextView
+                android:id="@+id/textViewMobiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/mobile"
+                android:textSize="@dimen/dimen20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listOfComputers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtSeeAllComputers" />
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/txtSeeAllMobiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="28dp"
+                android:text="@string/see_all"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dimen20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listOfMobiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMobiles" />
+
+            <TextView
+                android:id="@+id/textViewLaptops"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/laptop"
+                android:textSize="@dimen/dimen20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listOfMobiles" />
+
+            <TextView
+                android:id="@+id/txtSeeAllLaptops"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="28dp"
+                android:text="@string/see_all"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dimen20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listOfMobiles" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listOfLaptops"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtSeeAllLaptops" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </layout>

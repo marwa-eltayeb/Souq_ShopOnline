@@ -7,16 +7,24 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:fullBackupContent="true"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".ui.SeeAllActivity"
-                  android:label="@string/see_all"
+        <activity android:name=".ui.AllLaptopsActivity"
+                  android:label="@string/all_laptops"
+                  android:parentActivityName=".ui.ProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.ProductActivity" />
+        </activity>
+
+        <activity android:name=".ui.AllMobilesActivity"
+                  android:label="@string/all_mobiles"
                   android:parentActivityName=".ui.ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -30,19 +38,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ProductActivity" />
         </activity>
-
         <activity
             android:name=".ui.SignupActivity"
-            android:theme="@style/NoActionBar">
-
-
-
-        </activity>
-
-        <activity android:name=".ui.SplashActivity">
-
-        </activity>
-
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".ui.SplashActivity" />
         <activity android:name=".ui.ProductActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,6 +50,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 </manifest>
