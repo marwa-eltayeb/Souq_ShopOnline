@@ -1,12 +1,22 @@
 package com.marwaeltayeb.souq.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Product {
 
+    @SerializedName("id")
+    private int productId;
+    @SerializedName("name")
     private String productName;
+    @SerializedName("price")
     private double productPrice;
+    @SerializedName("quantity")
     private int productQuantity;
+    @SerializedName("supplier")
     private String productSupplier;
+    @SerializedName("category")
     private String productCategory;
+    @SerializedName("image")
     private String productImage;
 
     public Product(String productName, double productPrice, int productQuantity, String productSupplier, String productCategory, String productImage) {
@@ -40,5 +50,13 @@ public class Product {
 
     public String getProductImage() {
         return productImage;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 }
