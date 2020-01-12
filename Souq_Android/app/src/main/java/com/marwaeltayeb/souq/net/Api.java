@@ -21,5 +21,5 @@ public interface Api {
 
 
     @GET("products")
-    Call<ProductApiResponse> getProductByCategory();
+    Call<ProductApiResponse> getProducts(@Query("page") int page);
 }
