@@ -4,41 +4,57 @@ import android.annotation.SuppressLint;
 import android.arch.paging.PagedList;
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ProductListItemBinding;
 import com.marwaeltayeb.souq.model.Product;
+
+import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 
 public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.ProductViewHolder> {
 
     private Context mContext;
-    private Product product;
-
 
     public ProductAdapter(Context mContext) {
         super(DIFF_CALLBACK);
         this.mContext = mContext;
     }
 
-
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        ProductListItemBinding productListItemBinding = ProductListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        ProductListItemBinding productListItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.product_list_item,parent,false);
         return new ProductViewHolder(productListItemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        product = getItem(position);
+        Product product = getItem(position);
 
-        holder.binding.txtProductName.setText(product.getProductName());
+        if (product != null) {
+            holder.binding.txtProductName.setText(product.getProductName());
+            holder.binding.txtProductPrice.setText(String.valueOf(product.getProductPrice()));
 
+            // Load the Product image into ImageView
+            String imageUrl = LOCALHOST + product.getProductImage().replaceAll("\\\\", "/");
+            Glide.with(mContext)
+                    .load(imageUrl)
+                    .into(holder.binding.imgProductImage);
+
+            Log.d("test",imageUrl);
+
+        } else {
+            Toast.makeText(mContext, "Product is null", Toast.LENGTH_LONG).show();
+        }
     }
 
     public Product getProductAt(int position) {
@@ -64,23 +80,13 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         }
     };
 
-    class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
+    static class ProductViewHolder extends RecyclerView.ViewHolder{
         // Create view instances
         private final ProductListItemBinding binding;
 
         private ProductViewHolder(ProductListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-
-            // Register a callback to be invoked when this view is clicked.
-            itemView.setOnClickListener(this);
-        }
-
-
-        @Override
-        public void onClick(View v) {
-
         }
     }
 }
