@@ -32,17 +32,20 @@ router.get("/", (request, response) => {
     var page = request.query.page;
     var page_size = request.query.page_size;
 
-    console.log(typeof page);
-
-    if(page == null){
-        page = 0;
-     }
+    if(page == null || page < 1){
+        page = 1;
+    }
  
-     if(page_size == null){
+    if(page_size == null){
         page_size = 20;
-     }
+    }
 
-     const args = [
+    // OFFSET starts from zero
+    page = page - 1;
+    // OFFSET * LIMIT
+    page = page * page_size;
+
+    const args = [
         parseInt(page_size),
         parseInt(page)
     ];
@@ -51,6 +54,7 @@ router.get("/", (request, response) => {
     database.query(query,args, (error, result) => {
         if(error) throw error;
         response.status(200).json({
+            "page": page + 1,
             "error" : false,
             "products" : result
         })
@@ -63,15 +67,18 @@ router.get("/", (request, response) => {
     var page = request.query.page;
     var page_size = request.query.page_size;
 
-    console.log(typeof page);
-
-    if(page == null){
-        page = 0;
-     }
+    if(page == null || page < 1){
+        page = 1;
+    }
  
     if(page_size == null){
         page_size = 20;
     }
+
+    // OFFSET starts from zero
+    page = page - 1;
+    // OFFSET * LIMIT
+    page = page * page_size;
 
     const args = [
         category,
@@ -84,6 +91,7 @@ router.get("/", (request, response) => {
     database.query(query, args, (error, result) => {
         if(error) throw error
         response.status(200).json({
+            "page": page + 1,
             "error" : false,
             "products" : result
         })
