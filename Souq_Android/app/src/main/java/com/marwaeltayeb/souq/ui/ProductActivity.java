@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
@@ -37,7 +36,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
 
         binding.txtSeeAllMobiles.setOnClickListener(this);
-        binding.txtSeeAllComputers.setOnClickListener(this);
+        binding.txtSeeAllLaptops.setOnClickListener(this);
 
         setUpViews();
 
@@ -50,6 +49,9 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding.listOfMobiles.setHasFixedSize(true);
         binding.listOfMobiles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
+        binding.listOfLaptops.setHasFixedSize(true);
+        binding.listOfLaptops.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
         productAdapter = new ProductAdapter(this);
     }
 
@@ -59,11 +61,11 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onChanged(@Nullable PagedList<Product> products) {
                 productAdapter.submitList(products);
-                Toast.makeText(ProductActivity.this, products.size() + "", Toast.LENGTH_SHORT).show();
             }
         });
 
         binding.listOfMobiles.setAdapter(productAdapter);
+        binding.listOfLaptops.setAdapter(productAdapter);
         productAdapter.notifyDataSetChanged();
     }
 
@@ -90,14 +92,19 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.txtSeeAllMobiles:
                 goToSeeAllMobiles();
                 break;
-            case R.id.txtSeeAllComputers:
-                //goToSeeAllComputers();
+            case R.id.txtSeeAllLaptops:
+                goToSeeAllLaptops();
                 break;
         }
     }
 
     private void goToSeeAllMobiles(){
-        Intent intent = new Intent(this, SeeAllActivity.class);
+        Intent intent = new Intent(this, AllMobilesActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToSeeAllLaptops() {
+        Intent intent = new Intent(this, AllLaptopsActivity.class);
         startActivity(intent);
     }
 }

@@ -27,8 +27,8 @@
 
     <!--Server Information-->
     <string name="see_all">See All</string>
-    <string name="mobiles">Mobiles</string>
-    <string name="computers">Computers</string>
+    <string name="mobile">Mobile</string>
+    <string name="laptop">Laptop</string>
     <string name="product_image">Product Image</string>
     <string name="samsung_galaxy_a70">Samsung Galaxy A70</string>
     <string name="share_product">Share Product</string>
@@ -36,4 +36,6 @@
     <string name="add_to_favourite">Add to Favourite</string>
     <string name="_5399_egp">5399 EGP</string>
     <string name="name_required">Name Required</string>
+    <string name="all_laptops">All Laptops</string>
+    <string name="all_mobiles">All Mobiles</string>
 </resources>

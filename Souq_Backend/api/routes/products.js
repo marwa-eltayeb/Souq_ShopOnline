@@ -28,7 +28,7 @@ const database = require("../../config")
 
 
 // Get All products
-router.get("/", (request, response) => {
+router.get("/all", (request, response) => {
     var page = request.query.page;
     var page_size = request.query.page_size;
 
@@ -63,7 +63,7 @@ router.get("/", (request, response) => {
 
 // Get products by category
 router.get("/", (request, response) => {
-    const category = request.params.category
+    const category = request.query.category
     var page = request.query.page;
     var page_size = request.query.page_size;
 
@@ -79,6 +79,8 @@ router.get("/", (request, response) => {
     page = page - 1;
     // OFFSET * LIMIT
     page = page * page_size;
+
+    console.log(category + "Hello")
 
     const args = [
         category,

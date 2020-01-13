@@ -22,4 +22,7 @@ public interface Api {
 
     @GET("products")
     Call<ProductApiResponse> getProducts(@Query("page") int page);
+
+    @GET("products")
+    Call<ProductApiResponse> getProductsByCategory(@Query("category") String category,@Query("page") int page);
 }
