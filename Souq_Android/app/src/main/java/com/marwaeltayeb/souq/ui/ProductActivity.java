@@ -3,11 +3,11 @@ package com.marwaeltayeb.souq.ui;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
-import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -22,16 +22,24 @@ import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
 import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
 import com.marwaeltayeb.souq.model.Product;
+import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
+import com.marwaeltayeb.souq.utils.OnNetworkListener;
 import com.marwaeltayeb.souq.utils.Slide;
 
 import java.util.ArrayList;
 
-public class ProductActivity extends AppCompatActivity implements View.OnClickListener {
+import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
+
+public class ProductActivity extends AppCompatActivity implements View.OnClickListener, OnNetworkListener {
 
     private ActivityProductBinding binding;
 
     private ProductAdapter productAdapter;
     private ProductViewModel productViewModel;
+
+    private Snackbar snack;
+
+    private NetworkChangeReceiver mNetworkReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product);
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+
+        snack = Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.no_internet_connection), Snackbar.LENGTH_INDEFINITE);
 
         binding.txtSeeAllMobiles.setOnClickListener(this);
         binding.txtSeeAllLaptops.setOnClickListener(this);
@@ -48,6 +58,10 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         getProducts();
 
         flipImages(Slide.getSlides());
+
+        mNetworkReceiver = new NetworkChangeReceiver();
+        mNetworkReceiver.setOnNetworkListener(this);
+
     }
 
     private void setUpViews() {
@@ -61,7 +75,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void getProducts() {
-        if (isNetworkConnected()) {
+        if (isNetworkConnected(this)) {
             // Observe the productPagedList from ViewModel
             productViewModel.productPagedList.observe(this, new Observer<PagedList<Product>>() {
                 @Override
@@ -121,15 +135,48 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
 
-    private boolean isNetworkConnected() {
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
-    }
-
     public void showSnackBar() {
-        final Snackbar snack = Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.no_internet_connection), Snackbar.LENGTH_INDEFINITE);
         snack.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.red));
         snack.show();
+    }
+
+    public void hideSnackBar() {
+        snack.dismiss();
+    }
+
+    private void registerNetworkBroadcastForNougat() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerNetworkBroadcastForNougat();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(mNetworkReceiver);
+    }
+
+    @Override
+    public void onNetworkConnected() {
+        hideSnackBar();
+        getProducts();
+        binding.textViewMobiles.setVisibility(View.VISIBLE);
+        binding.txtSeeAllMobiles.setVisibility(View.VISIBLE);
+        binding.textViewLaptops.setVisibility(View.VISIBLE);
+        binding.txtSeeAllLaptops.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onNetworkDisconnected() {
+        showSnackBar();
     }
 }
