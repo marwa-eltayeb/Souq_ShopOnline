@@ -12,11 +12,11 @@ public class Validation {
     }
 
     public static boolean isValidPassword(String password){
-        return password.length() <= PASSWORD_MIN_LENGTH;
+        return password.length() >= PASSWORD_MIN_LENGTH;
     }
 
     public static boolean isValidName(String name){
-        return name.length() <= NAME_MIN_LENGTH;
+        return name.length() >= NAME_MIN_LENGTH;
     }
 
 }
