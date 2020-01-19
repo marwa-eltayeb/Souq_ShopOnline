@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.storage.SharedPrefManager;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -22,7 +23,14 @@ public class SplashActivity extends AppCompatActivity {
                 Intent i = new Intent(SplashActivity.this, ProductActivity.class);
                 startActivity(i);
 
+                // Close this activity
                 finish();
+                // If user does not log in before, go to LoginActivity
+                if(!SharedPrefManager.getInstance(SplashActivity.this).isLoggedIn()) {
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+
             }
         }, SPLASH_TIME_OUT);
     }
