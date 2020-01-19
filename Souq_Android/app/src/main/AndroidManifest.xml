@@ -15,40 +15,46 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".ui.AllLaptopsActivity"
-                  android:label="@string/all_laptops"
-                  android:parentActivityName=".ui.ProductActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.ProductActivity" />
-        </activity>
-
-        <activity android:name=".ui.AllMobilesActivity"
-                  android:label="@string/all_mobiles"
-                  android:parentActivityName=".ui.ProductActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.ProductActivity" />
-        </activity>
-
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.AllLaptopsActivity"
+            android:label="@string/all_laptops"
             android:parentActivityName=".ui.ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ProductActivity" />
         </activity>
+
         <activity
-            android:name=".ui.SignupActivity"
-            android:theme="@style/NoActionBar" />
-        <activity android:name=".ui.SplashActivity" />
-        <activity android:name=".ui.ProductActivity">
+            android:name=".ui.AllMobilesActivity"
+            android:label="@string/all_mobiles"
+            android:parentActivityName=".ui.ProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.ProductActivity" />
+        </activity>
+
+        <activity android:name=".ui.LoginActivity">
+
+        </activity>
+
+        <activity
+            android:name=".ui.SignUpActivity"
+            android:theme="@style/NoActionBar">
+
+        </activity>
+
+        <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+
+        <activity android:name=".ui.ProductActivity">
+
         </activity>
 
         <receiver android:name=".receiver.NetworkChangeReceiver" />
