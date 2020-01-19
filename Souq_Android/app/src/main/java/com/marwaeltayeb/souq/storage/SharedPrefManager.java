@@ -23,10 +23,8 @@ public class SharedPrefManager {
         }
         return mInstance;
     }
-
-
+    
     public void saveUserInfo(int id, String token) {
-
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -35,12 +33,18 @@ public class SharedPrefManager {
         editor.apply();
     }
 
+    public void saveUserInfo(int id) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putInt("id", id);
+        editor.apply();
+    }
 
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getInt("id", -1) != -1;
     }
-
 
     public LoginApiResponse getUserInfo() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
