@@ -10,10 +10,11 @@ import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivityLoginBinding;
+import com.marwaeltayeb.souq.model.LoginApiResponse;
 import com.marwaeltayeb.souq.net.RetrofitClient;
+import com.marwaeltayeb.souq.storage.SharedPrefManager;
 import com.marwaeltayeb.souq.utils.Validation;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +31,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         binding.buttonLogin.setOnClickListener(this);
         binding.textViewSignUp.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // If user logged in, go directly to ProductActivity
+        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
+            goToProductActivity();
+        }
     }
 
     private void logInUser() {
@@ -53,23 +63,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        if (Validation.isValidPassword(password)) {
+        if (!Validation.isValidPassword(password)) {
             binding.inputPassword.setError(getString(R.string.password__at_least_8_characters));
             binding.inputPassword.requestFocus();
             return;
         }
 
-        RetrofitClient.getInstance()
-                .getApi().logInUser(email, password).enqueue(new Callback<ResponseBody>() {
+        RetrofitClient.getInstance().getApi().logInUser(email, password).enqueue(new Callback<LoginApiResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<LoginApiResponse> call, Response<LoginApiResponse> response) {
 
-                Toast.makeText(LoginActivity.this, response.body() + "", Toast.LENGTH_SHORT).show();
-                goToMainActivity();
+                LoginApiResponse loginResponse = response.body();
+
+                if (!loginResponse.isError()) {
+                    SharedPrefManager.getInstance(LoginActivity.this).saveUserInfo(loginResponse.getId(), loginResponse.getToken());
+                    goToProductActivity();
+                } else {
+                    Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<LoginApiResponse> call, Throwable t) {
                 Log.d(TAG, t.getMessage());
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -89,12 +105,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void goToSignUpActivity() {
-        Intent intent = new Intent(this, SignupActivity.class);
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
 
-    private void goToMainActivity() {
+    private void goToProductActivity() {
         Intent intent = new Intent(this, ProductActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }
