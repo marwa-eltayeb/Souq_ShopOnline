@@ -61,7 +61,7 @@ router.get("/", (request, response) => {
 router.get("/login", (request, response) => {
     const email = request.query.email
     const password = request.query.password
-    const query = "SELECT password FROM users WHERE email = ?";
+    const query = "SELECT password, id FROM users WHERE email = ?";
     const args = [email]
     database.query(query, args, (error, result) => {
         if(error) throw error
@@ -73,7 +73,7 @@ router.get("/login", (request, response) => {
                     // Return Token
                     jwt.sign(email, "key", (err, token) => {
                         if (err) throw err;
-                        response.status(200).json(token);
+                        response.status(200).json({"id" : result[0]["id"], "error" : false, "message" : "Successful Login","token" : token});
                     });
                 }else{
                     response.status(500).send("Invalid Password")
@@ -97,7 +97,10 @@ router.post("/register",uploadImage.single('image'), (request, response) => {
     database.query(checkQuery, email , (error, result)  => {
         if(error) throw error;
         if(result.length != 0){
-            response.status(401).send("User Already Registered")
+            response.status(401).json({
+                "error" : true,
+                "message" : "User Already Registered"
+            })
         }else{
 
             // Register new user
@@ -129,7 +132,11 @@ router.post("/register",uploadImage.single('image'), (request, response) => {
         
                 database.query(query, args, (error, result) => {
                     if (error) throw error
-                    response.status(200).send("Register Done")
+                    response.status(200).json({
+                        "id" : result.insertId,
+                        "error" : false,
+                        "message" : "Register Done"
+                    })
                 });
             });
         }

@@ -22,9 +22,6 @@ app.use('/users', userRouter)
 app.use('/products',productRouter)
 
 // Make my server work on port 3000 and listen when user use it
-app.listen(port,startFuntcion())
+app.listen(port, () => console.log("Server Started"))
 
-function startFuntcion(){
-    console.log("Server stared")
-}
 
