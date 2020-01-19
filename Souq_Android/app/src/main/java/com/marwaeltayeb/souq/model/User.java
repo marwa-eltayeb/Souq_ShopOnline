@@ -5,7 +5,6 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String token;
 
     public User(String name, String email, String password) {
         this.name = name;
@@ -23,10 +22,6 @@ public class User {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getToken() {
-        return token;
     }
 
 }
