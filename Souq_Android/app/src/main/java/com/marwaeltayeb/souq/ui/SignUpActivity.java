@@ -14,18 +14,19 @@ import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivitySignupBinding;
+import com.marwaeltayeb.souq.model.RegisterApiResponse;
 import com.marwaeltayeb.souq.model.User;
 import com.marwaeltayeb.souq.net.RetrofitClient;
+import com.marwaeltayeb.souq.storage.SharedPrefManager;
 import com.marwaeltayeb.souq.utils.Validation;
 
-import okhttp3.ResponseBody;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivitySignupBinding binding;
-    private static final String TAG = "SignupActivity";
+    private static final String TAG = "SignUpActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,13 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         setBoldStyle();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
+            goToProductActivity();
+        }
+    }
 
     private void signUpUser() {
         String name = binding.userName.getText().toString();
@@ -50,7 +58,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        if (Validation.isValidName(name)) {
+        if (!Validation.isValidName(name)) {
             binding.userName.setError(getString(R.string.enter_at_least_3_characters));
             binding.userName.requestFocus();
             return;
@@ -73,24 +81,31 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        if (Validation.isValidPassword(password)) {
+        if (!Validation.isValidPassword(password)) {
             binding.userPassword.setError(getString(R.string.password__at_least_8_characters));
             binding.userPassword.requestFocus();
             return;
         }
 
         RetrofitClient.getInstance()
-                .getApi().insertUser(new User(name, email, password)).enqueue(new Callback<ResponseBody>() {
+                .getApi().createUser(new User(name, email, password)).enqueue(new Callback<RegisterApiResponse>() {
             @Override
-            public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(SignupActivity.this, response.body() + "", Toast.LENGTH_SHORT).show();
-                goToMainActivity();
+            public void onResponse(retrofit2.Call<RegisterApiResponse> call, Response<RegisterApiResponse> response) {
+                RegisterApiResponse registerApiResponse = response.body();
+
+                if (response.code() == 200) {
+                    Toast.makeText(SignUpActivity.this, registerApiResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    SharedPrefManager.getInstance(SignUpActivity.this).saveUserInfo(registerApiResponse.getId());
+                    goToProductActivity();
+                } else if (response.code() == 401) {
+                    Toast.makeText(SignUpActivity.this, "User Already Exists", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
+            public void onFailure(retrofit2.Call<RegisterApiResponse> call, Throwable t) {
                 Log.d(TAG, t.getMessage());
-                Toast.makeText(SignupActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -113,9 +128,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         startActivity(intent);
     }
 
-    private void goToMainActivity() {
+    private void goToProductActivity() {
         Intent intent = new Intent(this, ProductActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 
     private void setBoldStyle() {
