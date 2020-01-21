@@ -28,9 +28,10 @@ import com.marwaeltayeb.souq.utils.Slide;
 
 import java.util.ArrayList;
 
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
-public class ProductActivity extends AppCompatActivity implements View.OnClickListener, OnNetworkListener {
+public class ProductActivity extends AppCompatActivity implements View.OnClickListener, OnNetworkListener, ProductAdapter.ProductAdapterOnClickHandler {
 
     private ActivityProductBinding binding;
 
@@ -71,7 +72,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding.listOfLaptops.setHasFixedSize(true);
         binding.listOfLaptops.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        productAdapter = new ProductAdapter(this);
+        productAdapter = new ProductAdapter(this,this);
     }
 
     private void getProducts() {
@@ -124,6 +125,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
+
 
     private void goToSeeAllMobiles() {
         Intent intent = new Intent(this, AllMobilesActivity.class);
@@ -178,5 +180,13 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onNetworkDisconnected() {
         showSnackBar();
+    }
+
+    @Override
+    public void onClick(Product product) {
+        Intent intent = new Intent(ProductActivity.this, DetailsActivity.class);
+        // Pass an object of product class
+        intent.putExtra(PRODUCT, (product));
+        startActivity(intent);
     }
 }

@@ -3,6 +3,7 @@ package com.marwaeltayeb.souq.ui;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +16,9 @@ import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityAllLaptopsBinding;
 import com.marwaeltayeb.souq.model.Product;
 
-public class AllLaptopsActivity extends AppCompatActivity {
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+
+public class AllLaptopsActivity extends AppCompatActivity implements ProductAdapter.ProductAdapterOnClickHandler{
 
     private ActivityAllLaptopsBinding binding;
     private ProductAdapter productAdapter;
@@ -37,7 +40,7 @@ public class AllLaptopsActivity extends AppCompatActivity {
         // Laptops
         binding.allLaptopsRecyclerView.setHasFixedSize(true);
         binding.allLaptopsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        productAdapter = new ProductAdapter(this);
+        productAdapter = new ProductAdapter(this,this);
     }
 
     public void getAllLaptops() {
@@ -51,5 +54,13 @@ public class AllLaptopsActivity extends AppCompatActivity {
 
         binding.allLaptopsRecyclerView.setAdapter(productAdapter);
         productAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(Product product) {
+        Intent intent = new Intent(AllLaptopsActivity.this, DetailsActivity.class);
+        // Pass an object of product class
+        intent.putExtra(PRODUCT, (product));
+        startActivity(intent);
     }
 }

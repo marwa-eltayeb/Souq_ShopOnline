@@ -3,6 +3,7 @@ package com.marwaeltayeb.souq.ui;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +16,9 @@ import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityAllMobilesBinding;
 import com.marwaeltayeb.souq.model.Product;
 
-public class AllMobilesActivity extends AppCompatActivity {
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+
+public class AllMobilesActivity extends AppCompatActivity implements ProductAdapter.ProductAdapterOnClickHandler{
 
     private ActivityAllMobilesBinding binding;
     private ProductAdapter productAdapter;
@@ -37,7 +40,7 @@ public class AllMobilesActivity extends AppCompatActivity {
         // Mobiles
         binding.allMobilesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.allMobilesRecyclerView.setHasFixedSize(true);
-        productAdapter = new ProductAdapter(this);
+        productAdapter = new ProductAdapter(this,this);
     }
 
     public void getAllMobiles() {
@@ -51,5 +54,13 @@ public class AllMobilesActivity extends AppCompatActivity {
         });
 
         binding.allMobilesRecyclerView.setAdapter(productAdapter);
+    }
+
+    @Override
+    public void onClick(Product product) {
+        Intent intent = new Intent(AllMobilesActivity.this, DetailsActivity.class);
+        // Pass an object of product class
+        intent.putExtra(PRODUCT, (product));
+        startActivity(intent);
     }
 }
