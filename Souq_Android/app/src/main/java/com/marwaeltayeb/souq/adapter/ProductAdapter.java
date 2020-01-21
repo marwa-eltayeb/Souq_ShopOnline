@@ -10,6 +10,7 @@ import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -23,10 +24,22 @@ import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.ProductViewHolder> {
 
     private Context mContext;
+    private Product product;
 
-    public ProductAdapter(Context mContext) {
+    // Create a final private MovieAdapterOnClickHandler called mClickHandler
+    private ProductAdapterOnClickHandler clickHandler;
+
+    /**
+     * The interface that receives onClick messages.
+     */
+    public interface ProductAdapterOnClickHandler {
+        void onClick(Product product);
+    }
+
+    public ProductAdapter(Context mContext, ProductAdapterOnClickHandler clickHandler) {
         super(DIFF_CALLBACK);
         this.mContext = mContext;
+        this.clickHandler = clickHandler;
     }
 
     @NonNull
@@ -38,7 +51,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        Product product = getItem(position);
+        product = getItem(position);
 
         if (product != null) {
             holder.binding.txtProductName.setText(product.getProductName());
@@ -51,7 +64,6 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                     .into(holder.binding.imgProductImage);
 
             Log.d("test",imageUrl);
-
         } else {
             Toast.makeText(mContext, "Product is null", Toast.LENGTH_LONG).show();
         }
@@ -80,13 +92,24 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         }
     };
 
-    static class ProductViewHolder extends RecyclerView.ViewHolder{
+    class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // Create view instances
         private final ProductListItemBinding binding;
 
         private ProductViewHolder(ProductListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            // Register a callback to be invoked when this view is clicked.
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            // Get position of the product
+            product = getItem(position);
+            // Send product through click
+            clickHandler.onClick(product);
         }
     }
 }
