@@ -3,6 +3,7 @@ package com.marwaeltayeb.souq.ui;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -32,9 +33,10 @@ public class DetailsActivity extends AppCompatActivity {
         Product product = (Product) intent.getSerializableExtra(PRODUCT);
 
         // Set Custom ActionBar Layout
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(R.layout.action_bar_title_layout);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(R.layout.action_bar_title_layout);
         ((TextView) findViewById(R.id.action_bar_title)).setText(product.getProductName());
 
         binding.nameOfProduct.setText(product.getProductName());
