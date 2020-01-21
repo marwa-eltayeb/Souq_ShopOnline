@@ -18,15 +18,16 @@
                 android:id="@+id/imageOfProduct"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:background="@color/white"
+                android:contentDescription="@string/product_image"
                 android:src="@drawable/dummy_data"
-                tools:scaleType="fitXY"
-                android:contentDescription="@string/product_image" />
+                tools:scaleType="fitXY" />
 
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen1dp"
-                android:background="@color/gray" />
+                android:background="@color/lightGray" />
 
             <TextView
                 android:id="@+id/nameOfProduct"
@@ -53,17 +54,17 @@
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen1dp"
-                android:background="@color/gray" />
+                android:background="@color/lightGray" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:layout_margin="40dp"
                 android:background="@color/green"
+                android:padding="10dp"
+                android:text="@string/add_to_cart"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_margin="50dp"
-                android:text="@string/add_to_cart" />
+                android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
 </layout>

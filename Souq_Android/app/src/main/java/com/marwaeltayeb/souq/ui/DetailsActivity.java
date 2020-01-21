@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
@@ -29,6 +30,12 @@ public class DetailsActivity extends AppCompatActivity {
         // Receive the product object
         Intent intent = getIntent();
         Product product = (Product) intent.getSerializableExtra(PRODUCT);
+
+        // Set Custom ActionBar Layout
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.action_bar_title_layout);
+        ((TextView) findViewById(R.id.action_bar_title)).setText(product.getProductName());
 
         binding.nameOfProduct.setText(product.getProductName());
         binding.priceOfProduct.setText(String.valueOf(product.getProductPrice()));
