@@ -12,6 +12,7 @@
         card_view:elevation="@dimen/dimen1dp">
 
         <LinearLayout
+            android:id="@+id/productItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
