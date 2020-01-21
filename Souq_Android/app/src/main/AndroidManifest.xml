@@ -16,6 +16,27 @@
         android:usesCleartextTraffic="true">
 
         <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.ProductActivity"/>
+
+        <activity android:name=".ui.LoginActivity" />
+
+        <activity
+            android:name=".ui.SignUpActivity"
+            android:theme="@style/NoActionBar"/>
+
+        <activity android:name=".ui.DetailsActivity" />
+
+        <activity
             android:name=".ui.AllLaptopsActivity"
             android:label="@string/all_laptops"
             android:parentActivityName=".ui.ProductActivity">
@@ -33,31 +54,7 @@
                 android:value=".ui.ProductActivity" />
         </activity>
 
-        <activity android:name=".ui.LoginActivity">
-
-        </activity>
-
-        <activity
-            android:name=".ui.SignUpActivity"
-            android:theme="@style/NoActionBar">
-
-        </activity>
-
-        <activity android:name=".ui.SplashActivity"
-                  android:theme="@style/NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-
-        <activity android:name=".ui.ProductActivity">
-
-        </activity>
-
         <receiver android:name=".receiver.NetworkChangeReceiver" />
+
     </application>
 </manifest>
