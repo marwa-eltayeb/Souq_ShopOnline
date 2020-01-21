@@ -1,10 +1,11 @@
 package com.marwaeltayeb.souq.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
-public class Product implements Serializable {
+public class Product implements Parcelable {
 
     @SerializedName("id")
     private int productId;
@@ -20,6 +21,8 @@ public class Product implements Serializable {
     private String productCategory;
     @SerializedName("image")
     private String productImage;
+    // Include child Parcelable objects
+    private Product mInfo;
 
     public Product(String productName, double productPrice, int productQuantity, String productSupplier, String productCategory, String productImage) {
         this.productName = productName;
@@ -30,7 +33,9 @@ public class Product implements Serializable {
         this.productImage = productImage;
     }
 
-    public Product(){}
+    public Product() {
+
+    }
 
     public String getProductName() {
         return productName;
@@ -60,7 +65,51 @@ public class Product implements Serializable {
         return productId;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+
+    // Write the values to be saved to the `Parcel`.
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(productId);
+        out.writeString(productName);
+        out.writeDouble(productPrice);
+        out.writeInt(productQuantity);
+        out.writeString(productSupplier);
+        out.writeString(productCategory);
+        out.writeString(productImage);
+        out.writeParcelable(mInfo, flags);
     }
+
+    // Retrieve the values written into the `Parcel`.
+    private Product(Parcel in) {
+        productId = in.readInt();
+        productName = in.readString();
+        productPrice = in.readDouble();
+        productQuantity = in.readInt();
+        productSupplier = in.readString();
+        productCategory = in.readString();
+        productImage = in.readString();
+        mInfo = in.readParcelable(Product.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    // Create the Parcelable.Creator<Product> CREATOR` constant for our class;
+    public static final Parcelable.Creator<Product> CREATOR
+            = new Parcelable.Creator<Product>() {
+
+        // This simply calls our new constructor and
+        // passes along `Parcel`, and then returns the new object!
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 }

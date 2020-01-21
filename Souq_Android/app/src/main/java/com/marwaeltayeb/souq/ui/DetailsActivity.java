@@ -1,6 +1,5 @@
 package com.marwaeltayeb.souq.ui;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -29,8 +28,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private void getProductDetails(){
         // Receive the product object
-        Intent intent = getIntent();
-        Product product = (Product) intent.getSerializableExtra(PRODUCT);
+        Product product = getIntent().getParcelableExtra(PRODUCT);
 
         // Set Custom ActionBar Layout
         ActionBar actionBar = getSupportActionBar();
