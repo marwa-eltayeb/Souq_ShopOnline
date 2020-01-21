@@ -2,7 +2,9 @@ package com.marwaeltayeb.souq.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
 
     @SerializedName("id")
     private int productId;
@@ -27,6 +29,8 @@ public class Product {
         this.productCategory = productCategory;
         this.productImage = productImage;
     }
+
+    public Product(){}
 
     public String getProductName() {
         return productName;
