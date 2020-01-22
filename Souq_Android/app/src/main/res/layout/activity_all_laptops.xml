@@ -6,7 +6,6 @@
         android:id="@+id/allLaptopsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
         android:background="@color/lightGray"
         tools:context=".ui.AllLaptopsActivity"
         tools:listitem="@layout/product_list_item" />

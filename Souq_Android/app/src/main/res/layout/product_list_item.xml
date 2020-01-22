@@ -4,7 +4,7 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="@dimen/dimen200dp"
+        android:layout_width="@dimen/dimen180dp"
         android:layout_height="@dimen/dimen370dp"
         card_view:cardCornerRadius="@dimen/dimen10dp"
         card_view:cardElevation="@dimen/dimen1dp"
@@ -55,6 +55,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen35dp"
                 android:layout_marginBottom="@dimen/dimen10dp"
+                android:layout_marginEnd="@dimen/dimen1dp"
+                android:layout_marginStart="@dimen/dimen1dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 

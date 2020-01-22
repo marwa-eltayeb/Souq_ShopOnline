@@ -4,11 +4,12 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
@@ -38,7 +39,7 @@ public class AllMobilesActivity extends AppCompatActivity implements ProductAdap
 
     private void setupRecyclerViews() {
         // Mobiles
-        binding.allMobilesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        binding.allMobilesRecyclerView.setLayoutManager(new GridLayoutManager(this, (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 2 : 4));
         binding.allMobilesRecyclerView.setHasFixedSize(true);
         productAdapter = new ProductAdapter(this,this);
     }
