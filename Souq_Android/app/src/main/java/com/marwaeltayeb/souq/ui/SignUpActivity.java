@@ -1,5 +1,6 @@
 package com.marwaeltayeb.souq.ui;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
@@ -8,25 +9,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.ViewModel.RegisterViewModel;
 import com.marwaeltayeb.souq.databinding.ActivitySignupBinding;
-import com.marwaeltayeb.souq.model.RegisterApiResponse;
 import com.marwaeltayeb.souq.model.User;
-import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.storage.SharedPrefManager;
 import com.marwaeltayeb.souq.utils.Validation;
 
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ActivitySignupBinding binding;
     private static final String TAG = "SignUpActivity";
+    private ActivitySignupBinding binding;
+    private RegisterViewModel registerViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +32,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         binding.buttonSignUp.setOnClickListener(this);
         binding.textViewLogin.setOnClickListener(this);
+
+        registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
 
         setBoldStyle();
     }
@@ -87,27 +86,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        RetrofitClient.getInstance()
-                .getApi().createUser(new User(name, email, password)).enqueue(new Callback<RegisterApiResponse>() {
-            @Override
-            public void onResponse(retrofit2.Call<RegisterApiResponse> call, Response<RegisterApiResponse> response) {
-                RegisterApiResponse registerApiResponse = response.body();
 
-                if (response.code() == 200) {
-                    Toast.makeText(SignUpActivity.this, registerApiResponse.getMessage(), Toast.LENGTH_LONG).show();
-                    SharedPrefManager.getInstance(SignUpActivity.this).saveUserInfo(registerApiResponse.getId());
-                    goToProductActivity();
-                } else if (response.code() == 401) {
-                    Toast.makeText(SignUpActivity.this, "User Already Exists", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(retrofit2.Call<RegisterApiResponse> call, Throwable t) {
-                Log.d(TAG, t.getMessage());
-                Toast.makeText(SignUpActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+        registerViewModel.getRegisterResponseLiveData(this,new User(name, email, password)).observe(this, RegisterApiResponse -> {
+            if (!RegisterApiResponse.isError()) {
+                SharedPrefManager.getInstance(SignUpActivity.this).saveUserInfo(RegisterApiResponse.getId());
+                goToProductActivity();
             }
         });
+
     }
 
 
