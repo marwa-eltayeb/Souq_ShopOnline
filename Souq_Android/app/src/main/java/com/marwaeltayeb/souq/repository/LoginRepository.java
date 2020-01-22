@@ -3,7 +3,6 @@ package com.marwaeltayeb.souq.repository;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Context;
 import android.util.Log;
 
 import com.marwaeltayeb.souq.model.LoginApiResponse;
@@ -22,7 +21,7 @@ public class LoginRepository {
         this.application = application;
     }
 
-    public LiveData<LoginApiResponse> getLoginResponseData(final Context context, String email, String password) {
+    public LiveData<LoginApiResponse> getLoginResponseData(String email, String password) {
         final MutableLiveData<LoginApiResponse> mutableLiveData = new MutableLiveData<>();
         RetrofitClient.getInstance().getApi().logInUser(email, password).enqueue(new Callback<LoginApiResponse>() {
             @Override

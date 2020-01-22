@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
 
-        loginViewModel.getLoginResponseLiveData(this,email,password).observe(this, LoginApiResponse -> {
+        loginViewModel.getLoginResponseLiveData(email,password).observe(this, LoginApiResponse -> {
             if (LoginApiResponse != null || !LoginApiResponse.isError()) {
                 SharedPrefManager.getInstance(this).saveUserInfo(LoginApiResponse.getId(), LoginApiResponse.getToken());
                 Toast.makeText(this, LoginApiResponse.getMessage(), Toast.LENGTH_SHORT).show();

@@ -3,7 +3,6 @@ package com.marwaeltayeb.souq.ViewModel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.marwaeltayeb.souq.model.LoginApiResponse;
@@ -18,7 +17,7 @@ public class LoginViewModel extends AndroidViewModel {
         loginRepository = new LoginRepository(application);
     }
 
-    public LiveData<LoginApiResponse> getLoginResponseLiveData(Context context, String email, String password) {
-        return loginRepository.getLoginResponseData(context,email,password);
+    public LiveData<LoginApiResponse> getLoginResponseLiveData(String email, String password) {
+        return loginRepository.getLoginResponseData(email,password);
     }
 }
