@@ -80,8 +80,6 @@ router.get("/", (request, response) => {
     // OFFSET * LIMIT
     page = page * page_size;
 
-    console.log(category)
-
     const args = [
         category,
         parseInt(page_size),
