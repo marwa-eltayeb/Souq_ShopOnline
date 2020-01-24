@@ -3,9 +3,7 @@ package com.marwaeltayeb.souq.repository;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
 import com.marwaeltayeb.souq.model.User;
@@ -24,7 +22,7 @@ public class RegisterRepository {
     }
 
 
-    public LiveData<RegisterApiResponse> getRegisterResponseData(Context context,User user) {
+    public LiveData<RegisterApiResponse> getRegisterResponseData(User user) {
         final MutableLiveData<RegisterApiResponse> mutableLiveData = new MutableLiveData<>();
 
         RetrofitClient.getInstance().getApi().createUser(user).enqueue(new Callback<RegisterApiResponse>() {
@@ -36,12 +34,7 @@ public class RegisterRepository {
 
                 if (response.body() != null) {
                     mutableLiveData.setValue(registerApiResponse);
-                }
-
-                if (response.code() == 200) {
-                    Toast.makeText(context, registerApiResponse.getMessage(), Toast.LENGTH_LONG).show();
-                } else if (response.code() == 401) {
-                    Toast.makeText(context, "User Already Exists", Toast.LENGTH_LONG).show();
+                    Log.d(TAG, response.body().getMessage());
                 }
             }
 

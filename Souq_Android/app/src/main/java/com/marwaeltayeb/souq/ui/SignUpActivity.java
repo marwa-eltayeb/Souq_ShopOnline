@@ -10,6 +10,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.RegisterViewModel;
@@ -87,10 +88,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
 
-        registerViewModel.getRegisterResponseLiveData(this,new User(name, email, password)).observe(this, RegisterApiResponse -> {
-            if (!RegisterApiResponse.isError()) {
-                SharedPrefManager.getInstance(SignUpActivity.this).saveUserInfo(RegisterApiResponse.getId());
+        registerViewModel.getRegisterResponseLiveData(new User(name, email, password)).observe(this, registerApiResponse -> {
+            if (!registerApiResponse.isError()) {
+                Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_LONG).show();
+                SharedPrefManager.getInstance(this).saveUserInfo(registerApiResponse.getId());
                 goToProductActivity();
+            }else {
+                Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

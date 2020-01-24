@@ -3,7 +3,6 @@ package com.marwaeltayeb.souq.ViewModel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
@@ -20,7 +19,7 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<RegisterApiResponse> getRegisterResponseLiveData(Context context,User user) {
-        return registerRepository.getRegisterResponseData(context,user);
+    public LiveData<RegisterApiResponse> getRegisterResponseLiveData(User user) {
+        return registerRepository.getRegisterResponseData(user);
     }
 }
