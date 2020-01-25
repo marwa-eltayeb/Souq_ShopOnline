@@ -97,7 +97,7 @@ router.post("/register",uploadImage.single('image'), (request, response) => {
     database.query(checkQuery, email , (error, result)  => {
         if(error) throw error;
         if(result.length != 0){
-            response.status(401).json({
+            response.status(217).json({
                 "error" : true,
                 "message" : "User Already Registered"
             })
