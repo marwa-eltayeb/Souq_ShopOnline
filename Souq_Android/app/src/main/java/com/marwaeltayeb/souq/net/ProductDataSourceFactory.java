@@ -11,12 +11,12 @@ public class ProductDataSourceFactory extends DataSource.Factory {
     // Creating the mutable live database
     private MutableLiveData<PageKeyedDataSource<Integer, Product>> productLiveDataSource = new MutableLiveData<>();
 
-    public static ProductDataSource productDataSource;
+    private ProductDataSource productDataSource;
 
     @Override
     public DataSource<Integer, Product> create() {
         // Getting our Data source object
-        productDataSource = new ProductDataSource();
+        productDataSource = new ProductDataSource("mobile");
 
         // Posting the Data source to get the values
         productLiveDataSource.postValue(productDataSource);
