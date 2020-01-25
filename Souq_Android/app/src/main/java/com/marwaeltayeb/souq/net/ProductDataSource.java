@@ -15,12 +15,16 @@ public class ProductDataSource extends PageKeyedDataSource<Integer, Product> {
 
     private static final int FIRST_PAGE = 1;
     public static final int PAGE_SIZE = 20;
-    public static final String CATEGORY = "mobile";
+    private String category;
+
+    ProductDataSource(String category) {
+        this.category = category;
+    }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Product> callback) {
         RetrofitClient.getInstance()
-                .getApi().getProductsByCategory(CATEGORY,FIRST_PAGE)
+                .getApi().getProductsByCategory(category,FIRST_PAGE)
                 .enqueue(new Callback<ProductApiResponse>() {
                     @Override
                     public void onResponse(Call<ProductApiResponse> call, Response<ProductApiResponse> response) {
@@ -45,7 +49,7 @@ public class ProductDataSource extends PageKeyedDataSource<Integer, Product> {
     @Override
     public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Product> callback) {
         RetrofitClient.getInstance()
-                .getApi().getProductsByCategory(CATEGORY,params.key)
+                .getApi().getProductsByCategory(category,params.key)
                 .enqueue(new Callback<ProductApiResponse>() {
                     @Override
                     public void onResponse(Call<ProductApiResponse> call, Response<ProductApiResponse> response) {
@@ -66,7 +70,7 @@ public class ProductDataSource extends PageKeyedDataSource<Integer, Product> {
     @Override
     public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Product> callback) {
         RetrofitClient.getInstance()
-                .getApi().getProductsByCategory(CATEGORY,params.key)
+                .getApi().getProductsByCategory(category,params.key)
                 .enqueue(new Callback<ProductApiResponse>() {
                     @Override
                     public void onResponse(Call<ProductApiResponse> call, Response<ProductApiResponse> response) {
