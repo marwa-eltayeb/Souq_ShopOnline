@@ -35,7 +35,9 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private ActivityProductBinding binding;
 
-    private ProductAdapter productAdapter;
+    private ProductAdapter mobileAdapter;
+    private ProductAdapter laptopAdapter;
+
     private ProductViewModel productViewModel;
 
     private Snackbar snack;
@@ -73,7 +75,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding.listOfLaptops.setHasFixedSize(true);
         binding.listOfLaptops.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        productAdapter = new ProductAdapter(this,this);
+        mobileAdapter = new ProductAdapter(this,this);
+        laptopAdapter = new ProductAdapter(this,this);;
     }
 
     private void getMobiles() {
@@ -82,12 +85,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             productViewModel.productPagedList.observe(this, new Observer<PagedList<Product>>() {
                 @Override
                 public void onChanged(@Nullable PagedList<Product> products) {
-                    productAdapter.submitList(products);
+                    mobileAdapter.submitList(products);
                 }
             });
 
-            binding.listOfMobiles.setAdapter(productAdapter);
-            productAdapter.notifyDataSetChanged();
+            binding.listOfMobiles.setAdapter(mobileAdapter);
+            mobileAdapter.notifyDataSetChanged();
         }else {
             showOrHideViews(View.INVISIBLE);
             showSnackBar();
@@ -97,15 +100,15 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     private void getLaptops() {
         if (isNetworkConnected(this)) {
             // Observe the productPagedList from ViewModel
-            productViewModel.productPagedList.observe(this, new Observer<PagedList<Product>>() {
+            productViewModel.laptopPagedList.observe(this, new Observer<PagedList<Product>>() {
                 @Override
                 public void onChanged(@Nullable PagedList<Product> products) {
-                    productAdapter.submitList(products);
+                    laptopAdapter.submitList(products);
                 }
             });
 
-            binding.listOfLaptops.setAdapter(productAdapter);
-            productAdapter.notifyDataSetChanged();
+            binding.listOfLaptops.setAdapter(laptopAdapter);
+            laptopAdapter.notifyDataSetChanged();
         }else {
             showOrHideViews(View.INVISIBLE);
             showSnackBar();
