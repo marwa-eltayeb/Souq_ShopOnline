@@ -89,10 +89,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             binding.listOfMobiles.setAdapter(productAdapter);
             productAdapter.notifyDataSetChanged();
         }else {
-            binding.textViewMobiles.setVisibility(View.INVISIBLE);
-            binding.txtSeeAllMobiles.setVisibility(View.INVISIBLE);
-            binding.textViewLaptops.setVisibility(View.INVISIBLE);
-            binding.txtSeeAllLaptops.setVisibility(View.INVISIBLE);
+            showOrHideViews(View.INVISIBLE);
             showSnackBar();
         }
     }
