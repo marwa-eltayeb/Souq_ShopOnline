@@ -56,7 +56,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         setUpViews();
 
-        getProducts();
+        getMobiles();
+        getLaptops();
 
         flipImages(Slide.getSlides());
 
@@ -75,7 +76,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         productAdapter = new ProductAdapter(this,this);
     }
 
-    private void getProducts() {
+    private void getMobiles() {
         if (isNetworkConnected(this)) {
             // Observe the productPagedList from ViewModel
             productViewModel.productPagedList.observe(this, new Observer<PagedList<Product>>() {
@@ -86,7 +87,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             });
 
             binding.listOfMobiles.setAdapter(productAdapter);
-            binding.listOfLaptops.setAdapter(productAdapter);
             productAdapter.notifyDataSetChanged();
         }else {
             binding.textViewMobiles.setVisibility(View.INVISIBLE);
@@ -97,6 +97,23 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    private void getLaptops() {
+        if (isNetworkConnected(this)) {
+            // Observe the productPagedList from ViewModel
+            productViewModel.productPagedList.observe(this, new Observer<PagedList<Product>>() {
+                @Override
+                public void onChanged(@Nullable PagedList<Product> products) {
+                    productAdapter.submitList(products);
+                }
+            });
+
+            binding.listOfLaptops.setAdapter(productAdapter);
+            productAdapter.notifyDataSetChanged();
+        }else {
+            showOrHideViews(View.INVISIBLE);
+            showSnackBar();
+        }
+    }
 
     private void flipImages(ArrayList<Integer> images) {
         for (int image : images) {
@@ -125,7 +142,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
-
 
     private void goToSeeAllMobiles() {
         Intent intent = new Intent(this, AllMobilesActivity.class);
@@ -170,11 +186,9 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onNetworkConnected() {
         hideSnackBar();
-        getProducts();
-        binding.textViewMobiles.setVisibility(View.VISIBLE);
-        binding.txtSeeAllMobiles.setVisibility(View.VISIBLE);
-        binding.textViewLaptops.setVisibility(View.VISIBLE);
-        binding.txtSeeAllLaptops.setVisibility(View.VISIBLE);
+        showOrHideViews(View.VISIBLE);
+        getMobiles();
+        getLaptops();
     }
 
     @Override
@@ -188,5 +202,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         // Pass an object of product class
         intent.putExtra(PRODUCT, (product));
         startActivity(intent);
+    }
+
+    private void showOrHideViews(int view){
+        binding.textViewMobiles.setVisibility(view);
+        binding.txtSeeAllMobiles.setVisibility(view);
+        binding.textViewLaptops.setVisibility(view);
+        binding.txtSeeAllLaptops.setVisibility(view);
     }
 }
