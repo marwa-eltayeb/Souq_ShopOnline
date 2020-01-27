@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="@dimen/dimen180dp"
+        android:layout_height="420dp"
+        card_view:cardCornerRadius="@dimen/dimen5dp"
+        card_view:cardElevation="@dimen/dimen1dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:elevation="@dimen/dimen1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgFavourite"
+                android:layout_width="@dimen/dimen30dp"
+                android:layout_height="@dimen/dimen30dp"
+                android:layout_marginEnd="@dimen/dimen5dp"
+                android:layout_gravity="end"
+                android:contentDescription="@string/add_to_favourite"
+                android:src="@drawable/ic_favorite_border" />
+
+            <ImageView
+                android:id="@+id/imgProductImage"
+                android:layout_width="@dimen/dimen100dp"
+                android:layout_height="@dimen/dimen100dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/product_image"
+                android:src="@drawable/samsung_galaxy_a70" />
+
+            <TextView
+                android:id="@+id/txtProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen10dp"
+                android:layout_marginTop="@dimen/dimen70dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/samsung_galaxy_a70"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen18sp" />
+
+            <TextView
+                android:id="@+id/txtProductPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen10dp"
+                android:layout_marginTop="@dimen/dimen10dp"
+                android:text="@string/_5399_egp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen10dp"
+                android:layout_marginTop="@dimen/dimen10dp"
+                android:text="@string/free_shipping"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen10dp"
+                android:layout_marginTop="@dimen/dimen5dp"
+                android:text="Fullfilled by Souq"
+                android:textColor="@color/white"
+                android:background="#1196FE"
+                android:padding="5dp"
+                android:textSize="@dimen/dimen16sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen35dp"
+                android:layout_marginBottom="@dimen/dimen10dp"
+                android:layout_marginEnd="@dimen/dimen1dp"
+                android:layout_marginStart="@dimen/dimen1dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="110dp"
+                    android:layout_height="70dp"
+                    android:background="@color/green"
+                    android:text="@string/add_to_cart"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/imgCart"
+                    android:layout_width="@dimen/dimen30dp"
+                    android:layout_height="@dimen/dimen30dp"
+                    android:layout_margin="@dimen/dimen20dp"
+                    android:contentDescription="@string/add_to_cart"
+                    android:src="@drawable/ic_add_shopping_cart" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</layout>
