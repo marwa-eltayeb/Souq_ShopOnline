@@ -98,6 +98,45 @@ router.get("/", (request, response) => {
     });
 }); 
 
+// Search for products
+router.get("/search", (request, response) => {
+    const keyword = request.query.q.toLowerCase();
+    var page = request.query.page;
+    var page_size = request.query.page_size;
+
+    if(page == null || page < 1){
+        page = 1;
+    }
+ 
+    if(page_size == null){
+        page_size = 20;
+    }
+
+    // OFFSET starts from zero
+    page = page - 1;
+    // OFFSET * LIMIT
+    page = page * page_size;
+
+    const searchQuery = '%' + keyword + '%';
+
+    const args = [
+        searchQuery,
+        searchQuery,
+        parseInt(page_size),
+        parseInt(page)
+    ];
+
+    const query = "SELECT * FROM products WHERE name LIKE ? OR category LIKE ? LIMIT ? OFFSET ?";
+
+    database.query(query, args, (error, result) => {
+        if(error) throw error
+        response.status(200).json({
+            "page": page + 1,
+            "error" : false,
+            "products" : result
+        })
+    });
+}); 
 
 // Insert Product
 router.post("/insert",uploadImage.single('image'), (request, response) => {
