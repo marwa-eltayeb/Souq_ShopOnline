@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen10dp"
                 android:layout_marginTop="@dimen/dimen5dp"
-                android:text="Fullfilled by Souq"
+                android:text="@string/fulfilled_by_souq"
                 android:textColor="@color/white"
                 android:background="#1196FE"
                 android:padding="5dp"
