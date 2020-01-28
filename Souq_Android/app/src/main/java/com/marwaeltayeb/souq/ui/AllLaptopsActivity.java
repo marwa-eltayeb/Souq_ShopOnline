@@ -19,10 +19,10 @@ import com.marwaeltayeb.souq.model.Product;
 
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 
-public class AllLaptopsActivity extends AppCompatActivity implements ProductAdapter.ProductAdapterOnClickHandler{
+public class AllLaptopsActivity extends AppCompatActivity implements ProductAdapter.ProductAdapterOnClickHandler {
 
     private ActivityAllLaptopsBinding binding;
-    private ProductAdapter productAdapter;
+    private ProductAdapter laptopAdapter;
     private ProductViewModel productViewModel;
 
     @Override
@@ -41,20 +41,22 @@ public class AllLaptopsActivity extends AppCompatActivity implements ProductAdap
         // Laptops
         binding.allLaptopsRecyclerView.setHasFixedSize(true);
         binding.allLaptopsRecyclerView.setLayoutManager(new GridLayoutManager(this, (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 2 : 4));
-        productAdapter = new ProductAdapter(this,this);
+        laptopAdapter = new ProductAdapter(this, this);
     }
 
     public void getAllLaptops() {
+
         // Observe the productPagedList from ViewModel
-        productViewModel.productPagedList.observe(this, new Observer<PagedList<Product>>() {
+        productViewModel.laptopPagedList.observe(this, new Observer<PagedList<Product>>() {
             @Override
             public void onChanged(@Nullable PagedList<Product> products) {
-                productAdapter.submitList(products);
+                laptopAdapter.submitList(products);
             }
         });
 
-        binding.allLaptopsRecyclerView.setAdapter(productAdapter);
-        productAdapter.notifyDataSetChanged();
+        binding.allLaptopsRecyclerView.setAdapter(laptopAdapter);
+        laptopAdapter.notifyDataSetChanged();
+
     }
 
     @Override
