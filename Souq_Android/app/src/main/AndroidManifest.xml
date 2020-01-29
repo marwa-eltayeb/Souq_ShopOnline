@@ -34,7 +34,12 @@
             android:name=".ui.SignUpActivity"
             android:theme="@style/NoActionBar"/>
 
-        <activity android:name=".ui.DetailsActivity" />
+        <activity android:name=".ui.DetailsActivity"
+                  android:parentActivityName=".ui.AllMobilesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.AllMobilesActivity" />
+        </activity>
 
         <activity
             android:name=".ui.AllLaptopsActivity"
