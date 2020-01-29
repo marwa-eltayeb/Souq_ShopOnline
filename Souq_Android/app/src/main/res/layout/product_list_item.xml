@@ -55,8 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen35dp"
                 android:layout_marginBottom="@dimen/dimen10dp"
-                android:layout_marginEnd="@dimen/dimen1dp"
-                android:layout_marginStart="@dimen/dimen1dp"
+                android:layout_marginEnd="@dimen/dimen5dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -64,7 +63,7 @@
                     android:id="@+id/imgShare"
                     android:layout_width="@dimen/dimen30dp"
                     android:layout_height="@dimen/dimen30dp"
-                    android:layout_margin="@dimen/dimen20dp"
+                    android:layout_marginEnd="@dimen/dimen20dp"
                     android:contentDescription="@string/share_product"
                     android:src="@drawable/ic_share" />
 
@@ -72,7 +71,7 @@
                     android:id="@+id/imgCart"
                     android:layout_width="@dimen/dimen30dp"
                     android:layout_height="@dimen/dimen30dp"
-                    android:layout_margin="@dimen/dimen20dp"
+                    android:layout_marginEnd="@dimen/dimen20dp"
                     android:contentDescription="@string/add_to_cart"
                     android:src="@drawable/ic_add_shopping_cart" />
 
@@ -80,7 +79,6 @@
                     android:id="@+id/imgFavourite"
                     android:layout_width="@dimen/dimen30dp"
                     android:layout_height="@dimen/dimen30dp"
-                    android:layout_margin="@dimen/dimen20dp"
                     android:contentDescription="@string/add_to_favourite"
                     android:src="@drawable/ic_favorite_border" />
             </LinearLayout>

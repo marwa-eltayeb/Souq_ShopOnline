@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:layout_marginStart="@dimen/dimen5dp"
             android:orientation="vertical">
 
             <ImageView
@@ -92,6 +93,7 @@
                 <Button
                     android:layout_width="110dp"
                     android:layout_height="70dp"
+                    android:layout_marginStart="@dimen/dimen5dp"
                     android:background="@color/green"
                     android:text="@string/add_to_cart"
                     android:textColor="@color/white"
