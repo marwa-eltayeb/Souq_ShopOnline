@@ -16,7 +16,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,22 +25,17 @@ import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
+import com.marwaeltayeb.souq.ViewModel.SearchViewModel;
 import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.adapter.SearchAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
 import com.marwaeltayeb.souq.model.Product;
-import com.marwaeltayeb.souq.model.ProductApiResponse;
-import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
 import com.marwaeltayeb.souq.utils.Slide;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
@@ -56,6 +50,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     private List<Product> searchedMovieList;
 
     private ProductViewModel productViewModel;
+    private SearchViewModel searchViewModel;
 
     private Snackbar snack;
 
@@ -67,6 +62,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product);
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+        searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
 
         snack = Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.no_internet_connection), Snackbar.LENGTH_INDEFINITE);
 
@@ -287,35 +283,25 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     private void Search(String query) {
         setViewsAfterSearch();
 
-        RetrofitClient.getInstance()
-                .getApi().searchForProduct(query)
-                .enqueue(new Callback<ProductApiResponse>() {
-                    @Override
-                    public void onResponse(Call<ProductApiResponse> call, Response<ProductApiResponse> response) {
-                        if (response.body() != null) {
-                            searchedMovieList = response.body().getProducts();
-                            if (searchedMovieList.isEmpty()) {
-                                Toast.makeText(ProductActivity.this, "No Result", Toast.LENGTH_SHORT).show();
-                            }
+        searchViewModel.getProductsBySearch(query).observe(this, productApiResponse -> {
+            if (productApiResponse != null) {
+                searchedMovieList = productApiResponse.getProducts();
+                if (searchedMovieList.isEmpty()) {
+                    Toast.makeText(ProductActivity.this, "No Result", Toast.LENGTH_SHORT).show();
+                }
 
-                            searchAdapter = new SearchAdapter(getApplicationContext(), searchedMovieList, new SearchAdapter.SearchAdapterOnClickHandler() {
-                                @Override
-                                public void onClick(Product product) {
-                                    Intent intent = new Intent(ProductActivity.this, DetailsActivity.class);
-                                    // Pass an object of product class
-                                    intent.putExtra(PRODUCT, (product));
-                                    startActivity(intent);
-                                }
-                            });
-                        }
-                        binding.listOfMobiles.setAdapter(searchAdapter);
-                    }
-
+                searchAdapter = new SearchAdapter(getApplicationContext(), searchedMovieList, new SearchAdapter.SearchAdapterOnClickHandler() {
                     @Override
-                    public void onFailure(Call<ProductApiResponse> call, Throwable t) {
-                        Log.v("onFailure", " Failed to get products");
+                    public void onClick(Product product) {
+                        Intent intent = new Intent(ProductActivity.this, DetailsActivity.class);
+                        // Pass an object of product class
+                        intent.putExtra(PRODUCT, (product));
+                        startActivity(intent);
                     }
                 });
+            }
+            binding.listOfMobiles.setAdapter(searchAdapter);
+        });
     }
 
 
