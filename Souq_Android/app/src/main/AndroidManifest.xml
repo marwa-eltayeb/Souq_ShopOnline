@@ -25,22 +25,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.ProductActivity"/>
+        <activity android:name=".ui.ProductActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".ui.LoginActivity" />
-
         <activity
             android:name=".ui.SignUpActivity"
-            android:theme="@style/NoActionBar"/>
-
-        <activity android:name=".ui.DetailsActivity"
-                  android:parentActivityName=".ui.AllMobilesActivity">
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".ui.DetailsActivity"
+            android:parentActivityName=".ui.AllMobilesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.AllMobilesActivity" />
         </activity>
-
         <activity
             android:name=".ui.AllLaptopsActivity"
             android:label="@string/all_laptops"
@@ -49,7 +47,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ProductActivity" />
         </activity>
-
         <activity
             android:name=".ui.AllMobilesActivity"
             android:label="@string/all_mobiles"
@@ -59,7 +56,14 @@
                 android:value=".ui.ProductActivity" />
         </activity>
 
-        <receiver android:name=".receiver.NetworkChangeReceiver" />
+        <activity android:name=".ui.CartActivity"
+            android:label="@string/cart"
+            android:parentActivityName=".ui.ProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.ProductActivity" />
+        </activity>
 
+        <receiver android:name=".receiver.NetworkChangeReceiver" />
     </application>
 </manifest>
