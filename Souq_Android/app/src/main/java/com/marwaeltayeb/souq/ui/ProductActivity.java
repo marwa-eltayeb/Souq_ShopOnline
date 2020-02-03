@@ -10,12 +10,18 @@ import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +46,8 @@ import java.util.List;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
-public class ProductActivity extends AppCompatActivity implements View.OnClickListener, OnNetworkListener, ProductAdapter.ProductAdapterOnClickHandler {
+public class ProductActivity extends AppCompatActivity implements View.OnClickListener, OnNetworkListener, ProductAdapter.ProductAdapterOnClickHandler,
+                                                        NavigationView.OnNavigationItemSelectedListener{
 
     private ActivityProductBinding binding;
 
@@ -66,8 +73,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         snack = Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.no_internet_connection), Snackbar.LENGTH_INDEFINITE);
 
-        binding.txtSeeAllMobiles.setOnClickListener(this);
-        binding.txtSeeAllLaptops.setOnClickListener(this);
+        binding.included.content.txtSeeAllMobiles.setOnClickListener(this);
+        binding.included.content.txtSeeAllLaptops.setOnClickListener(this);
 
         setUpViews();
 
@@ -78,15 +85,26 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         mNetworkReceiver = new NetworkChangeReceiver();
         mNetworkReceiver.setOnNetworkListener(this);
-
     }
 
     private void setUpViews() {
-        binding.listOfMobiles.setHasFixedSize(true);
-        binding.listOfMobiles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        Toolbar toolbar = binding.included.toolbar;
+        setSupportActionBar(toolbar);
 
-        binding.listOfLaptops.setHasFixedSize(true);
-        binding.listOfLaptops.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        DrawerLayout drawer = binding.drawerLayout;
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        binding.navView.setNavigationItemSelectedListener(this);
+
+        binding.included.content.listOfMobiles.setHasFixedSize(true);
+        binding.included.content.listOfMobiles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        binding.included.content.listOfLaptops.setHasFixedSize(true);
+        binding.included.content.listOfLaptops.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         mobileAdapter = new ProductAdapter(this, this);
         laptopAdapter = new ProductAdapter(this, this);
@@ -102,7 +120,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 }
             });
 
-            binding.listOfMobiles.setAdapter(mobileAdapter);
+            binding.included.content.listOfMobiles.setAdapter(mobileAdapter);
             mobileAdapter.notifyDataSetChanged();
         } else {
             showOrHideViews(View.INVISIBLE);
@@ -120,7 +138,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 }
             });
 
-            binding.listOfLaptops.setAdapter(laptopAdapter);
+            binding.included.content.listOfLaptops.setAdapter(laptopAdapter);
             laptopAdapter.notifyDataSetChanged();
         } else {
             showOrHideViews(View.INVISIBLE);
@@ -132,16 +150,16 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         for (int image : images) {
             ImageView imageView = new ImageView(this);
             imageView.setBackgroundResource(image);
-            binding.imageSlider.addView(imageView);
+            binding.included.content.imageSlider.addView(imageView);
         }
 
-        binding.imageSlider.setFlipInterval(2000);
-        binding.imageSlider.setAutoStart(true);
+        binding.included.content.imageSlider.setFlipInterval(2000);
+        binding.included.content.imageSlider.setAutoStart(true);
 
         // Set the animation for the view that enters the screen
-        binding.imageSlider.setInAnimation(this, R.anim.slide_in_right);
+        binding.included.content.imageSlider.setInAnimation(this, R.anim.slide_in_right);
         // Set the animation for the view leaving th screen
-        binding.imageSlider.setOutAnimation(this, R.anim.slide_out_left);
+        binding.included.content.imageSlider.setOutAnimation(this, R.anim.slide_out_left);
     }
 
     @Override
@@ -163,6 +181,11 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private void goToSeeAllLaptops() {
         Intent intent = new Intent(this, AllLaptopsActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToCartActivity() {
+        Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
     }
 
@@ -220,6 +243,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
+
         MenuItem searchViewItem = menu.findItem
                 (R.id.action_search);
         SearchView searchView = (SearchView)
@@ -261,23 +285,33 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_cart:
+                goToCartActivity();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setViewsAfterSearch() {
-        binding.listOfMobiles.setHasFixedSize(true);
-        binding.listOfMobiles.setLayoutManager(new GridLayoutManager(this, (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 2 : 4));
+        binding.included.content.listOfMobiles.setHasFixedSize(true);
+        binding.included.content.listOfMobiles.setLayoutManager(new GridLayoutManager(this, (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 2 : 4));
         showOrHideViews(View.GONE);
         hideViews(View.GONE);
     }
 
     private void showOrHideViews(int view) {
-        binding.textViewMobiles.setVisibility(view);
-        binding.txtSeeAllMobiles.setVisibility(view);
-        binding.textViewLaptops.setVisibility(view);
-        binding.txtSeeAllLaptops.setVisibility(view);
+        binding.included.content.textViewMobiles.setVisibility(view);
+        binding.included.content.txtSeeAllMobiles.setVisibility(view);
+        binding.included.content.textViewLaptops.setVisibility(view);
+        binding.included.content.txtSeeAllLaptops.setVisibility(view);
     }
 
     private void hideViews(int view) {
-        binding.listOfLaptops.setVisibility(view);
-        binding.imageSlider.setVisibility(view);
+        binding.included.content.listOfLaptops.setVisibility(view);
+        binding.included.content.imageSlider.setVisibility(view);
     }
 
     private void Search(String query) {
@@ -300,9 +334,42 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 });
             }
-            binding.listOfMobiles.setAdapter(searchAdapter);
+            binding.included.content.listOfMobiles.setAdapter(searchAdapter);
         });
     }
 
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        // Handle navigation view item clicks here.
+        int id = menuItem.getItemId();
+
+        if (id == R.id.nav_home) {
+
+        } else if (id == R.id.nav_bookmarks) {
+
+        } else if (id == R.id.nav_settings) {
+
+        } else if (id == R.id.nav_about) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_rate) {
+
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

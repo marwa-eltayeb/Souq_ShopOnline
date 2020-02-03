@@ -43,4 +43,19 @@
     <string name="fulfilled_by_souq">Fulfilled by Souq</string>
     <string name="search">Search</string>
     <string name="search_hint">What are you looking for?</string>
+    <string name="cart">Cart</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="marwa_eltayeb_yahoo_com">marwa_eltayeb@yahoo.com</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--Navigation Menu Titles-->
+    <string name="home">Home</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="share">Share</string>
+    <string name="rate">Rate Us</string>
+    <string name="about">About</string>
+    <string name="communicate">Communicate</string>
+    <string name="settings">Settings</string>
 </resources>
