@@ -22,4 +22,18 @@ router.post("/add", (request, response) => {
     });
 });
       
+// Delete Favorite Id
+router.delete("/:id", (request, response) => {
+    const id = request.params.id;
+    const query = "DELETE FROM favorite WHERE favorite_id = ?"
+    const args = [id]
+
+    database.query(query, args, (error, result) => {
+        if(error) throw error
+        response.status(200).json({
+            "message" : "Bookmarked as Unfavorite",
+        })
+    });
+});
+ 
 module.exports = router
