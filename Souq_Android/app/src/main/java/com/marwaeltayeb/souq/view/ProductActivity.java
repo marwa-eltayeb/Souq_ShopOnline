@@ -47,7 +47,7 @@ import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
 public class ProductActivity extends AppCompatActivity implements View.OnClickListener, OnNetworkListener, ProductAdapter.ProductAdapterOnClickHandler,
-                                                        NavigationView.OnNavigationItemSelectedListener{
+        NavigationView.OnNavigationItemSelectedListener {
 
     private ActivityProductBinding binding;
 
@@ -344,13 +344,21 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         // Handle navigation view item clicks here.
         int id = menuItem.getItemId();
 
-        if (id == R.id.nav_home) {
+        if (id == R.id.nav_mobiles) {
 
-        } else if (id == R.id.nav_bookmarks) {
+        } else if (id == R.id.nav_laptops) {
 
-        } else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_babies) {
 
-        } else if (id == R.id.nav_about) {
+        } else if (id == R.id.nav_toys) {
+
+        } else if (id == R.id.nav_trackOrder) {
+
+        } else if (id == R.id.nav_myAccount) {
+
+        } else if (id == R.id.nav_newsFeed) {
+
+        } else if (id == R.id.nav_wishList) {
 
         } else if (id == R.id.nav_share) {
 
