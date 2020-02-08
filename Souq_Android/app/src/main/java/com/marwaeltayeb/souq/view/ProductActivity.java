@@ -43,6 +43,7 @@ import com.marwaeltayeb.souq.utils.Slide;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.marwaeltayeb.souq.utils.CommunicationsUtils.shareApp;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
@@ -362,7 +363,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             Intent wishListIntent = new Intent(this,WishListActivity.class);
             startActivity(wishListIntent);
         } else if (id == R.id.nav_share) {
-
+            shareApp(this);
         } else if (id == R.id.nav_rate) {
 
         }
