@@ -46,7 +46,7 @@ router.get("/", (request, response) => {
         parseInt(page)
     ];
 
-    const query = "SELECT * FROM users LIMIT ? OFFSET ?"
+    const query = "SELECT * FROM user LIMIT ? OFFSET ?"
     database.query(query, args, (error, result) => {
         if(error) throw error;
         response.status(200).json({
@@ -61,7 +61,7 @@ router.get("/", (request, response) => {
 router.get("/login", (request, response) => {
     const email = request.query.email
     const password = request.query.password
-    const query = "SELECT password, id FROM users WHERE email = ?";
+    const query = "SELECT password, id FROM user WHERE email = ?";
     const args = [email]
     database.query(query, args, (error, result) => {
         if(error) throw error
@@ -93,7 +93,7 @@ router.post("/register",uploadImage.single('image'), (request, response) => {
     var gender = request.body.gender
     var age = request.body.age
 
-    const checkQuery = "SELECT id FROM users WHERE email = ?"
+    const checkQuery = "SELECT id FROM user WHERE email = ?"
     database.query(checkQuery, email , (error, result)  => {
         if(error) throw error;
         if(result.length != 0){
@@ -122,7 +122,7 @@ router.post("/register",uploadImage.single('image'), (request, response) => {
                 response.status(500).send("Invalid Password")
             }
                 
-            const query = "INSERT INTO users(name, email, password, gender, age, image) VALUES(?, ?, ?, ?, ?,?)"
+            const query = "INSERT INTO user(name, email, password, gender, age, image) VALUES(?, ?, ?, ?, ?,?)"
                 
             // Encrypt Password
             bcrypt.hash(password, 10, (error, hashedPassword) => {
@@ -146,7 +146,7 @@ router.post("/register",uploadImage.single('image'), (request, response) => {
 // Delete User
 router.delete("/:id", (request, response) => {
     const id = request.params.id;
-    const query = "DELETE FROM users WHERE id = ?"
+    const query = "DELETE FROM user WHERE id = ?"
     const args = [id]
 
     database.query(query, args, (error, result) => {
@@ -161,7 +161,7 @@ router.put("/info", (request, response) => {
     const name = request.body.name;
     const password = request.body.password;
 
-    const query = "UPDATE users SET name = ?, password = ? WHERE id = ?"    
+    const query = "UPDATE user SET name = ?, password = ? WHERE id = ?"    
    
     // Encrypt Password
     bcrypt.hash(password, 10, (error, hashedPassword) => {
@@ -190,7 +190,7 @@ router.put("/update", uploadImage.single('image'), (request, response) => {
         filePath = file.path
     }
 
-    const selectQuery = "SELECT image FROM users WHERE id = ?"
+    const selectQuery = "SELECT image FROM user WHERE id = ?"
     database.query(selectQuery, id, (error, result) => {
 
         console.log(result)
@@ -205,7 +205,7 @@ router.put("/update", uploadImage.single('image'), (request, response) => {
         }
     });
 
-    const query = "UPDATE users SET image = ? WHERE id = ?"  
+    const query = "UPDATE user SET image = ? WHERE id = ?"  
     
     const args = [filePath,id]
 

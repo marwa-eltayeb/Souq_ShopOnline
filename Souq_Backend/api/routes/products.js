@@ -50,7 +50,7 @@ router.get("/all", (request, response) => {
         parseInt(page)
     ];
     
-    const query = "SELECT * FROM products LIMIT ? OFFSET ?"
+    const query = "SELECT * FROM product LIMIT ? OFFSET ?"
     database.query(query,args, (error, result) => {
         if(error) throw error;
         response.status(200).json({
@@ -86,7 +86,7 @@ router.get("/", (request, response) => {
         parseInt(page)
     ];
 
-    const query = "SELECT * FROM products WHERE category = ? LIMIT ? OFFSET ?";
+    const query = "SELECT * FROM product WHERE category = ? LIMIT ? OFFSET ?";
 
     database.query(query, args, (error, result) => {
         if(error) throw error
@@ -126,7 +126,7 @@ router.get("/search", (request, response) => {
         parseInt(page)
     ];
 
-    const query = "SELECT * FROM products WHERE name LIKE ? OR category LIKE ? LIMIT ? OFFSET ?";
+    const query = "SELECT * FROM product WHERE name LIKE ? OR category LIKE ? LIMIT ? OFFSET ?";
 
     database.query(query, args, (error, result) => {
         if(error) throw error
@@ -152,7 +152,7 @@ router.post("/insert",uploadImage.single('image'), (request, response) => {
         filePath = file.path
     }
    
-    const query = "INSERT INTO products(name, price, quantity, supplier, category, image) VALUES(?, ?, ?, ?, ?,?)"
+    const query = "INSERT INTO product(name, price, quantity, supplier, category, image) VALUES(?, ?, ?, ?, ?,?)"
         
     const args = [name, price, quantity, supplier, category, filePath]
 
@@ -165,7 +165,7 @@ router.post("/insert",uploadImage.single('image'), (request, response) => {
 // Delete Product
 router.delete("/:id", (request, response) => {
     const id = request.params.id;
-    const query = "DELETE FROM products WHERE id = ?"
+    const query = "DELETE FROM product WHERE id = ?"
     const args = [id]
 
     database.query(query, args, (error, result) => {
@@ -184,7 +184,7 @@ router.put("/update", uploadImage.single('image'), (request, response) => {
         filePath = file.path
     }
 
-    const selectQuery = "SELECT image FROM products WHERE id = ?"
+    const selectQuery = "SELECT image FROM product WHERE id = ?"
     database.query(selectQuery, id, (error, result) => {
 
         console.log(result)
@@ -199,7 +199,7 @@ router.put("/update", uploadImage.single('image'), (request, response) => {
         }
     });
 
-    const query = "UPDATE products SET image = ? WHERE id = ?"  
+    const query = "UPDATE product SET image = ? WHERE id = ?"  
     
     const args = [filePath,id]
 
