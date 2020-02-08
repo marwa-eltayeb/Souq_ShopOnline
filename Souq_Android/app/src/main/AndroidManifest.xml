@@ -25,9 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ProductActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity
+            android:name=".view.ProductActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.LoginActivity" />
         <activity
             android:name=".view.SignUpActivity"
@@ -55,9 +55,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
         </activity>
-
-        <activity android:name=".view.CartActivity"
+        <activity
+            android:name=".view.CartActivity"
             android:label="@string/cart"
+            android:parentActivityName=".view.ProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.ProductActivity" />
+        </activity>
+
+        <activity android:name=".view.WishListActivity"
+            android:label="@string/my_wishList"
             android:parentActivityName=".view.ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -66,4 +74,5 @@
 
         <receiver android:name=".receiver.NetworkChangeReceiver" />
     </application>
+
 </manifest>

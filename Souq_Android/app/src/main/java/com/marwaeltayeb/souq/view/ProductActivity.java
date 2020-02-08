@@ -359,7 +359,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         } else if (id == R.id.nav_newsFeed) {
 
         } else if (id == R.id.nav_wishList) {
-
+            Intent wishListIntent = new Intent(this,WishListActivity.class);
+            startActivity(wishListIntent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_rate) {
