@@ -9,7 +9,7 @@
         android:fitsSystemWindows="true"
         android:orientation="vertical"
         android:paddingTop="@dimen/dimen24dp"
-        tools:context=".ui.LoginActivity">
+        tools:context=".view.LoginActivity">
 
         <TextView
             android:layout_width="match_parent"

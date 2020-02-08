@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".view.SplashActivity"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,43 +25,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ProductActivity"
+        <activity android:name=".view.ProductActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".view.LoginActivity" />
         <activity
-            android:name=".ui.SignUpActivity"
+            android:name=".view.SignUpActivity"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".ui.DetailsActivity"
-            android:parentActivityName=".ui.AllMobilesActivity">
+            android:name=".view.DetailsActivity"
+            android:parentActivityName=".view.AllMobilesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.AllMobilesActivity" />
+                android:value=".view.AllMobilesActivity" />
         </activity>
         <activity
-            android:name=".ui.AllLaptopsActivity"
+            android:name=".view.AllLaptopsActivity"
             android:label="@string/all_laptops"
-            android:parentActivityName=".ui.ProductActivity">
+            android:parentActivityName=".view.ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.ProductActivity" />
+                android:value=".view.ProductActivity" />
         </activity>
         <activity
-            android:name=".ui.AllMobilesActivity"
+            android:name=".view.AllMobilesActivity"
             android:label="@string/all_mobiles"
-            android:parentActivityName=".ui.ProductActivity">
+            android:parentActivityName=".view.ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.ProductActivity" />
+                android:value=".view.ProductActivity" />
         </activity>
 
-        <activity android:name=".ui.CartActivity"
+        <activity android:name=".view.CartActivity"
             android:label="@string/cart"
-            android:parentActivityName=".ui.ProductActivity">
+            android:parentActivityName=".view.ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.ProductActivity" />
+                android:value=".view.ProductActivity" />
         </activity>
 
         <receiver android:name=".receiver.NetworkChangeReceiver" />

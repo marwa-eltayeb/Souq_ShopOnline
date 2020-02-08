@@ -1,4 +1,4 @@
-package com.marwaeltayeb.souq.ui;
+package com.marwaeltayeb.souq.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;

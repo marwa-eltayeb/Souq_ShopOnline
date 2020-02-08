@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:background="@color/lightGray"
         android:layout_marginStart="@dimen/dimen5dp"
-        tools:context=".ui.AllMobilesActivity"
+        tools:context=".view.AllMobilesActivity"
         tools:listitem="@layout/product_list_item" />
 </layout>
 

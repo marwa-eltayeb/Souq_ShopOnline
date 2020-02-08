@@ -1,4 +1,4 @@
-package com.marwaeltayeb.souq.ui;
+package com.marwaeltayeb.souq.view;
 
 import android.content.Intent;
 import android.os.Bundle;

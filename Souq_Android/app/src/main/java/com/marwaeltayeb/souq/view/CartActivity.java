@@ -1,4 +1,4 @@
-package com.marwaeltayeb.souq.ui;
+package com.marwaeltayeb.souq.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
