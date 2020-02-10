@@ -36,8 +36,10 @@
                 <EditText
                     android:id="@+id/userName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName" />
+                    android:layout_height="50dp"
+                    android:background="@drawable/custom_border"
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/dimen5dp" />
             </android.support.design.widget.TextInputLayout>
 
             <!--  Email Label -->
@@ -53,8 +55,10 @@
                 <EditText
                     android:id="@+id/userEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
+                    android:layout_height="50dp"
+                    android:background="@drawable/custom_border"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/dimen5dp" />
             </android.support.design.widget.TextInputLayout>
 
             <!-- Password Label -->
@@ -73,9 +77,11 @@
                     android:id="@+id/userPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/custom_border"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
+                    android:padding="@dimen/dimen5dp"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 

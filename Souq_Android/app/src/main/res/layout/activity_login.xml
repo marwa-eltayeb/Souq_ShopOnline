@@ -33,8 +33,10 @@
             <EditText
                 android:id="@+id/inputEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:hint="@string/email"
+                android:padding="@dimen/dimen5dp"
+                android:background="@drawable/custom_border"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
@@ -56,6 +58,8 @@
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
+                android:padding="5dp"
+                android:background="@drawable/custom_border"
                 android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
 
