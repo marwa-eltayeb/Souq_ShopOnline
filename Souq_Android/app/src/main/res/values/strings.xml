@@ -63,4 +63,7 @@
     <string name="news_feed">News Feed</string>
     <string name="my_wishList">My WishList</string>
     <string name="marwa_eltayeb">Marwa Eltayeb</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="use_gallery">Use Gallery</string>
+    <string name="choose_profile_picture">Choose profile Picture</string>
 </resources>

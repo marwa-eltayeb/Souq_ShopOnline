@@ -1,5 +1,6 @@
 package com.marwaeltayeb.souq.view;
 
+import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
@@ -25,6 +26,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -181,8 +184,36 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.profile_image:
                 Toast.makeText(this, "Yes", Toast.LENGTH_SHORT).show();
+                showCustomAlertDialog();
                 break;
         }
+    }
+
+    public void showCustomAlertDialog(){
+        final Dialog MyDialog = new Dialog(ProductActivity.this);
+        MyDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        MyDialog.setContentView(R.layout.customdialog);
+
+        Button takePicture = MyDialog.findViewById(R.id.takePicture);
+        Button useGallery = MyDialog.findViewById(R.id.useGallery);
+
+        takePicture.setEnabled(true);
+        useGallery.setEnabled(true);
+
+        takePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Hello, I'm Custom Alert Dialog", Toast.LENGTH_LONG).show();
+            }
+        });
+        useGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyDialog.cancel();
+            }
+        });
+
+        MyDialog.show();
     }
 
     private void goToSeeAllMobiles() {
