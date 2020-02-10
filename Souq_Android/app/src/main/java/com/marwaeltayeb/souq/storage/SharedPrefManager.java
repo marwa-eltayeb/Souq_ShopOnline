@@ -3,7 +3,7 @@ package com.marwaeltayeb.souq.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.marwaeltayeb.souq.model.LoginApiResponse;
+import com.marwaeltayeb.souq.model.User;
 
 public class SharedPrefManager {
 
@@ -33,24 +33,29 @@ public class SharedPrefManager {
         editor.apply();
     }
 
-    public void saveUserInfo(int id) {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putInt("id", id);
-        editor.apply();
-    }
-
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getInt("id", -1) != -1;
     }
 
-    public LoginApiResponse getUserInfo() {
+    public void saveUserInfo(User user) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return new LoginApiResponse(
-                sharedPreferences.getInt("name", -1),
-                sharedPreferences.getString("token", null)
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putInt("id", user.getId());
+        editor.putString("email", user.getEmail());
+        editor.putString("name", user.getName());
+        editor.putString("password", user.getPassword());
+        editor.apply();
+    }
+
+    public User getUserInfo() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return new User(
+                sharedPreferences.getInt("id", -1),
+                sharedPreferences.getString("name", null),
+                sharedPreferences.getString("email", null),
+                sharedPreferences.getString("password", null)
         );
     }
 

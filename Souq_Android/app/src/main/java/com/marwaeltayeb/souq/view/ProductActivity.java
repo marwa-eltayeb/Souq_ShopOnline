@@ -30,6 +30,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
@@ -40,6 +41,7 @@ import com.marwaeltayeb.souq.adapter.SearchAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
+import com.marwaeltayeb.souq.storage.SharedPrefManager;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
 import com.marwaeltayeb.souq.utils.Slide;
 
@@ -110,6 +112,10 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         View headerContainer =  binding.navView.getHeaderView(0);
         CircleImageView circleImageView = headerContainer.findViewById(R.id.profile_image);
         circleImageView.setOnClickListener(this);
+        TextView userName = headerContainer.findViewById(R.id.nameOfUser);
+        userName.setText(SharedPrefManager.getInstance(this).getUserInfo().getName());
+        TextView userEmail = headerContainer.findViewById(R.id.emailOfUser);
+        userEmail.setText(SharedPrefManager.getInstance(this).getUserInfo().getEmail());
 
         binding.included.content.listOfMobiles.setHasFixedSize(true);
         binding.included.content.listOfMobiles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));

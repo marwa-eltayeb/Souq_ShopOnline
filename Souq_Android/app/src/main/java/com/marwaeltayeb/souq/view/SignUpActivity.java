@@ -91,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         registerViewModel.getRegisterResponseLiveData(new User(name, email, password)).observe(this, registerApiResponse -> {
             if (!registerApiResponse.isError()) {
                 Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_LONG).show();
-                SharedPrefManager.getInstance(this).saveUserInfo(registerApiResponse.getId());
+                SharedPrefManager.getInstance(this).saveUserInfo(registerApiResponse.getUser());
                 goToProductActivity();
             }else {
                 Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
