@@ -43,6 +43,8 @@ import com.marwaeltayeb.souq.utils.Slide;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.marwaeltayeb.souq.utils.CommunicationsUtils.rateAppOnGooglePlay;
 import static com.marwaeltayeb.souq.utils.CommunicationsUtils.shareApp;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
@@ -101,6 +103,10 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         toggle.syncState();
 
         binding.navView.setNavigationItemSelectedListener(this);
+
+        View headerContainer =  binding.navView.getHeaderView(0);
+        CircleImageView circleImageView = headerContainer.findViewById(R.id.profile_image);
+        circleImageView.setOnClickListener(this);
 
         binding.included.content.listOfMobiles.setHasFixedSize(true);
         binding.included.content.listOfMobiles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -172,6 +178,9 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.txtSeeAllLaptops:
                 goToSeeAllLaptops();
+                break;
+            case R.id.profile_image:
+                Toast.makeText(this, "Yes", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

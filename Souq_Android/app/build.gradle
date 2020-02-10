@@ -41,6 +41,7 @@ dependencies {
     def glide_version = "4.3.1"
     def view_model_version = "1.1.1"
     def roomVersion = "1.1.1"
+    def CircleImgVersion = "3.0.2"
 
     implementation "com.android.support:appcompat-v7:$support_version"
     // Design Support
@@ -70,5 +71,7 @@ dependencies {
     // Room components
     implementation "android.arch.persistence.room:runtime:$roomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
+    // Circle ImageView
+    implementation "de.hdodenhof:circleimageview:$CircleImgVersion"
     testImplementation 'junit:junit:4.12'
 }
