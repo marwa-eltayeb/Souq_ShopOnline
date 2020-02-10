@@ -132,11 +132,22 @@ router.post("/register",uploadImage.single('image'), (request, response) => {
         
                 database.query(query, args, (error, result) => {
                     if (error) throw error
+                    /*
                     response.status(200).json({
                         "id" : result.insertId,
                         "error" : false,
                         "message" : "Register Done"
                     })
+                    */
+                   const userQuery = "SELECT id, name, email, password FROM user WHERE id = ?";
+                   database.query(userQuery, result.insertId, (err, res) => {
+                       if (error) throw error
+                       response.status(200).json({
+                           "error" : false,
+                           "message" : "Register Done",
+                           "user" : res[0],
+                       })
+                   })
                 });
             });
         }
