@@ -397,7 +397,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         } else if (id == R.id.nav_trackOrder) {
 
         } else if (id == R.id.nav_myAccount) {
-
+            Intent accountIntent = new Intent(this,AccountActivity.class);
+            startActivity(accountIntent);
         } else if (id == R.id.nav_newsFeed) {
 
         } else if (id == R.id.nav_wishList) {
