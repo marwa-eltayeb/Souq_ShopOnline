@@ -77,19 +77,6 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/shareWithFriends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="20dp"
-                android:drawableStart="@drawable/ic_share"
-                android:drawablePadding="20dp"
-                android:text="@string/share_with_friends"
-                android:textColor="@color/vDarkGray"
-                android:textSize="18sp" />
-
-            <TextView
                 android:id="@+id/helpCenter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,6 +86,19 @@
                 android:drawableStart="@drawable/ic_help"
                 android:drawablePadding="20dp"
                 android:text="@string/help_center"
+                android:textColor="@color/vDarkGray"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/shareWithFriends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:drawableStart="@drawable/ic_share"
+                android:drawablePadding="20dp"
+                android:text="@string/share_with_friends"
                 android:textColor="@color/vDarkGray"
                 android:textSize="18sp" />
 

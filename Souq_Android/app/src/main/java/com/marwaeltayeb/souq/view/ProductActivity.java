@@ -50,8 +50,6 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.marwaeltayeb.souq.utils.CommunicationsUtils.rateAppOnGooglePlay;
-import static com.marwaeltayeb.souq.utils.CommunicationsUtils.shareApp;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
@@ -410,10 +408,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         } else if (id == R.id.nav_wishList) {
             Intent wishListIntent = new Intent(this,WishListActivity.class);
             startActivity(wishListIntent);
-        } else if (id == R.id.nav_share) {
-            shareApp(this);
-        } else if (id == R.id.nav_rate) {
-            rateAppOnGooglePlay(this);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-public class CommunicationsUtils {
+public class CommunicateUtils {
 
     public static void shareApp(Context context) {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
