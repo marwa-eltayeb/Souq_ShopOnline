@@ -66,4 +66,5 @@
     <string name="take_picture">Take Picture</string>
     <string name="use_gallery">Use Gallery</string>
     <string name="choose_profile_picture">Choose profile Picture</string>
+    <string name="my_orders">My orders</string>
 </resources>

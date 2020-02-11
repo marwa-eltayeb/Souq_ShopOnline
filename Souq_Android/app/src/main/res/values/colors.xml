@@ -6,9 +6,13 @@
     <color name="yellow">#FFD461</color>
     <color name="gray">#A7A7A7</color>
     <color name="darkGray">#A8A8A8</color>
+    <color name="vDarkGray">#616161</color>
     <color name="lightGray">#E9EEF2</color>
     <color name="white">#fff</color>
     <color name="black">#000</color>
     <color name="red">#FE0000</color>
     <color name="green">#3BD98C</color>
+    <color name="startColor">#00376B</color>
+    <color name="centerColor">#63B7FF</color>
+    <color name="endColor">#007AE2</color>
 </resources>
