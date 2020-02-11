@@ -67,4 +67,9 @@
     <string name="use_gallery">Use Gallery</string>
     <string name="choose_profile_picture">Choose profile Picture</string>
     <string name="my_orders">My orders</string>
+    <string name="my_wishlist">My wishlist</string>
+    <string name="languages">Languages</string>
+    <string name="share_with_friends">Share with friends</string>
+    <string name="rate_us_on_play_store">Rate us on play store</string>
+    <string name="help_center">Help Center</string>
 </resources>
