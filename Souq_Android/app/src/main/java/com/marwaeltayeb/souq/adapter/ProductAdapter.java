@@ -20,6 +20,7 @@ import com.marwaeltayeb.souq.databinding.ProductListItemBinding;
 import com.marwaeltayeb.souq.model.Product;
 
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
+import static com.marwaeltayeb.souq.utils.Utils.shareProduct;
 
 public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.ProductViewHolder> {
 
@@ -54,7 +55,8 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         product = getItem(position);
 
         if (product != null) {
-            holder.binding.txtProductName.setText(product.getProductName());
+            String productName = product.getProductName();
+            holder.binding.txtProductName.setText(productName);
             holder.binding.txtProductPrice.setText(String.valueOf(product.getProductPrice()));
 
             // Load the Product image into ImageView
@@ -64,6 +66,14 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                     .into(holder.binding.imgProductImage);
 
             Log.d("test",imageUrl);
+
+            holder.binding.imgShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shareProduct(mContext,productName,imageUrl);
+                }
+            });
+
         } else {
             Toast.makeText(mContext, "Product is null", Toast.LENGTH_LONG).show();
         }
