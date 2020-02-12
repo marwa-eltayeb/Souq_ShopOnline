@@ -86,7 +86,9 @@ router.get("/login", (request, response) => {
                 }
             });
         }else{
-            response.status(500).send("Account does not exist")
+            response.status(500).json({
+                "error" : true, 
+                "message" : "Account does not exist"});
         }
     });
 });

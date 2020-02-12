@@ -15,6 +15,12 @@ public class LoginApiResponse {
         this.token = token;
     }
 
+    public LoginApiResponse(String message) {
+        this.message = message;
+        this.error = true;
+    }
+
+
     public int getId() {
         return id;
     }

@@ -28,11 +28,14 @@ public class LoginRepository {
             public void onResponse(Call<LoginApiResponse> call, Response<LoginApiResponse> response) {
                 Log.d(TAG, "onResponse: Succeeded");
 
-                LoginApiResponse loginResponse = response.body();
-
-                if (response.body() != null) {
-                    mutableLiveData.setValue(loginResponse);
+                LoginApiResponse loginResponse;
+                if(response.code() == 200){
+                    loginResponse = response.body();
+                }else{
+                    // Add Custom message
+                    loginResponse = new LoginApiResponse("Account does not exist");
                 }
+                mutableLiveData.setValue(loginResponse);
             }
 
             @Override
