@@ -3,6 +3,7 @@ package com.marwaeltayeb.souq.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.marwaeltayeb.souq.model.LoginApiResponse;
 import com.marwaeltayeb.souq.model.User;
 
 public class SharedPrefManager {
@@ -24,12 +25,14 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public void saveUserInfo(int id, String token) {
+    public void saveUserInfo(LoginApiResponse response) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putInt("id", id);
-        editor.putString("token", token);
+        editor.putInt("id", response.getId());
+        editor.putString("name", response.getName());
+        editor.putString("email", response.getEmail());
+        editor.putString("token", response.getToken());
         editor.apply();
     }
 

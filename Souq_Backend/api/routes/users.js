@@ -61,7 +61,7 @@ router.get("/", (request, response) => {
 router.get("/login", (request, response) => {
     const email = request.query.email
     const password = request.query.password
-    const query = "SELECT password, id FROM user WHERE email = ?";
+    const query = "SELECT id, password, name, email FROM user WHERE email = ?";
     const args = [email]
     database.query(query, args, (error, result) => {
         if(error) throw error
@@ -73,14 +73,20 @@ router.get("/login", (request, response) => {
                     // Return Token
                     jwt.sign(email, "key", (err, token) => {
                         if (err) throw err;
-                        response.status(200).json({"id" : result[0]["id"], "error" : false, "message" : "Successful Login","token" : token});
+                        response.status(200).json({
+                           "id" : result[0]["id"],
+                           "name" : result[0]["name"],
+                           "email" : result[0]["email"],
+                           "error" : false, 
+                           "message" : "Successful Login",
+                           "token" : token});
                     });
                 }else{
                     response.status(500).send("Invalid Password")
                 }
             });
         }else{
-            response.status(500).send("Invalid Email")
+            response.status(500).send("Account does not exist")
         }
     });
 });

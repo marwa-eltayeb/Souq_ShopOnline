@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -68,13 +69,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
 
-        loginViewModel.getLoginResponseLiveData(email,password).observe(this, LoginApiResponse -> {
-            if (LoginApiResponse != null || !LoginApiResponse.isError()) {
-                SharedPrefManager.getInstance(this).saveUserInfo(LoginApiResponse.getId(), LoginApiResponse.getToken());
-                Toast.makeText(this, LoginApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+        loginViewModel.getLoginResponseLiveData(email,password).observe(this, loginApiResponse -> {
+            if (loginApiResponse != null || !loginApiResponse.isError()) {
+                SharedPrefManager.getInstance(this).saveUserInfo(loginApiResponse);
+                Toast.makeText(this, loginApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 goToProductActivity();
             } else {
-                Toast.makeText(this, LoginApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, loginApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "logInUser: "  + "Hi");
             }
         });
     }

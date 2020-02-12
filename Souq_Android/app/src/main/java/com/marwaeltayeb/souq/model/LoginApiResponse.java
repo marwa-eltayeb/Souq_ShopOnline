@@ -3,6 +3,9 @@ package com.marwaeltayeb.souq.model;
 public class LoginApiResponse {
 
     private int id;
+    private String name;
+
+    private String email;
     private boolean error;
     private String message;
     private String token;
@@ -14,6 +17,14 @@ public class LoginApiResponse {
 
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public boolean isError() {
