@@ -73,4 +73,6 @@
     <string name="rate_us_on_play_store">Rate us on play store</string>
     <string name="help_center">Help Center</string>
     <string name="delete_my_account">Delete account</string>
+    <string name="your_wishlist_is_empty">Your Wishlist is empty</string>
+    <string name="an_empty_wishlist_does_not_look_good">An empty wishlist does not look good</string>
 </resources>
