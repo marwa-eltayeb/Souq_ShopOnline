@@ -24,106 +24,121 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingTop="70dp"
-                    android:text="@string/marwa_eltayeb"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    tools:text="@string/marwa_eltayeb" />
 
                 <TextView
                     android:id="@+id/emailOfUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/marwa_eltayeb_yahoo_com"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    tools:text="@string/marwa_eltayeb_yahoo_com" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/myOrders"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/touch_feedback"
                 android:drawableStart="@drawable/ic_order"
                 android:drawablePadding="20dp"
+                android:gravity="start|center"
                 android:text="@string/my_orders"
                 android:textColor="@color/vDarkGray"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/myWishList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/touch_feedback"
                 android:drawableStart="@drawable/ic_favorite_gray"
                 android:drawablePadding="20dp"
+                android:gravity="start|center"
                 android:text="@string/my_wishlist"
                 android:textColor="@color/vDarkGray"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/languages"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/touch_feedback"
                 android:drawableStart="@drawable/ic_language"
                 android:drawablePadding="20dp"
                 android:text="@string/languages"
+                android:gravity="start|center"
                 android:textColor="@color/vDarkGray"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/helpCenter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/touch_feedback"
                 android:drawableStart="@drawable/ic_help"
                 android:drawablePadding="20dp"
                 android:text="@string/help_center"
+                android:gravity="start|center"
                 android:textColor="@color/vDarkGray"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/shareWithFriends"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/touch_feedback"
                 android:drawableStart="@drawable/ic_share"
                 android:drawablePadding="20dp"
+                android:gravity="start|center"
                 android:text="@string/share_with_friends"
                 android:textColor="@color/vDarkGray"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/rateUs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/touch_feedback"
                 android:drawableStart="@drawable/ic_rate"
                 android:drawablePadding="20dp"
+                android:gravity="start|center"
                 android:text="@string/rate_us_on_play_store"
                 android:textColor="@color/vDarkGray"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/deleteAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/touch_feedback"
                 android:drawableStart="@drawable/ic_sad"
                 android:drawablePadding="20dp"
+                android:gravity="start|center"
                 android:text="@string/delete_my_account"
                 android:textColor="@color/vDarkGray"
                 android:textSize="18sp" />

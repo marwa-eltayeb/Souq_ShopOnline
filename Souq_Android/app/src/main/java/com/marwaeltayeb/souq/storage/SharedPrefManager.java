@@ -59,10 +59,17 @@ public class SharedPrefManager {
         );
     }
 
-    public void clear() {
+    public void clearId() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("id").apply();
+        editor.apply();
+    }
+
+    public void clearAll() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear().apply();
         editor.apply();
     }
 

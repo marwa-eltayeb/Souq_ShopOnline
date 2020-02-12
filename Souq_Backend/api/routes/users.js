@@ -162,7 +162,7 @@ router.delete("/:id", (request, response) => {
 
     database.query(query, args, (error, result) => {
         if(error) throw error
-        response.status(200).send("User is deleted")
+        response.status(200).send("Account is deleted")
     });
 });
  

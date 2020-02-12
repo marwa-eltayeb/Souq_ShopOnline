@@ -5,10 +5,13 @@ import com.marwaeltayeb.souq.model.ProductApiResponse;
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
 import com.marwaeltayeb.souq.model.User;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface Api {
@@ -29,4 +32,9 @@ public interface Api {
 
     @GET("products/search")
     Call<ProductApiResponse> searchForProduct(@Query("q") String keyword);
+
+    @DELETE("users/{userId}")
+    Call<ResponseBody> deleteAccount(@Path("userId") int userId);
+
+
 }
