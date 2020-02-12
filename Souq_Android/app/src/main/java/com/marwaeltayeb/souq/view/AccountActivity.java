@@ -1,5 +1,6 @@
 package com.marwaeltayeb.souq.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -11,16 +12,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.ViewModel.DeleteUserViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityAccountBinding;
-import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.storage.SharedPrefManager;
 
 import java.io.IOException;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.CommunicateUtils.rateAppOnGooglePlay;
 import static com.marwaeltayeb.souq.utils.CommunicateUtils.shareApp;
@@ -28,11 +24,15 @@ import static com.marwaeltayeb.souq.utils.CommunicateUtils.shareApp;
 public class AccountActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "AccountActivity";
+    private DeleteUserViewModel deleteUserViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityAccountBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_account);
+
+        deleteUserViewModel = ViewModelProviders.of(this).get(DeleteUserViewModel.class);
 
         binding.nameOfUser.setText(SharedPrefManager.getInstance(this).getUserInfo().getName());
         binding.emailOfUser.setText(SharedPrefManager.getInstance(this).getUserInfo().getEmail());
@@ -97,24 +97,16 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void deleteAccount() {
-        RetrofitClient.getInstance().getApi().deleteAccount(SharedPrefManager.getInstance(this).getUserInfo().getId()).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.body()!= null){
-                    SharedPrefManager.getInstance(getApplicationContext()).clearAll();
-                    try {
-                        Toast.makeText(AccountActivity.this, response.body().string() + "", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onResponse: delete account" + response.body().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    goToLoginActivity();
+        deleteUserViewModel.deleteUser(SharedPrefManager.getInstance(this).getUserInfo().getId()).observe(this, responseBody -> {
+            if(responseBody!= null){
+                SharedPrefManager.getInstance(getApplicationContext()).clearAll();
+                try {
+                    Toast.makeText(AccountActivity.this, responseBody.string() + "", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onResponse: delete account" + responseBody.string());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
+                goToLoginActivity();
             }
         });
     }
