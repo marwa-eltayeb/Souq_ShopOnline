@@ -1,5 +1,6 @@
 package com.marwaeltayeb.souq.net;
 
+import com.marwaeltayeb.souq.model.FavoriteApiResponse;
 import com.marwaeltayeb.souq.model.LoginApiResponse;
 import com.marwaeltayeb.souq.model.ProductApiResponse;
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
@@ -19,10 +20,11 @@ public interface Api {
     @POST("users/register")
     Call<RegisterApiResponse> createUser(@Body User user);
 
-
     @GET("users/login")
     Call<LoginApiResponse> logInUser(@Query("email") String email, @Query("password") String password);
 
+    @DELETE("users/{userId}")
+    Call<ResponseBody> deleteAccount(@Path("userId") int userId);
 
     @GET("products")
     Call<ProductApiResponse> getProducts(@Query("page") int page);
@@ -33,8 +35,13 @@ public interface Api {
     @GET("products/search")
     Call<ProductApiResponse> searchForProduct(@Query("q") String keyword);
 
-    @DELETE("users/{userId}")
-    Call<ResponseBody> deleteAccount(@Path("userId") int userId);
+    @POST("favorites/add")
+    Call<FavoriteApiResponse> addFavorite(@Body int userId, @Body int productId);
 
+    @DELETE("favorites/{favoriteId}")
+    Call<FavoriteApiResponse> removeFavorite(@Path("favoriteId") int favoriteId);
+
+    @GET("products")
+    Call<ProductApiResponse> getFavorites(@Query("userId") int userId);
 
 }
