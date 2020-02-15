@@ -6,6 +6,7 @@ import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,6 +21,8 @@ import com.marwaeltayeb.souq.databinding.ProductListItemBinding;
 import com.marwaeltayeb.souq.model.Product;
 
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
+import static com.marwaeltayeb.souq.utils.FavoriteUtils.getFavoriteState;
+import static com.marwaeltayeb.souq.utils.FavoriteUtils.setFavoriteState;
 import static com.marwaeltayeb.souq.utils.Utils.shareProduct;
 
 public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.ProductViewHolder> {
@@ -52,6 +55,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         product = getItem(position);
 
         if (product != null) {
@@ -65,14 +69,14 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                     .load(imageUrl)
                     .into(holder.binding.imgProductImage);
 
-            Log.d("test",imageUrl);
+            Log.d("imageUrl",imageUrl);
 
-            holder.binding.imgShare.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    shareProduct(mContext,productName,imageUrl);
-                }
-            });
+            holder.binding.imgShare.setOnClickListener(v -> shareProduct(mContext,productName,imageUrl));
+
+            // If product is inserted
+            if (getFavoriteState(mContext, product.getProductId())) {
+                holder.binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
+            }
 
         } else {
             Toast.makeText(mContext, "Product is null", Toast.LENGTH_LONG).show();
@@ -81,6 +85,16 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
 
     public Product getProductAt(int position) {
         return getItem(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override
@@ -111,6 +125,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             this.binding = binding;
             // Register a callback to be invoked when this view is clicked.
             itemView.setOnClickListener(this);
+            binding.imgFavourite.setOnClickListener(this);
         }
 
         @Override
@@ -118,8 +133,36 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             int position = getAdapterPosition();
             // Get position of the product
             product = getItem(position);
-            // Send product through click
-            clickHandler.onClick(product);
+
+            switch (v.getId()) {
+                case R.id.card_view:
+                    // Send product through click
+                    clickHandler.onClick(product);
+                    break;
+                case R.id.imgFavourite:
+                    toggleFavourite();
+                    break;
+            }
+        }
+
+        private void toggleFavourite() {
+            // If favorite is not bookmarked
+            if (!getFavoriteState(mContext, product.getProductId())) {
+                binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
+                //insertFavoriteProduct();
+                setFavoriteState(mContext, product.getProductId(), true);
+                Toast.makeText(mContext, product.getProductId() + "", Toast.LENGTH_SHORT).show();
+                showSnackBar("Bookmark Added");
+            } else {
+                binding.imgFavourite.setImageResource(R.drawable.ic_favorite_border);
+                //deleteFavoriteProductById();
+                setFavoriteState(mContext, product.getProductId(), false);
+                showSnackBar("Bookmark Removed");
+            }
+        }
+
+        private void showSnackBar(String text) {
+            Snackbar.make(itemView, text, Snackbar.LENGTH_SHORT).show();
         }
     }
 }
