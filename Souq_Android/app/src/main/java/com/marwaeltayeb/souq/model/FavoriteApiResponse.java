@@ -1,15 +1,19 @@
 package com.marwaeltayeb.souq.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class FavoriteApiResponse {
 
-    private int id;
-    private String message;
+    @SerializedName("favorites")
+    private List<Product> favorites;
 
-    public int getId() {
-        return id;
+    public List<Product> getFavorites() {
+        return favorites;
     }
 
-    public String getMessage() {
-        return message;
+    public void setFavorites(List<Product> favorites) {
+        this.favorites = favorites;
     }
 }

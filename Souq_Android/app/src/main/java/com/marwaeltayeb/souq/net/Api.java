@@ -1,6 +1,7 @@
 package com.marwaeltayeb.souq.net;
 
 import com.marwaeltayeb.souq.model.FavoriteApiResponse;
+import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.LoginApiResponse;
 import com.marwaeltayeb.souq.model.ProductApiResponse;
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
@@ -36,12 +37,12 @@ public interface Api {
     Call<ProductApiResponse> searchForProduct(@Query("q") String keyword);
 
     @POST("favorites/add")
-    Call<FavoriteApiResponse> addFavorite(@Body int userId, @Body int productId);
+    Call<ResponseBody> addFavorite(@Body Favorite favorite);
 
-    @DELETE("favorites/{favoriteId}")
-    Call<FavoriteApiResponse> removeFavorite(@Path("favoriteId") int favoriteId);
+    @DELETE("favorites/remove")
+    Call<ResponseBody> removeFavorite(@Query("userId") int userId, @Query("productId") int productId);
 
-    @GET("products")
-    Call<ProductApiResponse> getFavorites(@Query("userId") int userId);
+    @GET("favorites")
+    Call<FavoriteApiResponse> getFavorites(@Query("userId") int userId);
 
 }
