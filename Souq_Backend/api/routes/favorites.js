@@ -47,24 +47,20 @@ router.post("/add", (request, response) => {
 
     database.query(query, args, (error, result) => {
         if(error) throw error
-        response.status(200).json({
-            "id" : result.insertId,
-            "message" : "Bookmarked as favorite",
-        })
+        response.status(200).send("Bookmark as favorite")
     });
 });
       
-// Delete Favorite Id
-router.delete("/:id", (request, response) => {
-    const id = request.params.id;
-    const query = "DELETE FROM favorite WHERE favorite_id = ?"
-    const args = [id]
+// Delete Favorite Product
+router.delete("/remove", (request, response) => {
+    const userId = request.query.userId;
+    const productId = request.query.productId;
+    const query = "DELETE FROM favorite WHERE user_id = ? and product_id = ?"
+    const args = [userId, productId]
 
     database.query(query, args, (error, result) => {
         if(error) throw error
-        response.status(200).json({
-            "message" : "Bookmarked as Unfavorite",
-        })
+        response.status(200).send("Bookmark as Unfavorite")
     });
 });
  
