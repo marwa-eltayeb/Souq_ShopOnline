@@ -20,8 +20,8 @@ import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishListViewHolder>{
 
     private Context mContext;
-    // Declare an arrayList for products
-    private List<Product> productList;
+    // Declare an arrayList for favorite products
+    private List<Product> favoriteList;
 
     private Product currentProduct;
 
@@ -35,9 +35,9 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
         void onClick(Product product);
     }
 
-    public WishListAdapter(Context mContext, List<Product> productList, WishListAdapter.WishListAdapterOnClickHandler clickHandler) {
+    public WishListAdapter(Context mContext, List<Product> favoriteList, WishListAdapter.WishListAdapterOnClickHandler clickHandler) {
         this.mContext = mContext;
-        this.productList = productList;
+        this.favoriteList = favoriteList;
         this.clickHandler = clickHandler;
     }
 
@@ -50,7 +50,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
 
     @Override
     public void onBindViewHolder(@NonNull WishListViewHolder holder, int position) {
-        currentProduct = productList.get(position);
+        currentProduct = favoriteList.get(position);
         holder.binding.txtProductName.setText(currentProduct.getProductName());
         holder.binding.txtProductPrice.setText(String.valueOf(currentProduct.getProductPrice()));
 
@@ -63,10 +63,10 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
 
     @Override
     public int getItemCount() {
-        if (productList == null) {
+        if (favoriteList == null) {
             return 0;
         }
-        return productList.size();
+        return favoriteList.size();
     }
 
     class WishListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -85,7 +85,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
         public void onClick(View v) {
             int position = getAdapterPosition();
             // Get position of the product
-            currentProduct = productList.get(position);
+            currentProduct = favoriteList.get(position);
             // Send product through click
             clickHandler.onClick(currentProduct);
         }
