@@ -18,7 +18,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ProductListItemBinding;
+import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.Product;
+import com.marwaeltayeb.souq.net.RetrofitClient;
+import com.marwaeltayeb.souq.storage.SharedPrefManager;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.FavoriteUtils.getFavoriteState;
@@ -149,13 +157,13 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             // If favorite is not bookmarked
             if (!getFavoriteState(mContext, product.getProductId())) {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
-                //insertFavoriteProduct();
+                insertFavoriteProduct();
                 setFavoriteState(mContext, product.getProductId(), true);
                 Toast.makeText(mContext, product.getProductId() + "", Toast.LENGTH_SHORT).show();
                 showSnackBar("Bookmark Added");
             } else {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_border);
-                //deleteFavoriteProductById();
+                deleteFavoriteProduct();
                 setFavoriteState(mContext, product.getProductId(), false);
                 showSnackBar("Bookmark Removed");
             }
@@ -164,5 +172,35 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         private void showSnackBar(String text) {
             Snackbar.make(itemView, text, Snackbar.LENGTH_SHORT).show();
         }
+
+        private void insertFavoriteProduct() {
+            Favorite favorite = new Favorite(SharedPrefManager.getInstance(mContext).getUserInfo().getId(),product.getProductId());
+            RetrofitClient.getInstance().getApi().addFavorite(favorite).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d("onResponse", "" + response.code());
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.d("onFailure", "" + t.getMessage());
+                }
+            });
+        }
+
+        private void deleteFavoriteProduct() {
+            RetrofitClient.getInstance().getApi().removeFavorite(SharedPrefManager.getInstance(mContext).getUserInfo().getId(),product.getProductId()).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d("onResponse", "" + response.code());
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.d("onFailure", "" + t.getMessage());
+                }
+            });
+        }
+
     }
 }
