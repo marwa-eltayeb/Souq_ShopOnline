@@ -61,7 +61,7 @@ router.get("/", (request, response) => {
 router.get("/login", (request, response) => {
     const email = request.query.email
     const password = request.query.password
-    const query = "SELECT id, password, name, email FROM user WHERE email = ?";
+    const query = "SELECT id, password, name, email, if(isAdmin=1,  'true', 'false') as isAdmin FROM user WHERE email = ?";
     const args = [email]
     database.query(query, args, (error, result) => {
         if(error) throw error
@@ -77,6 +77,7 @@ router.get("/login", (request, response) => {
                            "id" : result[0]["id"],
                            "name" : result[0]["name"],
                            "email" : result[0]["email"],
+                           "isAdmin" : result[0]["isAdmin"],
                            "error" : false, 
                            "message" : "Successful Login",
                            "token" : token});
@@ -147,7 +148,7 @@ router.post("/register",uploadImage.single('image'), (request, response) => {
                         "message" : "Register Done"
                     })
                     */
-                   const userQuery = "SELECT id, name, email, password FROM user WHERE id = ?";
+                   const userQuery = "SELECT id, name, email, password, if(isAdmin=1,  'true', 'false') as isAdmin FROM user WHERE id = ?";
                    database.query(userQuery, result.insertId, (err, res) => {
                        if (error) throw error
                        response.status(200).json({
