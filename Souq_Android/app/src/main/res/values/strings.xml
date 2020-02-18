@@ -85,4 +85,5 @@
     <string name="image_of_product">Image Of Product</string>
     <string name="select_image">Select Image</string>
     <string name="save">Save</string>
+    <string name="required_data">No null values are accepted</string>
 </resources>

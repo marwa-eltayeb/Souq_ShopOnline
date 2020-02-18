@@ -9,7 +9,7 @@
         tools:context=".view.AddProductActivity">
 
         <EditText
-            android:id="@+id/txtTitle"
+            android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

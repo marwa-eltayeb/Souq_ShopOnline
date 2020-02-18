@@ -300,6 +300,13 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         SearchView searchView = (SearchView)
                 searchViewItem.getActionView();
 
+        MenuItem addMenu = menu.findItem(R.id.action_addProduct);
+        if (SharedPrefManager.getInstance(this).getUserInfo().isAdmin()) {
+            addMenu.setVisible(true);
+        } else {
+            addMenu.setVisible(false);
+        }
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

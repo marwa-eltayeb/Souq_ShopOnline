@@ -4,11 +4,12 @@ public class LoginApiResponse {
 
     private int id;
     private String name;
-
     private String email;
     private boolean error;
     private String message;
     private String token;
+    private boolean isAdmin;
+
 
     public LoginApiResponse(int id, String token) {
         this.id = id;
@@ -43,5 +44,9 @@ public class LoginApiResponse {
 
     public String getToken() {
         return token;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 }

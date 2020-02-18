@@ -33,6 +33,7 @@ public class SharedPrefManager {
         editor.putString("name", response.getName());
         editor.putString("email", response.getEmail());
         editor.putString("token", response.getToken());
+        editor.putBoolean("isAdmin", response.isAdmin());
         editor.apply();
     }
 
@@ -46,9 +47,10 @@ public class SharedPrefManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putInt("id", user.getId());
-        editor.putString("email", user.getEmail());
         editor.putString("name", user.getName());
+        editor.putString("email", user.getEmail());
         editor.putString("password", user.getPassword());
+        editor.putBoolean("isAdmin", user.isAdmin());
         editor.apply();
     }
 
@@ -58,15 +60,9 @@ public class SharedPrefManager {
                 sharedPreferences.getInt("id", -1),
                 sharedPreferences.getString("name", null),
                 sharedPreferences.getString("email", null),
-                sharedPreferences.getString("password", null)
+                sharedPreferences.getString("password", null),
+                sharedPreferences.getBoolean("isAdmin", false)
         );
-    }
-
-    public void clearId() {
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("id").apply();
-        editor.apply();
     }
 
     public void clearAll() {
