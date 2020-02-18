@@ -14,4 +14,10 @@
         android:icon="@drawable/ic_shopping_cart_white"
         android:title="@string/cart"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_addProduct"
+        android:icon="@drawable/ic_add"
+        android:title="@string/add_product"
+        app:showAsAction="ifRoom" />
 </menu>
