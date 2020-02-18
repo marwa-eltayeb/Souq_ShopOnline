@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/lightGray"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".view.WishListActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/noBookmarks"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:background="@color/lightGray"
         android:gravity="center"
-        android:text="@string/your_wishlist_is_empty"
-        android:textColor="@color/nobookmark"
-        android:textSize="30sp"
-        android:visibility="gone" />
+        android:orientation="vertical"
+        tools:context=".view.WishListActivity">
 
-    <TextView
-        android:id="@+id/emptyWishlist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dimen10dp"
-        android:gravity="center"
-        android:text="@string/an_empty_wishlist_does_not_look_good"
-        android:textColor="@color/vDarkGray"
-        android:textSize="16sp"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/noBookmarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/your_wishlist_is_empty"
+            android:textColor="@color/nobookmark"
+            android:textSize="30sp"
+            android:visibility="gone" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/favorite_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/emptyWishlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen10dp"
+            android:gravity="center"
+            android:text="@string/an_empty_wishlist_does_not_look_good"
+            android:textColor="@color/vDarkGray"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/favorite_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</layout>
