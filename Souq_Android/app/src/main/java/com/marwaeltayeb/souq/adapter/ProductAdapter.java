@@ -1,12 +1,14 @@
 package com.marwaeltayeb.souq.adapter;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
 import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,16 +19,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.ViewModel.AddFavoriteViewModel;
+import com.marwaeltayeb.souq.ViewModel.RemoveFavoriteViewModel;
 import com.marwaeltayeb.souq.databinding.ProductListItemBinding;
 import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.Product;
-import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.storage.SharedPrefManager;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.FavoriteUtils.getFavoriteState;
@@ -36,7 +34,9 @@ import static com.marwaeltayeb.souq.utils.Utils.shareProduct;
 public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.ProductViewHolder> {
 
     private Context mContext;
-    private Product product;
+    public static Product product;
+    private AddFavoriteViewModel addFavoriteViewModel;
+    private RemoveFavoriteViewModel removeFavoriteViewModel;
 
     // Create a final private MovieAdapterOnClickHandler called mClickHandler
     private ProductAdapterOnClickHandler clickHandler;
@@ -52,6 +52,8 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         super(DIFF_CALLBACK);
         this.mContext = mContext;
         this.clickHandler = clickHandler;
+        addFavoriteViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(AddFavoriteViewModel.class);
+        removeFavoriteViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(RemoveFavoriteViewModel.class);
     }
 
     @NonNull
@@ -175,31 +177,11 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
 
         private void insertFavoriteProduct() {
             Favorite favorite = new Favorite(SharedPrefManager.getInstance(mContext).getUserInfo().getId(),product.getProductId());
-            RetrofitClient.getInstance().getApi().addFavorite(favorite).enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Log.d("onResponse", "" + response.code());
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.d("onFailure", "" + t.getMessage());
-                }
-            });
+            addFavoriteViewModel.addFavorite(favorite);
         }
 
         private void deleteFavoriteProduct() {
-            RetrofitClient.getInstance().getApi().removeFavorite(SharedPrefManager.getInstance(mContext).getUserInfo().getId(),product.getProductId()).enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Log.d("onResponse", "" + response.code());
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Log.d("onFailure", "" + t.getMessage());
-                }
-            });
+            removeFavoriteViewModel.removeFavorite(SharedPrefManager.getInstance(mContext).getUserInfo().getId(),product.getProductId());
         }
 
     }
