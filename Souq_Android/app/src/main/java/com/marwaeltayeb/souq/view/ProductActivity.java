@@ -235,6 +235,11 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
 
+    private void goToAddProductActivity() {
+        Intent intent = new Intent(this, AddProductActivity.class);
+        startActivity(intent);
+    }
+
     public void showSnackBar() {
         snack.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.red));
         snack.show();
@@ -336,6 +341,9 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         switch (item.getItemId()) {
             case R.id.action_cart:
                 goToCartActivity();
+                return true;
+            case R.id.action_addProduct:
+                goToAddProductActivity();
                 return true;
         }
         return super.onOptionsItemSelected(item);
