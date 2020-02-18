@@ -63,7 +63,7 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:id="@+id/imageTravel"
+            android:id="@+id/imageOfProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

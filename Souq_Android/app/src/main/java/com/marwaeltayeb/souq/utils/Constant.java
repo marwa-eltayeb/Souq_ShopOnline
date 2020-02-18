@@ -7,4 +7,6 @@ public class Constant {
     // Constant Variables
     public static String PRODUCT = "product";
 
+    public static final int PICK_IMAGE = 100;
+
 }
