@@ -76,4 +76,12 @@
     <string name="your_wishlist_is_empty">Your Wishlist is empty</string>
     <string name="an_empty_wishlist_does_not_look_good">An empty wishlist does not look good</string>
     <string name="add_product">Add Product</string>
+
+    <string name="title">Title</string>
+    <string name="price">Price (numbers only)</string>
+    <string name="description">Description</string>
+    <string name="save_menu">save</string>
+    <string name="select_image">SELECT IMAGE</string>
+    <string name="image">Image</string>
+    <string name="save">Save</string>
 </resources>
