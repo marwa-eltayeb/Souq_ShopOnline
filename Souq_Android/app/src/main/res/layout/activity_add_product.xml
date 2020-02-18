@@ -44,14 +44,12 @@
             android:importantForAutofill="no"
             android:inputType="text" />
 
-        <EditText
-            android:id="@+id/txtCategory"
+        <Spinner
+            android:id="@+id/category_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:hint="@string/category"
-            android:importantForAutofill="no"
-            android:inputType="text" />
+            android:layout_margin="10dp" />
 
         <Button
             android:id="@+id/btnSelectImage"

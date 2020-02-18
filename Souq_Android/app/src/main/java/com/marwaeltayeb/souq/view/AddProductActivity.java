@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
@@ -20,6 +21,7 @@ public class AddProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_product);
 
+        populateSpinner();
     }
 
     @Override
@@ -42,8 +44,7 @@ public class AddProductActivity extends AppCompatActivity {
         String price = binding.txtPrice.getText().toString();
         String quantity = binding.txtQuantity.getText().toString();
         String supplier = binding.txtSupplier.getText().toString();
-        String category = binding.txtCategory.getText().toString();
-
+        String category = binding.categorySpinner.getSelectedItem().toString().toLowerCase();
 
         // Check if there are no empty values
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(price) ||
@@ -56,4 +57,11 @@ public class AddProductActivity extends AppCompatActivity {
 
     }
 
+
+    private void populateSpinner(){
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.categories_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.categorySpinner.setAdapter(adapter);
+    }
 }

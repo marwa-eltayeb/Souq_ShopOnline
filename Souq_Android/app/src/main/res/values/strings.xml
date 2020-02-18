@@ -86,4 +86,12 @@
     <string name="select_image">Select Image</string>
     <string name="save">Save</string>
     <string name="required_data">No null values are accepted</string>
+
+    <string-array name="categories_array">
+        <item>Mobile</item>
+        <item>Laptop</item>
+        <item>Baby</item>
+        <item>Toy</item>
+    </string-array>
+
 </resources>
