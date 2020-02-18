@@ -3,6 +3,7 @@ package com.marwaeltayeb.souq.net;
 import com.marwaeltayeb.souq.model.FavoriteApiResponse;
 import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.LoginApiResponse;
+import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.model.ProductApiResponse;
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
 import com.marwaeltayeb.souq.model.User;
@@ -26,6 +27,9 @@ public interface Api {
 
     @DELETE("users/{userId}")
     Call<ResponseBody> deleteAccount(@Path("userId") int userId);
+
+    @POST("products/insert")
+    Call<ResponseBody> insertProduct(@Body Product product);
 
     @GET("products")
     Call<ProductApiResponse> getProducts(@Query("page") int page);
