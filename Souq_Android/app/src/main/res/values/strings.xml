@@ -77,11 +77,12 @@
     <string name="an_empty_wishlist_does_not_look_good">An empty wishlist does not look good</string>
     <string name="add_product">Add Product</string>
 
-    <string name="title">Title</string>
-    <string name="price">Price (numbers only)</string>
-    <string name="description">Description</string>
-    <string name="save_menu">save</string>
-    <string name="select_image">SELECT IMAGE</string>
-    <string name="image">Image</string>
+    <string name="nameOfProduct">Name</string>
+    <string name="price">Price</string>
+    <string name="quantity">Quantity</string>
+    <string name="supplier">Supplier</string>
+    <string name="category">Category</string>
+    <string name="image_of_product">Image Of Product</string>
+    <string name="select_image">Select Image</string>
     <string name="save">Save</string>
 </resources>
