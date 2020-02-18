@@ -74,11 +74,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
         </activity>
+        <activity
+            android:name=".view.AccountActivity"
+            android:label="@string/my_account"
+            android:parentActivityName=".view.ProductActivity"
+            android:theme="@style/AccountTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.ProductActivity" />
+        </activity>
 
-        <activity android:name=".view.AccountActivity"
-                  android:label="@string/my_account"
-                  android:theme="@style/AccountTheme"
-            android:parentActivityName=".view.ProductActivity">
+        <activity android:name=".view.AddProductActivity"
+                  android:label="@string/add_product"
+                  android:parentActivityName=".view.ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
