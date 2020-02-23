@@ -200,15 +200,17 @@ router.put("/info", (request, response) => {
     });
 });
 
-// Update image of user
-router.put("/update", uploadImage.single('image'), (request, response) => {
+// Update image of user                  // Image file key in request body
+router.put("/upload", uploadImage.single('image'), (request, response) => {
     const id = request.body.id;
-    
+    console.log(id);
+
     const file = request.file;
     var filePath = ""
     if(file != null){
         filePath = file.path
     }
+    console.log(filePath);
 
     const selectQuery = "SELECT image FROM user WHERE id = ?"
     database.query(selectQuery, id, (error, result) => {
@@ -233,7 +235,7 @@ router.put("/update", uploadImage.single('image'), (request, response) => {
         if(error) throw error
 
         if(result['affectedRows']  == 1){
-            response.status(200).send("User Image is updated")
+            response.status(200).send("User Photo is updated")
         }else{
             response.status(500).send("Invalid Update")
         }

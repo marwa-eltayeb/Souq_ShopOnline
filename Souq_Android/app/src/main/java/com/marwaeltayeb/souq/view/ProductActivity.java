@@ -1,14 +1,17 @@
 package com.marwaeltayeb.souq.view;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,22 +44,34 @@ import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.adapter.SearchAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
 import com.marwaeltayeb.souq.model.Product;
+import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
 import com.marwaeltayeb.souq.storage.SharedPrefManager;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
 import com.marwaeltayeb.souq.utils.Slide;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+import static com.marwaeltayeb.souq.utils.Constant.PROFILE_PHOTO;
+import static com.marwaeltayeb.souq.utils.ImageUtils.getRealPathFromURI;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
 public class ProductActivity extends AppCompatActivity implements View.OnClickListener, OnNetworkListener, ProductAdapter.ProductAdapterOnClickHandler,
         NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "ProductActivity";
     private ActivityProductBinding binding;
 
     private ProductAdapter mobileAdapter;
@@ -67,6 +83,9 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     private SearchViewModel searchViewModel;
 
     private Snackbar snack;
+
+    private CircleImageView circleImageView;
+    private Uri selectedImage;
 
     private NetworkChangeReceiver mNetworkReceiver;
 
@@ -108,7 +127,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding.navView.setNavigationItemSelectedListener(this);
 
         View headerContainer =  binding.navView.getHeaderView(0);
-        CircleImageView circleImageView = headerContainer.findViewById(R.id.profile_image);
+        circleImageView = headerContainer.findViewById(R.id.profile_image);
         circleImageView.setOnClickListener(this);
         TextView userName = headerContainer.findViewById(R.id.nameOfUser);
         userName.setText(SharedPrefManager.getInstance(this).getUserInfo().getName());
@@ -187,19 +206,18 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 goToSeeAllLaptops();
                 break;
             case R.id.profile_image:
-                Toast.makeText(this, "Yes", Toast.LENGTH_SHORT).show();
                 showCustomAlertDialog();
                 break;
         }
     }
 
     public void showCustomAlertDialog(){
-        final Dialog MyDialog = new Dialog(ProductActivity.this);
-        MyDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        MyDialog.setContentView(R.layout.customdialog);
+        final Dialog dialog = new Dialog(ProductActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.customdialog);
 
-        Button takePicture = MyDialog.findViewById(R.id.takePicture);
-        Button useGallery = MyDialog.findViewById(R.id.useGallery);
+        Button takePicture = dialog.findViewById(R.id.takePicture);
+        Button useGallery = dialog.findViewById(R.id.useGallery);
 
         takePicture.setEnabled(true);
         useGallery.setEnabled(true);
@@ -210,14 +228,84 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 Toast.makeText(getApplicationContext(), "Hello, I'm Custom Alert Dialog", Toast.LENGTH_LONG).show();
             }
         });
+
         useGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyDialog.cancel();
+                getImageFromGallery();
+                dialog.cancel();
             }
         });
 
-        MyDialog.show();
+        dialog.show();
+    }
+
+    private void getImageFromGallery() {
+        int READ_EXTERNAL_STORAGE = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ProductActivity.this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ProductActivity.this.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE);
+                return;
+            }
+        }
+
+        try {
+            Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+            getIntent.setType("image/*");
+
+            Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            pickIntent.setType("image/*");
+
+            Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
+
+            startActivityForResult(chooserIntent, PROFILE_PHOTO);
+        } catch (Exception exp) {
+            Log.i("Error", exp.toString());
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PROFILE_PHOTO && resultCode == RESULT_OK) {
+            selectedImage = data.getData();
+            circleImageView.setImageURI(selectedImage);
+
+            String filePath = getRealPathFromURI(this,selectedImage);
+            Log.d(TAG, "onActivityResult: " + filePath);
+
+            uploadPhoto(String.valueOf(filePath));
+        }
+    }
+
+    private void uploadPhoto(String pathname){
+        // Pathname
+        File file = new File(pathname);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+
+        // MultipartBody.Part is used to send the actual file name
+        MultipartBody.Part photo =
+                MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+
+        // Add another part within the multipart request
+        RequestBody id =
+                RequestBody.create(MediaType.parse("text/plain"), String.valueOf(SharedPrefManager.getInstance(this).getUserInfo().getId()));
+
+        RetrofitClient.getInstance().getApi().uploadPhoto(photo,id).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "onResponse: " + "Photo Updated");
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
+            }
+        });
     }
 
     private void goToSeeAllMobiles() {
