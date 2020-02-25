@@ -16,4 +16,5 @@
     <color name="centerColor">#63B7FF</color>
     <color name="endColor">#007AE2</color>
     <color name="nobookmark">#aaa</color>
+    <color name="dark">#393D48</color>
 </resources>

@@ -83,15 +83,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
         </activity>
-
-        <activity android:name=".view.AddProductActivity"
-                  android:label="@string/add_product"
-                  android:parentActivityName=".view.ProductActivity">
+        <activity
+            android:name=".view.AddProductActivity"
+            android:label="@string/add_product"
+            android:parentActivityName=".view.ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
         </activity>
 
+        <activity
+            android:name=".view.HelpCenterActivity"
+            android:label="@string/help_center"
+            android:parentActivityName=".view.ProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.ProductActivity" />
+        </activity>
 
         <receiver android:name=".receiver.NetworkChangeReceiver" />
     </application>

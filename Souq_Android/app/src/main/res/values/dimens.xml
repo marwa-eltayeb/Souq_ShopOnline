@@ -28,4 +28,6 @@
     <dimen name="dimen100dp">100dp</dimen>
     <dimen name="dimen70dp">70dp</dimen>
     <dimen name="dimen140dp">140dp</dimen>
+    <dimen name="dimen25sp">25sp</dimen>
+    <dimen name="dimen200dp">200dp</dimen>
 </resources>

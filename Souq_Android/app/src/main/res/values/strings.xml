@@ -86,6 +86,17 @@
     <string name="select_image">Select Image</string>
     <string name="save">Save</string>
     <string name="required_data">No null values are accepted</string>
+    <string name="hi_how_can_we_help">Hi! How Can We Help?</string>
+    <string name="inquiryOne">I was charged extra shipping charges</string>
+    <string name="answerOne">Souq does not charge customers any extra shipping charges. All applicable charges are mentioned in the invoice. Please make sure to check the item price plus the shipping charges at the checkout page before completing your purchase.\n\nIf the courier representative demands or has charged you more than the amount mentioned on your order invoice, please contact Customer Service immediately for assistance.</string>
+    <string name="inquiryTwo">Where is My Order?</string>
+    <string name="answerTwo">Your order will be delivered by the expected date specified on your order. The expected delivery date is the date on or before which you can reasonably expect the item to arrive at your preferred shipping address.\n\nYou\'ll see an expected delivery date for each shipment on the order summary, just before you place your order. The expected delivery date will also appear in My Orders section of your account after you\'ve placed your order.</string>
+    <string name="inquiryThree">Tracking Your Shipment</string>
+    <string name="answerThree">Tracking your shipment is very easy on Souq.com. You can use the link sent to you via SMS on your registered mobile phone number or on your registered email address to track where your order currently is. Additionally, you can also login to your souq.com account to track your orders as follows:\n\n1. Log in to Souq.com account using your registered email address and password.\n\n2. Click on your name displayed on the top right-hand corner of the page.\n\n3. Click on My Order from the drop down menu.\n\n4. Locate your order on the screen.\n\n5. Click on Track Shipment against the shipment you want to know the status of.\n\n6. The pop-up screen will show where the order currently is along with a shipment tracking number for your reference.</string>
+    <string name="inquiryFour">Item Was Not Available At The Designated Location</string>
+    <string name="answerFour">If you have selected the option of Self-Pick Up for your order, then once the item has reached its designated hub or location, you will receive a confirmation SMS on the number provided in the order that the item is ready to be collected. Once the item is at its designated hub or location and the SMS notification is issued, the item will be available for collection for 4 working days. If you experience any problems collecting your item from the designated hub or location, please contact Customer Support for assistance.</string>
+    <string name="inquiryFive">Tracking Your Shipment</string>
+    <string name="answerFive">When you purchase products from different sellers in an order, each seller will have a separate shipment and the product or products from each seller will be delivered to you separately. If you want to have all of the items shipped in one shipment, you will have to place the order for all items from the same seller.</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>
