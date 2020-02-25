@@ -7,7 +7,13 @@ public class Constant {
     // Constant Variables
     public static String PRODUCT = "product";
 
-    public static final int PICK_IMAGE = 100;
-    public static final int PROFILE_PHOTO = 200;
+    public static final int PICK_IMAGE = 88;
+
+    public static final int GALLERY_REQUEST = 100;
+    public static final int READ_EXTERNAL_STORAGE_CODE = 200;
+
+    public static final int CAMERA_REQUEST = 300;
+    public static final int CAMERA_PERMISSION_CODE = 400;
+
 
 }

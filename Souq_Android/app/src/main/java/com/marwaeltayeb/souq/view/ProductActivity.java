@@ -10,10 +10,12 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -63,8 +65,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.marwaeltayeb.souq.utils.Constant.CAMERA_PERMISSION_CODE;
+import static com.marwaeltayeb.souq.utils.Constant.CAMERA_REQUEST;
+import static com.marwaeltayeb.souq.utils.Constant.GALLERY_REQUEST;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
-import static com.marwaeltayeb.souq.utils.Constant.PROFILE_PHOTO;
+import static com.marwaeltayeb.souq.utils.Constant.READ_EXTERNAL_STORAGE_CODE;
+import static com.marwaeltayeb.souq.utils.ImageUtils.getImageUri;
 import static com.marwaeltayeb.souq.utils.ImageUtils.getRealPathFromURI;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
@@ -126,7 +132,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         binding.navView.setNavigationItemSelectedListener(this);
 
-        View headerContainer =  binding.navView.getHeaderView(0);
+        View headerContainer = binding.navView.getHeaderView(0);
         circleImageView = headerContainer.findViewById(R.id.profile_image);
         circleImageView.setOnClickListener(this);
         TextView userName = headerContainer.findViewById(R.id.nameOfUser);
@@ -200,10 +206,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.txtSeeAllMobiles:
-                goToSeeAllMobiles();
+                Intent mobileIntent = new Intent(this, AllMobilesActivity.class);
+                startActivity(mobileIntent);
                 break;
             case R.id.txtSeeAllLaptops:
-                goToSeeAllLaptops();
+                Intent laptopIntent = new Intent(this, AllLaptopsActivity.class);
+                startActivity(laptopIntent);
                 break;
             case R.id.profile_image:
                 showCustomAlertDialog();
@@ -211,7 +219,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void showCustomAlertDialog(){
+    public void showCustomAlertDialog() {
         final Dialog dialog = new Dialog(ProductActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.customdialog);
@@ -222,47 +230,50 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         takePicture.setEnabled(true);
         useGallery.setEnabled(true);
 
-        takePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Hello, I'm Custom Alert Dialog", Toast.LENGTH_LONG).show();
-            }
+        takePicture.setOnClickListener(v -> {
+            launchCamera();
+            dialog.cancel();
         });
 
-        useGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getImageFromGallery();
-                dialog.cancel();
-            }
+        useGallery.setOnClickListener(v -> {
+            getImageFromGallery();
+            dialog.cancel();
         });
 
         dialog.show();
     }
 
     private void getImageFromGallery() {
-        int READ_EXTERNAL_STORAGE = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ProductActivity.this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ProductActivity.this.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE);
-                return;
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_CODE);
+            }else {
+                try {
+                    Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                    getIntent.setType("image/*");
+
+                    Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                    Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
+
+                    startActivityForResult(chooserIntent, GALLERY_REQUEST);
+                } catch (Exception exp) {
+                    Log.i("Error", exp.toString());
+                }
             }
         }
+    }
 
-        try {
-            Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-            getIntent.setType("image/*");
-
-            Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            pickIntent.setType("image/*");
-
-            Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
-
-            startActivityForResult(chooserIntent, PROFILE_PHOTO);
-        } catch (Exception exp) {
-            Log.i("Error", exp.toString());
+    private void launchCamera() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+            } else {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            }
         }
     }
 
@@ -270,32 +281,37 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PROFILE_PHOTO && resultCode == RESULT_OK) {
+        if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
             selectedImage = data.getData();
             circleImageView.setImageURI(selectedImage);
 
-            String filePath = getRealPathFromURI(this,selectedImage);
+            String filePath = getRealPathFromURI(this, selectedImage);
             Log.d(TAG, "onActivityResult: " + filePath);
 
             uploadPhoto(String.valueOf(filePath));
+        }else if(requestCode == CAMERA_REQUEST && resultCode == RESULT_OK){
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            circleImageView.setImageBitmap(photo);
+
+            Uri uriForImage = getImageUri(this,photo);
+            String filePath = getRealPathFromURI(this, uriForImage);
+            Log.d(TAG, "onActivityResult: Camera" + filePath);
+
+            uploadPhoto(String.valueOf(filePath));
+
         }
     }
 
-    private void uploadPhoto(String pathname){
-        // Pathname
+    private void uploadPhoto(String pathname) {
         File file = new File(pathname);
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
 
-        // MultipartBody.Part is used to send the actual file name
-        MultipartBody.Part photo =
-                MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+        MultipartBody.Part photo = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
-        // Add another part within the multipart request
-        RequestBody id =
-                RequestBody.create(MediaType.parse("text/plain"), String.valueOf(SharedPrefManager.getInstance(this).getUserInfo().getId()));
+        RequestBody id = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(SharedPrefManager.getInstance(this).getUserInfo().getId()));
 
-        RetrofitClient.getInstance().getApi().uploadPhoto(photo,id).enqueue(new Callback<ResponseBody>() {
+        RetrofitClient.getInstance().getApi().uploadPhoto(photo, id).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d(TAG, "onResponse: " + "Photo Updated");
@@ -306,26 +322,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
-    }
-
-    private void goToSeeAllMobiles() {
-        Intent intent = new Intent(this, AllMobilesActivity.class);
-        startActivity(intent);
-    }
-
-    private void goToSeeAllLaptops() {
-        Intent intent = new Intent(this, AllLaptopsActivity.class);
-        startActivity(intent);
-    }
-
-    private void goToCartActivity() {
-        Intent intent = new Intent(this, CartActivity.class);
-        startActivity(intent);
-    }
-
-    private void goToAddProductActivity() {
-        Intent intent = new Intent(this, AddProductActivity.class);
-        startActivity(intent);
     }
 
     public void showSnackBar() {
@@ -435,10 +431,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_cart:
-                goToCartActivity();
+                Intent cartIntent = new Intent(this, CartActivity.class);
+                startActivity(cartIntent);
                 return true;
             case R.id.action_addProduct:
-                goToAddProductActivity();
+                Intent addProductIntent = new Intent(this, AddProductActivity.class);
+                startActivity(addProductIntent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -490,13 +488,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        // Handle navigation view item clicks here.
         int id = menuItem.getItemId();
 
         if (id == R.id.nav_mobiles) {
-
+            getMobiles();
         } else if (id == R.id.nav_laptops) {
-
+            getLaptops();
         } else if (id == R.id.nav_babies) {
 
         } else if (id == R.id.nav_toys) {
@@ -504,12 +501,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         } else if (id == R.id.nav_trackOrder) {
 
         } else if (id == R.id.nav_myAccount) {
-            Intent accountIntent = new Intent(this,AccountActivity.class);
+            Intent accountIntent = new Intent(this, AccountActivity.class);
             startActivity(accountIntent);
         } else if (id == R.id.nav_newsFeed) {
 
         } else if (id == R.id.nav_wishList) {
-            Intent wishListIntent = new Intent(this,WishListActivity.class);
+            Intent wishListIntent = new Intent(this, WishListActivity.class);
             startActivity(wishListIntent);
         }
 
