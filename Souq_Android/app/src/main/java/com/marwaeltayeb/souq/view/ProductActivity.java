@@ -42,28 +42,20 @@ import android.widget.Toast;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
 import com.marwaeltayeb.souq.ViewModel.SearchViewModel;
+import com.marwaeltayeb.souq.ViewModel.UploadPhotoViewModel;
 import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.adapter.SearchAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
 import com.marwaeltayeb.souq.model.Product;
-import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
 import com.marwaeltayeb.souq.storage.SharedPrefManager;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
 import com.marwaeltayeb.souq.utils.Slide;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_PERMISSION_CODE;
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_REQUEST;
@@ -87,6 +79,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private ProductViewModel productViewModel;
     private SearchViewModel searchViewModel;
+    private UploadPhotoViewModel uploadPhotoViewModel;
 
     private Snackbar snack;
 
@@ -102,6 +95,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
         searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+        uploadPhotoViewModel = ViewModelProviders.of(this).get(UploadPhotoViewModel.class);
 
         snack = Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.no_internet_connection), Snackbar.LENGTH_INDEFINITE);
 
@@ -303,24 +297,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void uploadPhoto(String pathname) {
-        File file = new File(pathname);
-
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
-
-        MultipartBody.Part photo = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-
-        RequestBody id = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(SharedPrefManager.getInstance(this).getUserInfo().getId()));
-
-        RetrofitClient.getInstance().getApi().uploadPhoto(photo, id).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d(TAG, "onResponse: " + "Photo Updated");
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
-            }
+        uploadPhotoViewModel.uploadPhoto(pathname).observe(this, responseBody -> {
+            Toast.makeText(this, "Photo Uploaded", Toast.LENGTH_SHORT).show();
         });
     }
 
