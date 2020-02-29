@@ -1,5 +1,6 @@
 package com.marwaeltayeb.souq.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
@@ -14,8 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.ViewModel.AddProductViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityAddProductBinding;
-import com.marwaeltayeb.souq.net.RetrofitClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,10 +26,6 @@ import java.util.Map;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.Constant.PICK_IMAGE;
 import static com.marwaeltayeb.souq.utils.ImageUtils.getRealPathFromURI;
@@ -37,6 +34,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 
     private static final String TAG = "AddProductActivity";
     private ActivityAddProductBinding binding;
+    private AddProductViewModel addProductViewModel;
     private Uri selectedImage;
     private String filePath;
 
@@ -44,6 +42,8 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_product);
+
+        addProductViewModel =  ViewModelProviders.of(this).get(AddProductViewModel.class);
 
         binding.btnSelectImage.setOnClickListener(this);
 
@@ -91,21 +91,14 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part photo = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
-        RetrofitClient.getInstance().getApi().insertProduct(map,photo).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Log.d(TAG, "onResponse: " + "Product Inserted");
-                    Toast.makeText(AddProductActivity.this, response.body().string() + "", Toast.LENGTH_SHORT).show();
+        addProductViewModel.addProduct(map,photo).observe(this, responseBody -> {
+            try {
+                if (responseBody != null) {
+                    Toast.makeText(AddProductActivity.this, responseBody.string() + "", Toast.LENGTH_SHORT).show();
                     finish();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }
