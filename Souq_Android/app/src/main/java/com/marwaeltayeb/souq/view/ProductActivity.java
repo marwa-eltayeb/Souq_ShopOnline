@@ -44,12 +44,11 @@ import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
 import com.marwaeltayeb.souq.ViewModel.SearchViewModel;
 import com.marwaeltayeb.souq.ViewModel.UploadPhotoViewModel;
+import com.marwaeltayeb.souq.ViewModel.UserImageViewModel;
 import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.adapter.SearchAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
-import com.marwaeltayeb.souq.model.Image;
 import com.marwaeltayeb.souq.model.Product;
-import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
 import com.marwaeltayeb.souq.storage.SharedPrefManager;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
@@ -59,9 +58,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_PERMISSION_CODE;
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_REQUEST;
@@ -87,6 +83,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     private ProductViewModel productViewModel;
     private SearchViewModel searchViewModel;
     private UploadPhotoViewModel uploadPhotoViewModel;
+    private UserImageViewModel userImageViewModel;
 
     private Snackbar snack;
 
@@ -103,6 +100,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
         searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
         uploadPhotoViewModel = ViewModelProviders.of(this).get(UploadPhotoViewModel.class);
+        userImageViewModel = ViewModelProviders.of(this).get(UserImageViewModel.class);
 
         snack = Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.no_internet_connection), Snackbar.LENGTH_INDEFINITE);
 
@@ -249,8 +247,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ProductActivity.this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_CODE);
-            }else {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_CODE);
+            } else {
                 try {
                     Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
                     getIntent.setType("image/*");
@@ -291,11 +289,11 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             Log.d(TAG, "onActivityResult: " + filePath);
 
             uploadPhoto(String.valueOf(filePath));
-        }else if(requestCode == CAMERA_REQUEST && resultCode == RESULT_OK){
+        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             circleImageView.setImageBitmap(photo);
 
-            Uri uriForImage = getImageUri(this,photo);
+            Uri uriForImage = getImageUri(this, photo);
             String filePath = getRealPathFromURI(this, uriForImage);
             Log.d(TAG, "onActivityResult: Camera" + filePath);
 
@@ -310,21 +308,13 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
-    private void getUserImage(){
-        RetrofitClient.getInstance().getApi().getUserImage(SharedPrefManager.getInstance(this).getUserInfo().getId()).enqueue(new Callback<Image>() {
-            @Override
-            public void onResponse(Call<Image> call, Response<Image> response) {
-                String imageUrl = LOCALHOST + response.body().getImage().replaceAll("\\\\", "/");
-                Log.d("userImageUrl",imageUrl);
+    private void getUserImage() {
+        userImageViewModel.getUserImage(SharedPrefManager.getInstance(this).getUserInfo().getId()).observe(this, response -> {
+            if (response != null) {
+                String imageUrl = LOCALHOST + response.getImage().replaceAll("\\\\", "/");
                 Glide.with(getApplicationContext())
                         .load(imageUrl)
                         .into(circleImageView);
-                Toast.makeText(ProductActivity.this, "Setting Image", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Image> call, Throwable t) {
-                Log.d(TAG, "onFailure Image: "+ t.getMessage());
             }
         });
     }
