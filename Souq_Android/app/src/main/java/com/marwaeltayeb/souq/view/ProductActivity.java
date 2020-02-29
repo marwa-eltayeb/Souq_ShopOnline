@@ -39,6 +39,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
 import com.marwaeltayeb.souq.ViewModel.SearchViewModel;
@@ -46,7 +47,9 @@ import com.marwaeltayeb.souq.ViewModel.UploadPhotoViewModel;
 import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.adapter.SearchAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
+import com.marwaeltayeb.souq.model.Image;
 import com.marwaeltayeb.souq.model.Product;
+import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
 import com.marwaeltayeb.souq.storage.SharedPrefManager;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
@@ -56,10 +59,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_PERMISSION_CODE;
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_REQUEST;
 import static com.marwaeltayeb.souq.utils.Constant.GALLERY_REQUEST;
+import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 import static com.marwaeltayeb.souq.utils.Constant.READ_EXTERNAL_STORAGE_CODE;
 import static com.marwaeltayeb.souq.utils.ImageUtils.getImageUri;
@@ -106,6 +113,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         getMobiles();
         getLaptops();
+        getUserImage();
 
         flipImages(Slide.getSlides());
 
@@ -298,7 +306,26 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private void uploadPhoto(String pathname) {
         uploadPhotoViewModel.uploadPhoto(pathname).observe(this, responseBody -> {
-            Toast.makeText(this, "Photo Uploaded", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void getUserImage(){
+        RetrofitClient.getInstance().getApi().getUserImage(SharedPrefManager.getInstance(this).getUserInfo().getId()).enqueue(new Callback<Image>() {
+            @Override
+            public void onResponse(Call<Image> call, Response<Image> response) {
+                String imageUrl = LOCALHOST + response.body().getImage().replaceAll("\\\\", "/");
+                Log.d("userImageUrl",imageUrl);
+                Glide.with(getApplicationContext())
+                        .load(imageUrl)
+                        .into(circleImageView);
+                Toast.makeText(ProductActivity.this, "Setting Image", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Image> call, Throwable t) {
+                Log.d(TAG, "onFailure Image: "+ t.getMessage());
+            }
         });
     }
 

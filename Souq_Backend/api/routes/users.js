@@ -243,4 +243,23 @@ router.put("/upload", uploadImage.single('image'), (request, response) => {
 
 });
 
+
+// Get Image
+router.get("/getImage", (request, response) => {
+    const id = request.query.id;
+   
+    const args = [id];
+
+    const query = "SELECT image FROM user WHERE id = ?";
+
+    database.query(query, args, (error, result) => {
+        if(error) throw error
+        response.status(200).json({
+            "error" : false,
+            "message" : "Setting Image",
+            "image" : result[0]["image"],
+        })
+    });
+}); 
+
 module.exports = router

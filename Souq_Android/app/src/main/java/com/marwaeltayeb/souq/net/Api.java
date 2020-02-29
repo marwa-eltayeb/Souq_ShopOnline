@@ -2,6 +2,7 @@ package com.marwaeltayeb.souq.net;
 
 import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.FavoriteApiResponse;
+import com.marwaeltayeb.souq.model.Image;
 import com.marwaeltayeb.souq.model.LoginApiResponse;
 import com.marwaeltayeb.souq.model.ProductApiResponse;
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
@@ -42,6 +43,9 @@ public interface Api {
     @Multipart
     @POST("products/insert")
     Call<ResponseBody> insertProduct(@PartMap Map<String,RequestBody> productInfo, @Part MultipartBody.Part image);
+
+    @GET("users/getImage")
+    Call<Image> getUserImage(@Query("id") int userId);
 
     @GET("products")
     Call<ProductApiResponse> getProducts(@Query("page") int page);
