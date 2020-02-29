@@ -41,7 +41,7 @@ public class UploadPhotoRepository {
         RetrofitClient.getInstance().getApi().uploadPhoto(photo, id).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d(TAG, "onResponse: " + "Photo Updated");
+                Log.d(TAG, "onResponse: " + "Image Updated");
 
                 ResponseBody responseBody = response.body();
 
