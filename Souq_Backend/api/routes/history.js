@@ -50,5 +50,18 @@ router.post("/add", (request, response) => {
         response.status(200).send("Added to History")
     });
 });
-      
+
+
+// Delete History
+router.delete("/remove", (request, response) => {
+
+    const query = "DELETE FROM history"
+
+    database.query(query, (error, result) => {
+        if(error) throw error
+        response.status(200).send("Removed All From History")
+    });
+});
+     
+
 module.exports = router
