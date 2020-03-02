@@ -11,6 +11,7 @@ app.use('/storage_product', express.static('storage_product'));
 const userRouter = require('./api/routes/users')
 const productRouter = require('./api/routes/products')
 const favoriteRouter = require('./api/routes/favorites')
+const cartRouter = require('./api/routes/carts')
 
 
 const port = 3000
@@ -23,6 +24,7 @@ app.use(bodyParser.json())
 app.use('/users', userRouter)
 app.use('/products',productRouter)
 app.use('/favorites',favoriteRouter)
+app.use('/carts',cartRouter)
 
 
 // Make my server work on port 3000 and listen when user use it
