@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.DeleteUserViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityAccountBinding;
-import com.marwaeltayeb.souq.storage.SharedPrefManager;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.io.IOException;
 
@@ -34,8 +34,8 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
         deleteUserViewModel = ViewModelProviders.of(this).get(DeleteUserViewModel.class);
 
-        binding.nameOfUser.setText(SharedPrefManager.getInstance(this).getUserInfo().getName());
-        binding.emailOfUser.setText(SharedPrefManager.getInstance(this).getUserInfo().getEmail());
+        binding.nameOfUser.setText(LoginUtils.getInstance(this).getUserInfo().getName());
+        binding.emailOfUser.setText(LoginUtils.getInstance(this).getUserInfo().getEmail());
 
         binding.myOrders.setOnClickListener(this);
         binding.myWishList.setOnClickListener(this);
@@ -62,7 +62,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void signOut() {
-        SharedPrefManager.getInstance(this).clearAll();
+        LoginUtils.getInstance(this).clearAll();
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -98,9 +98,9 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void deleteAccount() {
-        deleteUserViewModel.deleteUser(SharedPrefManager.getInstance(this).getUserInfo().getId()).observe(this, responseBody -> {
+        deleteUserViewModel.deleteUser(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, responseBody -> {
             if(responseBody!= null){
-                SharedPrefManager.getInstance(getApplicationContext()).clearAll();
+                LoginUtils.getInstance(getApplicationContext()).clearAll();
                 try {
                     Toast.makeText(AccountActivity.this, responseBody.string() + "", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onResponse: delete account" + responseBody.string());

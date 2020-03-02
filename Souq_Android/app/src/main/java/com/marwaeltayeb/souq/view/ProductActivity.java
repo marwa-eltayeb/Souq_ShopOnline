@@ -50,7 +50,7 @@ import com.marwaeltayeb.souq.adapter.SearchAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
-import com.marwaeltayeb.souq.storage.SharedPrefManager;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
 import com.marwaeltayeb.souq.utils.Slide;
 
@@ -136,9 +136,9 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         circleImageView = headerContainer.findViewById(R.id.profile_image);
         circleImageView.setOnClickListener(this);
         TextView userName = headerContainer.findViewById(R.id.nameOfUser);
-        userName.setText(SharedPrefManager.getInstance(this).getUserInfo().getName());
+        userName.setText(LoginUtils.getInstance(this).getUserInfo().getName());
         TextView userEmail = headerContainer.findViewById(R.id.emailOfUser);
-        userEmail.setText(SharedPrefManager.getInstance(this).getUserInfo().getEmail());
+        userEmail.setText(LoginUtils.getInstance(this).getUserInfo().getEmail());
 
         binding.included.content.listOfMobiles.setHasFixedSize(true);
         binding.included.content.listOfMobiles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -309,7 +309,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void getUserImage() {
-        userImageViewModel.getUserImage(SharedPrefManager.getInstance(this).getUserInfo().getId()).observe(this, response -> {
+        userImageViewModel.getUserImage(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, response -> {
             if (response != null) {
                 String imageUrl = LOCALHOST + response.getImage().replaceAll("\\\\", "/");
                 Glide.with(getApplicationContext())
@@ -380,7 +380,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 searchViewItem.getActionView();
 
         MenuItem addMenu = menu.findItem(R.id.action_addProduct);
-        if (SharedPrefManager.getInstance(this).getUserInfo().isAdmin()) {
+        if (LoginUtils.getInstance(this).getUserInfo().isAdmin()) {
             addMenu.setVisible(true);
         } else {
             addMenu.setVisible(false);

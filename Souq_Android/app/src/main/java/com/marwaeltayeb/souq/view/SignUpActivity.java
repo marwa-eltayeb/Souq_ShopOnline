@@ -16,7 +16,7 @@ import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.RegisterViewModel;
 import com.marwaeltayeb.souq.databinding.ActivitySignupBinding;
 import com.marwaeltayeb.souq.model.User;
-import com.marwaeltayeb.souq.storage.SharedPrefManager;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.Validation;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
@@ -42,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onStart() {
         super.onStart();
-        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
+        if (LoginUtils.getInstance(this).isLoggedIn()) {
             goToProductActivity();
         }
     }
@@ -91,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         registerViewModel.getRegisterResponseLiveData(new User(name, email, password)).observe(this, registerApiResponse -> {
             if (!registerApiResponse.isError()) {
                 Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_LONG).show();
-                SharedPrefManager.getInstance(this).saveUserInfo(registerApiResponse.getUser());
+                LoginUtils.getInstance(this).saveUserInfo(registerApiResponse.getUser());
                 goToProductActivity();
             }else {
                 Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_SHORT).show();

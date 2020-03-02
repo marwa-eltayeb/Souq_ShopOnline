@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.LoginViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityLoginBinding;
-import com.marwaeltayeb.souq.storage.SharedPrefManager;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.Validation;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         // If user logged in, go directly to ProductActivity
-        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
+        if (LoginUtils.getInstance(this).isLoggedIn()) {
             goToProductActivity();
         }
     }
@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         loginViewModel.getLoginResponseLiveData(email,password).observe(this, loginApiResponse -> {
             if (!loginApiResponse.isError()) {
-                SharedPrefManager.getInstance(this).saveUserInfo(loginApiResponse);
+                LoginUtils.getInstance(this).saveUserInfo(loginApiResponse);
                 Toast.makeText(this, loginApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 goToProductActivity();
             }else {

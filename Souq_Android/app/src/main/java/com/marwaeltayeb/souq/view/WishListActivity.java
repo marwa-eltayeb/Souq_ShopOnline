@@ -12,7 +12,7 @@ import com.marwaeltayeb.souq.ViewModel.FavoriteViewModel;
 import com.marwaeltayeb.souq.adapter.WishListAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityWishlistBinding;
 import com.marwaeltayeb.souq.model.Product;
-import com.marwaeltayeb.souq.storage.SharedPrefManager;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class WishListActivity extends AppCompatActivity {
     }
 
     private void getFavorites() {
-        favoriteViewModel.getFavorites(SharedPrefManager.getInstance(this).getUserInfo().getId()).observe(this, favoriteApiResponse -> {
+        favoriteViewModel.getFavorites(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, favoriteApiResponse -> {
             if (favoriteApiResponse != null) {
                 favoriteList = favoriteApiResponse.getFavorites();
                 wishListAdapter = new WishListAdapter(getApplicationContext(), favoriteList, product -> {

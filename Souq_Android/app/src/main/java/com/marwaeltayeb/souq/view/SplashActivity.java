@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.storage.SharedPrefManager;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -26,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
                 // Close this activity
                 finish();
                 // If user does not log in before, go to LoginActivity
-                if(!SharedPrefManager.getInstance(SplashActivity.this).isLoggedIn()) {
+                if(!LoginUtils.getInstance(SplashActivity.this).isLoggedIn()) {
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
