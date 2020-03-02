@@ -7,20 +7,20 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.adapter.HelpCenterAdapter;
-import com.marwaeltayeb.souq.databinding.ActivityHelpCenterBinding;
+import com.marwaeltayeb.souq.adapter.HelpAdapter;
+import com.marwaeltayeb.souq.databinding.ActivityHelpBinding;
 import com.marwaeltayeb.souq.model.Help;
 
 import java.util.ArrayList;
 
-public class HelpCenterActivity extends AppCompatActivity {
+public class HelpActivity extends AppCompatActivity {
 
-    private ActivityHelpCenterBinding binding;
+    private ActivityHelpBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_help_center);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_help);
 
         setUpRecyclerView();
 
@@ -34,8 +34,8 @@ public class HelpCenterActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, layoutManager.getOrientation());
         binding.helpList.addItemDecoration(dividerItemDecoration);
 
-        HelpCenterAdapter helpCenterAdapter = new HelpCenterAdapter(getHelpList());
-        binding.helpList.setAdapter(helpCenterAdapter);
+        HelpAdapter helpAdapter = new HelpAdapter(getHelpList());
+        binding.helpList.setAdapter(helpAdapter);
     }
 
     private ArrayList<Help> getHelpList() {

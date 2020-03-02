@@ -82,7 +82,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 // To do
                 break;
             case R.id.helpCenter:
-                Intent helpCenterIntent = new Intent(this, HelpCenterActivity.class);
+                Intent helpCenterIntent = new Intent(this, HelpActivity.class);
                 startActivity(helpCenterIntent);
                 break;
             case R.id.shareWithFriends:

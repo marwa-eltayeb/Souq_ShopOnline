@@ -7,24 +7,24 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.databinding.HelpCenterListItemBinding;
+import com.marwaeltayeb.souq.databinding.HelpListItemBinding;
 import com.marwaeltayeb.souq.model.Help;
 
 import java.util.List;
 
-public class HelpCenterAdapter extends RecyclerView.Adapter<HelpCenterAdapter.HelpCenterHolder>{
+public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.HelpCenterHolder>{
 
     private List<Help> helpList;
 
-    public HelpCenterAdapter(List<Help> helpList) {
+    public HelpAdapter(List<Help> helpList) {
         this.helpList = helpList;
     }
 
     @NonNull
     @Override
     public HelpCenterHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        HelpCenterListItemBinding helpCenterListItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.help_center_list_item,parent,false);
-        return new HelpCenterHolder(helpCenterListItemBinding);
+        HelpListItemBinding helpListItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.help_list_item,parent,false);
+        return new HelpCenterHolder(helpListItemBinding);
     }
 
     @Override
@@ -45,9 +45,9 @@ public class HelpCenterAdapter extends RecyclerView.Adapter<HelpCenterAdapter.He
 
     class HelpCenterHolder extends RecyclerView.ViewHolder{
 
-        private final HelpCenterListItemBinding binding;
+        private final HelpListItemBinding binding;
 
-        private HelpCenterHolder(HelpCenterListItemBinding binding) {
+        private HelpCenterHolder(HelpListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

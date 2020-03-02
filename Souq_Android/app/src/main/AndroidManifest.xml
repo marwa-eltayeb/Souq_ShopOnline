@@ -93,7 +93,7 @@
         </activity>
 
         <activity
-            android:name=".view.HelpCenterActivity"
+            android:name=".view.HelpActivity"
             android:label="@string/help_center"
             android:parentActivityName=".view.ProductActivity">
             <meta-data
