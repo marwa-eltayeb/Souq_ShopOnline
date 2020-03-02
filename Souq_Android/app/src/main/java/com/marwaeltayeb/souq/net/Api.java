@@ -1,5 +1,6 @@
 package com.marwaeltayeb.souq.net;
 
+import com.marwaeltayeb.souq.model.Cart;
 import com.marwaeltayeb.souq.model.CartApiResponse;
 import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.FavoriteApiResponse;
@@ -65,8 +66,10 @@ public interface Api {
 
     @GET("favorites")
     Call<FavoriteApiResponse> getFavorites(@Query("userId") int userId);
+
+    @POST("carts/add")
+    Call<ResponseBody> addToCart(@Body Cart cart);
     
     @GET("carts")
     Call<CartApiResponse> getProductsInCart(@Query("userId") int userId);
-
 }

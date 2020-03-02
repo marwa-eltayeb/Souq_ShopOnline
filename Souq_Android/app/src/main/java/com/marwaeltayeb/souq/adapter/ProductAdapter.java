@@ -20,15 +20,20 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.AddFavoriteViewModel;
+import com.marwaeltayeb.souq.ViewModel.FromCartViewModel;
 import com.marwaeltayeb.souq.ViewModel.RemoveFavoriteViewModel;
+import com.marwaeltayeb.souq.ViewModel.ToCartViewModel;
 import com.marwaeltayeb.souq.databinding.ProductListItemBinding;
+import com.marwaeltayeb.souq.model.Cart;
 import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 
-import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
+import static com.marwaeltayeb.souq.storage.CartUtils.getCartState;
+import static com.marwaeltayeb.souq.storage.CartUtils.setCartState;
 import static com.marwaeltayeb.souq.storage.FavoriteUtils.getFavoriteState;
 import static com.marwaeltayeb.souq.storage.FavoriteUtils.setFavoriteState;
+import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.Utils.shareProduct;
 
 public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.ProductViewHolder> {
@@ -37,6 +42,8 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
     public static Product product;
     private AddFavoriteViewModel addFavoriteViewModel;
     private RemoveFavoriteViewModel removeFavoriteViewModel;
+    private ToCartViewModel toCartViewModel;
+    private FromCartViewModel fromCartViewModel;
 
     // Create a final private MovieAdapterOnClickHandler called mClickHandler
     private ProductAdapterOnClickHandler clickHandler;
@@ -54,6 +61,8 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         this.clickHandler = clickHandler;
         addFavoriteViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(AddFavoriteViewModel.class);
         removeFavoriteViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(RemoveFavoriteViewModel.class);
+        toCartViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(ToCartViewModel.class);
+        fromCartViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(FromCartViewModel.class);
     }
 
     @NonNull
@@ -86,6 +95,11 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             // If product is inserted
             if (getFavoriteState(mContext, product.getProductId())) {
                 holder.binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
+            }
+
+            // If product is added to cart
+            if (getCartState(mContext, product.getProductId())) {
+                holder.binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
             }
 
         } else {
@@ -136,6 +150,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             // Register a callback to be invoked when this view is clicked.
             itemView.setOnClickListener(this);
             binding.imgFavourite.setOnClickListener(this);
+            binding.imgCart.setOnClickListener(this);
         }
 
         @Override
@@ -151,6 +166,9 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                     break;
                 case R.id.imgFavourite:
                     toggleFavourite();
+                    break;
+                case R.id.imgCart:
+                    toggleProductsInCart();
                     break;
             }
         }
@@ -171,6 +189,22 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             }
         }
 
+        private void toggleProductsInCart() {
+            // If Product is not added to cart
+            if (!getCartState(mContext, product.getProductId())) {
+                binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
+                insertToCart();
+                setCartState(mContext, product.getProductId(), true);
+                Toast.makeText(mContext, product.getProductId() + "", Toast.LENGTH_SHORT).show();
+                showSnackBar("Added To Cart");
+            } else {
+                binding.imgCart.setImageResource(R.drawable.ic_add_shopping_cart);
+                //deleteFromCart();
+                setCartState(mContext, product.getProductId(), false);
+                showSnackBar("Removed From Cart");
+            }
+        }
+
         private void showSnackBar(String text) {
             Snackbar.make(itemView, text, Snackbar.LENGTH_SHORT).show();
         }
@@ -184,5 +218,9 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(),product.getProductId());
         }
 
+        private void insertToCart() {
+            Cart cart = new Cart(LoginUtils.getInstance(mContext).getUserInfo().getId(),product.getProductId());
+            toCartViewModel.addToCart(cart);
+        }
     }
 }
