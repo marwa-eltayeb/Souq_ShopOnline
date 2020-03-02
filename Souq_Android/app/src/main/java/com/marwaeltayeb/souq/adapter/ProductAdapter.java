@@ -68,7 +68,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        ProductListItemBinding productListItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.product_list_item,parent,false);
+        ProductListItemBinding productListItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.product_list_item, parent, false);
         return new ProductViewHolder(productListItemBinding);
     }
 
@@ -88,9 +88,9 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                     .load(imageUrl)
                     .into(holder.binding.imgProductImage);
 
-            Log.d("imageUrl",imageUrl);
+            Log.d("imageUrl", imageUrl);
 
-            holder.binding.imgShare.setOnClickListener(v -> shareProduct(mContext,productName,imageUrl));
+            holder.binding.imgShare.setOnClickListener(v -> shareProduct(mContext, productName, imageUrl));
 
             // If product is inserted
             if (getFavoriteState(mContext, product.getProductId())) {
@@ -140,7 +140,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         }
     };
 
-    class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Create view instances
         private final ProductListItemBinding binding;
 
@@ -199,7 +199,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                 showSnackBar("Added To Cart");
             } else {
                 binding.imgCart.setImageResource(R.drawable.ic_add_shopping_cart);
-                //deleteFromCart();
+                deleteFromCart();
                 setCartState(mContext, product.getProductId(), false);
                 showSnackBar("Removed From Cart");
             }
@@ -210,17 +210,22 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         }
 
         private void insertFavoriteProduct() {
-            Favorite favorite = new Favorite(LoginUtils.getInstance(mContext).getUserInfo().getId(),product.getProductId());
+            Favorite favorite = new Favorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
             addFavoriteViewModel.addFavorite(favorite);
         }
 
         private void deleteFavoriteProduct() {
-            removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(),product.getProductId());
+            removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
         }
 
         private void insertToCart() {
-            Cart cart = new Cart(LoginUtils.getInstance(mContext).getUserInfo().getId(),product.getProductId());
+            Cart cart = new Cart(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
             toCartViewModel.addToCart(cart);
         }
+
+        private void deleteFromCart() {
+            fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
+        }
+
     }
 }
