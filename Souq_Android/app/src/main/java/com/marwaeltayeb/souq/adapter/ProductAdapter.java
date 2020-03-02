@@ -24,11 +24,11 @@ import com.marwaeltayeb.souq.ViewModel.RemoveFavoriteViewModel;
 import com.marwaeltayeb.souq.databinding.ProductListItemBinding;
 import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.Product;
-import com.marwaeltayeb.souq.storage.SharedPrefManager;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
-import static com.marwaeltayeb.souq.utils.FavoriteUtils.getFavoriteState;
-import static com.marwaeltayeb.souq.utils.FavoriteUtils.setFavoriteState;
+import static com.marwaeltayeb.souq.storage.FavoriteUtils.getFavoriteState;
+import static com.marwaeltayeb.souq.storage.FavoriteUtils.setFavoriteState;
 import static com.marwaeltayeb.souq.utils.Utils.shareProduct;
 
 public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.ProductViewHolder> {
@@ -176,12 +176,12 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         }
 
         private void insertFavoriteProduct() {
-            Favorite favorite = new Favorite(SharedPrefManager.getInstance(mContext).getUserInfo().getId(),product.getProductId());
+            Favorite favorite = new Favorite(LoginUtils.getInstance(mContext).getUserInfo().getId(),product.getProductId());
             addFavoriteViewModel.addFavorite(favorite);
         }
 
         private void deleteFavoriteProduct() {
-            removeFavoriteViewModel.removeFavorite(SharedPrefManager.getInstance(mContext).getUserInfo().getId(),product.getProductId());
+            removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(),product.getProductId());
         }
 
     }

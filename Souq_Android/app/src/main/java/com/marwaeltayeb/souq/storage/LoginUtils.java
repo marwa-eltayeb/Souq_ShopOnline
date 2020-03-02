@@ -6,21 +6,21 @@ import android.content.SharedPreferences;
 import com.marwaeltayeb.souq.model.LoginApiResponse;
 import com.marwaeltayeb.souq.model.User;
 
-public class SharedPrefManager {
+public class LoginUtils {
 
     private static final String SHARED_PREF_NAME = "shared_preference";
 
-    private static SharedPrefManager mInstance;
+    private static LoginUtils mInstance;
     private Context mCtx;
 
-    private SharedPrefManager(Context mCtx) {
+    private LoginUtils(Context mCtx) {
         this.mCtx = mCtx;
     }
 
 
-    public static synchronized SharedPrefManager getInstance(Context mCtx) {
+    public static synchronized LoginUtils getInstance(Context mCtx) {
         if (mInstance == null) {
-            mInstance = new SharedPrefManager(mCtx);
+            mInstance = new LoginUtils(mCtx);
         }
         return mInstance;
     }

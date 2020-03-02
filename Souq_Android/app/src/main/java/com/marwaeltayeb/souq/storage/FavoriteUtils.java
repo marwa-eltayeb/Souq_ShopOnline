@@ -1,4 +1,4 @@
-package com.marwaeltayeb.souq.utils;
+package com.marwaeltayeb.souq.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;

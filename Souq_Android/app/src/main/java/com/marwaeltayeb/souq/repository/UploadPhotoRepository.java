@@ -6,7 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.marwaeltayeb.souq.net.RetrofitClient;
-import com.marwaeltayeb.souq.storage.SharedPrefManager;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.io.File;
 
@@ -36,7 +36,7 @@ public class UploadPhotoRepository {
 
         MultipartBody.Part photo = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
-        RequestBody id = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(SharedPrefManager.getInstance(application).getUserInfo().getId()));
+        RequestBody id = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(LoginUtils.getInstance(application).getUserInfo().getId()));
 
         RetrofitClient.getInstance().getApi().uploadPhoto(photo, id).enqueue(new Callback<ResponseBody>() {
             @Override
