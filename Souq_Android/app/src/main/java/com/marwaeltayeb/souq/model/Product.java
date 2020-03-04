@@ -36,6 +36,10 @@ public class Product implements Parcelable {
 
     }
 
+    public int getProductId() {
+        return productId;
+    }
+
     public String getProductName() {
         return productName;
     }
@@ -59,11 +63,6 @@ public class Product implements Parcelable {
     public String getProductImage() {
         return productImage;
     }
-
-    public int getProductId() {
-        return productId;
-    }
-
 
     // Write the values to be saved to the `Parcel`.
     @Override
