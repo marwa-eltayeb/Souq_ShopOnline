@@ -98,6 +98,7 @@
     <string name="inquiryFive">Tracking Your Shipment</string>
     <string name="answerFive">When you purchase products from different sellers in an order, each seller will have a separate shipment and the product or products from each seller will be delivered to you separately. If you want to have all of the items shipped in one shipment, you will have to place the order for all items from the same seller.</string>
     <string name="recently_viewed_items">Recently Viewed Items</string>
+    <string name="all_removed">All Products removed from History</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>

@@ -80,8 +80,10 @@ public interface Api {
 
     @POST("history/add")
     Call<ResponseBody> addToHistory(@Body History history);
-    
+
+    @DELETE("history/remove")
+    Call<ResponseBody> removeAllFromHistory();
+
     @GET("history")
     Call<HistoryApiResponse> getProductsInHistory(@Query("userId") int userId,@Query("page") int page);
-
 }

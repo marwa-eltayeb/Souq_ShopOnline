@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.DeleteUserViewModel;
+import com.marwaeltayeb.souq.ViewModel.FromHistoryViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityAccountBinding;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 
@@ -25,6 +26,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
     private static final String TAG = "AccountActivity";
     private DeleteUserViewModel deleteUserViewModel;
+    private FromHistoryViewModel fromHistoryViewModel;
 
 
     @Override
@@ -33,6 +35,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         ActivityAccountBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_account);
 
         deleteUserViewModel = ViewModelProviders.of(this).get(DeleteUserViewModel.class);
+        fromHistoryViewModel = ViewModelProviders.of(this).get(FromHistoryViewModel.class);
 
         binding.nameOfUser.setText(LoginUtils.getInstance(this).getUserInfo().getName());
         binding.emailOfUser.setText(LoginUtils.getInstance(this).getUserInfo().getEmail());
@@ -56,6 +59,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_signOut) {
             signOut();
+            deleteAllProductsInHistory();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -68,18 +72,24 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
 
+    private void deleteAllProductsInHistory() {
+       fromHistoryViewModel.removeAllFromHistory().observe(this, responseBody -> {
+           Log.d(TAG,getString(R.string.all_removed));
+       });
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.myOrders:
-                // To do
+                // ToDo : orders
                 break;
             case R.id.myWishList:
                 Intent wishListIntent = new Intent(this, WishListActivity.class);
                 startActivity(wishListIntent);
                 break;
             case R.id.languages:
-                // To do
+                // ToDo : language
                 break;
             case R.id.helpCenter:
                 Intent helpCenterIntent = new Intent(this, HelpActivity.class);

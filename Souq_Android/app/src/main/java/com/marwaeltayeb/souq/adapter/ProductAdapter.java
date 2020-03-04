@@ -23,9 +23,11 @@ import com.marwaeltayeb.souq.ViewModel.AddFavoriteViewModel;
 import com.marwaeltayeb.souq.ViewModel.FromCartViewModel;
 import com.marwaeltayeb.souq.ViewModel.RemoveFavoriteViewModel;
 import com.marwaeltayeb.souq.ViewModel.ToCartViewModel;
+import com.marwaeltayeb.souq.ViewModel.ToHistoryViewModel;
 import com.marwaeltayeb.souq.databinding.ProductListItemBinding;
 import com.marwaeltayeb.souq.model.Cart;
 import com.marwaeltayeb.souq.model.Favorite;
+import com.marwaeltayeb.souq.model.History;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 
@@ -44,6 +46,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
     private RemoveFavoriteViewModel removeFavoriteViewModel;
     private ToCartViewModel toCartViewModel;
     private FromCartViewModel fromCartViewModel;
+    private ToHistoryViewModel toHistoryViewModel;
 
     // Create a final private MovieAdapterOnClickHandler called mClickHandler
     private ProductAdapterOnClickHandler clickHandler;
@@ -63,6 +66,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         removeFavoriteViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(RemoveFavoriteViewModel.class);
         toCartViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(ToCartViewModel.class);
         fromCartViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(FromCartViewModel.class);
+        toHistoryViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(ToHistoryViewModel.class);
     }
 
     @NonNull
@@ -163,6 +167,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                 case R.id.card_view:
                     // Send product through click
                     clickHandler.onClick(product);
+                    insertProductToHistory();
                     break;
                 case R.id.imgFavourite:
                     toggleFavourite();
@@ -227,5 +232,11 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
         }
 
+        private void insertProductToHistory() {
+            History history = new History(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
+            toHistoryViewModel.addToHistory(history);
+        }
     }
+
+
 }
