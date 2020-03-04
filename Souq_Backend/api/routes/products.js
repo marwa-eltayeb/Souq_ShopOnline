@@ -76,9 +76,9 @@ router.get("/", (request, response) => {
     }
 
     // OFFSET starts from zero
-    page = page - 1;
+    const offset = page - 1;
     // OFFSET * LIMIT
-    page = page * page_size;
+    page = offset * page_size; // 20
 
     const args = [
         category,
@@ -91,7 +91,7 @@ router.get("/", (request, response) => {
     database.query(query, args, (error, result) => {
         if(error) throw error
         response.status(200).json({
-            "page": page + 1,
+            "page": offset + 1,  //2
             "error" : false,
             "products" : result
         })

@@ -41,6 +41,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.ViewModel.HistoryViewModel;
 import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
 import com.marwaeltayeb.souq.ViewModel.SearchViewModel;
 import com.marwaeltayeb.souq.ViewModel.UploadPhotoViewModel;
@@ -77,10 +78,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private ProductAdapter mobileAdapter;
     private ProductAdapter laptopAdapter;
+    private ProductAdapter historyAdapter;
     private SearchAdapter searchAdapter;
     private List<Product> searchedMovieList;
 
     private ProductViewModel productViewModel;
+    private HistoryViewModel historyViewModel;
     private SearchViewModel searchViewModel;
     private UploadPhotoViewModel uploadPhotoViewModel;
     private UserImageViewModel userImageViewModel;
@@ -98,6 +101,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product);
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+        historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
         searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
         uploadPhotoViewModel = ViewModelProviders.of(this).get(UploadPhotoViewModel.class);
         userImageViewModel = ViewModelProviders.of(this).get(UserImageViewModel.class);
@@ -111,6 +115,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         getMobiles();
         getLaptops();
+        getHistory();
         getUserImage();
 
         flipImages(Slide.getSlides());
@@ -146,8 +151,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding.included.content.listOfLaptops.setHasFixedSize(true);
         binding.included.content.listOfLaptops.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
+        binding.included.content.historyList.setHasFixedSize(true);
+        binding.included.content.historyList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
         mobileAdapter = new ProductAdapter(this, this);
         laptopAdapter = new ProductAdapter(this, this);
+        historyAdapter = new ProductAdapter(this, this);
     }
 
     private void getMobiles() {
@@ -180,6 +189,25 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
             binding.included.content.listOfLaptops.setAdapter(laptopAdapter);
             laptopAdapter.notifyDataSetChanged();
+        } else {
+            showOrHideViews(View.INVISIBLE);
+            showSnackBar();
+        }
+    }
+
+    private void getHistory() {
+        if (isNetworkConnected(this)) {
+            // Observe the productPagedList from ViewModel
+            historyViewModel.historyPagedList.observe(this, new Observer<PagedList<Product>>() {
+                @Override
+                public void onChanged(@Nullable PagedList<Product> products) {
+                    Toast.makeText(ProductActivity.this, products.size() + "", Toast.LENGTH_SHORT).show();
+                    historyAdapter.submitList(products);
+                }
+            });
+
+            binding.included.content.historyList.setAdapter(historyAdapter);
+            historyAdapter.notifyDataSetChanged();
         } else {
             showOrHideViews(View.INVISIBLE);
             showSnackBar();

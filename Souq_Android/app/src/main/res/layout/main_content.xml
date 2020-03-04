@@ -92,7 +92,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtSeeAllLaptops" />
-            
+
             <TextView
                 android:id="@+id/textViewHistory"
                 android:layout_width="wrap_content"
