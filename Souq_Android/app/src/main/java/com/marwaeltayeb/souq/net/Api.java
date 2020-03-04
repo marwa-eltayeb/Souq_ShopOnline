@@ -4,6 +4,7 @@ import com.marwaeltayeb.souq.model.Cart;
 import com.marwaeltayeb.souq.model.CartApiResponse;
 import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.FavoriteApiResponse;
+import com.marwaeltayeb.souq.model.History;
 import com.marwaeltayeb.souq.model.HistoryApiResponse;
 import com.marwaeltayeb.souq.model.Image;
 import com.marwaeltayeb.souq.model.LoginApiResponse;
@@ -77,6 +78,9 @@ public interface Api {
     @GET("carts")
     Call<CartApiResponse> getProductsInCart(@Query("userId") int userId);
 
+    @POST("history/add")
+    Call<ResponseBody> addToHistory(@Body History history);
+    
     @GET("history")
     Call<HistoryApiResponse> getProductsInHistory(@Query("userId") int userId,@Query("page") int page);
 
