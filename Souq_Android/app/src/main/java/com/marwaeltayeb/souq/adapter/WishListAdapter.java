@@ -15,9 +15,11 @@ import com.marwaeltayeb.souq.model.Product;
 
 import java.util.List;
 
+import static com.marwaeltayeb.souq.storage.CartUtils.getCartState;
+import static com.marwaeltayeb.souq.storage.FavoriteUtils.getFavoriteState;
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 
-public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishListViewHolder>{
+public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishListViewHolder> {
 
     private Context mContext;
     // Declare an arrayList for favorite products
@@ -44,7 +46,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
     @NonNull
     @Override
     public WishListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        WishlistItemBinding wishlistItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.wishlist_item,parent,false);
+        WishlistItemBinding wishlistItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.wishlist_item, parent, false);
         return new WishListViewHolder(wishlistItemBinding);
     }
 
@@ -59,6 +61,17 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
         Glide.with(mContext)
                 .load(imageUrl)
                 .into(holder.binding.imgProductImage);
+
+        // If product is inserted
+        if (getFavoriteState(mContext, currentProduct.getProductId())) {
+            holder.binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
+        }
+
+        // If product is added to cart
+        if (getCartState(mContext, currentProduct.getProductId())) {
+            holder.binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
+        }
+
     }
 
     @Override
@@ -69,7 +82,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
         return favoriteList.size();
     }
 
-    class WishListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class WishListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Create view instances
         private final WishlistItemBinding binding;

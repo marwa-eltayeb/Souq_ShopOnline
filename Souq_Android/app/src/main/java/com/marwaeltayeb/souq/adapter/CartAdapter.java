@@ -15,6 +15,8 @@ import com.marwaeltayeb.souq.model.Product;
 
 import java.util.List;
 
+import static com.marwaeltayeb.souq.storage.CartUtils.getCartState;
+import static com.marwaeltayeb.souq.storage.FavoriteUtils.getFavoriteState;
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder>{
@@ -59,6 +61,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         Glide.with(mContext)
                 .load(imageUrl)
                 .into(holder.binding.imgProductImage);
+
+        // If product is inserted
+        if (getFavoriteState(mContext, currentProduct.getProductId())) {
+            holder.binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
+        }
+
+        // If product is added to cart
+        if (getCartState(mContext, currentProduct.getProductId())) {
+            holder.binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
+        }
     }
 
     @Override
