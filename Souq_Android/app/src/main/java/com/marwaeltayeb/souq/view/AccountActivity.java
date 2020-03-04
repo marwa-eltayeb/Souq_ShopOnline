@@ -27,6 +27,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     private static final String TAG = "AccountActivity";
     private DeleteUserViewModel deleteUserViewModel;
     private FromHistoryViewModel fromHistoryViewModel;
+    public static boolean historyIsDeleted = false;
 
 
     @Override
@@ -76,6 +77,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
        fromHistoryViewModel.removeAllFromHistory().observe(this, responseBody -> {
            Log.d(TAG,getString(R.string.all_removed));
        });
+       historyIsDeleted = true;
     }
 
     @Override

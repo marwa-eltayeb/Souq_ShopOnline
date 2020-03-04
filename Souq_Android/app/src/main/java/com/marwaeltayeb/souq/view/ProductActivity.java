@@ -70,6 +70,7 @@ import static com.marwaeltayeb.souq.utils.Constant.READ_EXTERNAL_STORAGE_CODE;
 import static com.marwaeltayeb.souq.utils.ImageUtils.getImageUri;
 import static com.marwaeltayeb.souq.utils.ImageUtils.getRealPathFromURI;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
+import static com.marwaeltayeb.souq.view.AccountActivity.historyIsDeleted;
 
 public class ProductActivity extends AppCompatActivity implements View.OnClickListener, OnNetworkListener, ProductAdapter.ProductAdapterOnClickHandler,
         NavigationView.OnNavigationItemSelectedListener {
@@ -158,6 +159,10 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         mobileAdapter = new ProductAdapter(this, this);
         laptopAdapter = new ProductAdapter(this, this);
         historyAdapter = new ProductAdapter(this, this);
+
+        if(historyIsDeleted){
+            binding.included.content.textViewHistory.setVisibility(View.GONE);
+        }
     }
 
     private void getMobiles() {
