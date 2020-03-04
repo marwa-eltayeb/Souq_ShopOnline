@@ -15,12 +15,18 @@ public class HistoryDataSource extends PageKeyedDataSource<Integer, Product> {
 
     private static final int FIRST_PAGE = 1;
     public static final int PAGE_SIZE = 20;
-    private int USER_ID = 24;
+    //private int USER_ID = 24;
+
+    private int userId;
+
+    public HistoryDataSource(int userId) {
+        this.userId = userId;
+    }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, Product> callback) {
         RetrofitClient.getInstance()
-                .getApi().getProductsInHistory(USER_ID,FIRST_PAGE)
+                .getApi().getProductsInHistory(userId,FIRST_PAGE)
                 .enqueue(new Callback<HistoryApiResponse>() {
                     @Override
                     public void onResponse(Call<HistoryApiResponse> call, Response<HistoryApiResponse> response) {
@@ -45,7 +51,7 @@ public class HistoryDataSource extends PageKeyedDataSource<Integer, Product> {
     @Override
     public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Product> callback) {
         RetrofitClient.getInstance()
-                .getApi().getProductsInHistory(USER_ID,params.key)
+                .getApi().getProductsInHistory(userId,params.key)
                 .enqueue(new Callback<HistoryApiResponse>() {
                     @Override
                     public void onResponse(Call<HistoryApiResponse> call, Response<HistoryApiResponse> response) {
@@ -66,7 +72,7 @@ public class HistoryDataSource extends PageKeyedDataSource<Integer, Product> {
     @Override
     public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, Product> callback) {
         RetrofitClient.getInstance()
-                .getApi().getProductsInHistory(USER_ID,params.key)
+                .getApi().getProductsInHistory(userId,params.key)
                 .enqueue(new Callback<HistoryApiResponse>() {
                     @Override
                     public void onResponse(Call<HistoryApiResponse> call, Response<HistoryApiResponse> response) {
