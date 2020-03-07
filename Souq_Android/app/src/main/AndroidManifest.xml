@@ -91,7 +91,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
         </activity>
-
         <activity
             android:name=".view.HelpActivity"
             android:label="@string/help_center"
@@ -99,6 +98,24 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
+        </activity>
+
+        <activity
+            android:name=".view.AllReviewsActivity"
+            android:label="@string/reviews"
+            android:parentActivityName=".view.DetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.DetailsActivity" />
+        </activity>
+
+        <activity
+            android:name=".view.WriteReviewActivity"
+            android:label="@string/write_review"
+            android:parentActivityName=".view.DetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.DetailsActivity" />
         </activity>
 
         <receiver android:name=".receiver.NetworkChangeReceiver" />
