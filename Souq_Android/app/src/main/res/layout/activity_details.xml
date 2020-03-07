@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                tools:listitem="@layout/review_item" />
+                tools:listitem="@layout/review_list_item" />
 
             <TextView
                 android:id="@+id/writeReview"

@@ -102,6 +102,9 @@
     <string name="reviews">Reviews</string>
     <string name="write_review">Write Review</string>
     <string name="dateOfReview">7 Apr 2020</string>
+    <string name="write_your_feedback_here">Write Your Feedback Here</string>
+    <string name="submit">Submit</string>
+    <string name="dummyRate">3.0/5</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>

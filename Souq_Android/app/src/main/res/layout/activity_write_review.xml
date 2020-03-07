@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.AddProductActivity">
+
+    <EditText
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:clickable="false"
+        android:enabled="false"
+        android:focusable="false"
+        android:hint="@string/marwa_eltayeb"
+        android:importantForAutofill="no"
+        android:inputType="none" />
+
+    <RatingBar
+        android:id="@+id/rateProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen10dp"
+        android:numStars="5"
+        android:progressTint="@color/gray"
+        android:secondaryProgressTint="@android:color/transparent"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/txtFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/custom_border"
+        android:gravity="top"
+        android:maxLength="4"
+        android:hint="@string/write_your_feedback_here"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="@dimen/dimen10dp" />
+
+    <Button
+        android:id="@+id/btnSelectImage"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="@string/submit"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        android:textSize="16sp" />
+</LinearLayout>
