@@ -35,10 +35,10 @@
         android:layout_margin="10dp"
         android:background="@drawable/custom_border"
         android:gravity="top"
-        android:maxLength="4"
+        android:maxLength="200"
         android:hint="@string/write_your_feedback_here"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:padding="@dimen/dimen10dp" />
 
     <Button
