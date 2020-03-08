@@ -26,6 +26,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
 
         binding.txtSeeAllReviews.setOnClickListener(this);
+        binding.writeReview.setOnClickListener(this);
 
         getProductDetails();
     }
