@@ -81,7 +81,7 @@
                     android:padding="@dimen/dimen10dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimen20sp"
-                    tools:text="@string/reviews" />
+                    android:text="@string/reviews" />
 
                 <TextView
                     android:id="@+id/txtSeeAllReviews"
@@ -93,7 +93,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/dimen18sp"
                     android:textStyle="bold"
-                    tools:text="@string/see_all" />
+                    android:text="@string/see_all" />
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView

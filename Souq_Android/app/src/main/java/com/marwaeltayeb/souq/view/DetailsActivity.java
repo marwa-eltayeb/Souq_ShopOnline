@@ -5,20 +5,38 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.adapter.ReviewAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityDetailsBinding;
 import com.marwaeltayeb.souq.model.Product;
+import com.marwaeltayeb.souq.model.Review;
+import com.marwaeltayeb.souq.model.ReviewApiResponse;
+import com.marwaeltayeb.souq.net.RetrofitClient;
+import com.marwaeltayeb.souq.storage.LoginUtils;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private static final String TAG = "DetailsActivity";
+
     private ActivityDetailsBinding binding;
+    private ReviewAdapter reviewAdapter;
+    private List<Review> reviewList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +47,33 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         binding.writeReview.setOnClickListener(this);
 
         getProductDetails();
+
+        setUpRecycleView();
+
+        getReviewsOfProduct();
+    }
+
+    private void setUpRecycleView(){
+        binding.listOfReviews.setHasFixedSize(true);
+        binding.listOfReviews.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    }
+
+    private void getReviewsOfProduct() {
+        RetrofitClient.getInstance().getApi().getAllReviews(LoginUtils.getInstance(this).getUserInfo().getId()).enqueue(new Callback<ReviewApiResponse>() {
+            @Override
+            public void onResponse(Call<ReviewApiResponse> call, Response<ReviewApiResponse> response) {
+                Toast.makeText(DetailsActivity.this, LoginUtils.getInstance(getApplicationContext()).getUserInfo().getId() +"", Toast.LENGTH_SHORT).show();
+                reviewList = response.body().getReviewList();
+                reviewAdapter = new ReviewAdapter(getApplicationContext(), reviewList);
+                binding.listOfReviews.setAdapter(reviewAdapter);
+                reviewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ReviewApiResponse> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
+            }
+        });
     }
 
     private void getProductDetails(){

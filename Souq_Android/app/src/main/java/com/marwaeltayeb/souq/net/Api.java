@@ -10,6 +10,8 @@ import com.marwaeltayeb.souq.model.Image;
 import com.marwaeltayeb.souq.model.LoginApiResponse;
 import com.marwaeltayeb.souq.model.ProductApiResponse;
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
+import com.marwaeltayeb.souq.model.Review;
+import com.marwaeltayeb.souq.model.ReviewApiResponse;
 import com.marwaeltayeb.souq.model.User;
 
 import java.util.Map;
@@ -86,4 +88,10 @@ public interface Api {
 
     @GET("history")
     Call<HistoryApiResponse> getProductsInHistory(@Query("userId") int userId,@Query("page") int page);
+
+    @POST("review/add")
+    Call<ResponseBody> addReview(@Body Review review);
+
+    @GET("review")
+    Call<ReviewApiResponse> getAllReviews(@Query("userId") int userId);
 }
