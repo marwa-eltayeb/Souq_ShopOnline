@@ -4,6 +4,43 @@ const router = express.Router()
 // import file
 const database = require("../../config")
 
+// Get All review
+router.get("/", (request, response) => {
+    var userId = request.query.userId;
+    var page = request.query.page;
+    var page_size = request.query.page_size;
+
+    if(page == null || page < 1){
+        page = 1;
+    }
+ 
+    if(page_size == null){
+        page_size = 20;
+    }
+
+    // OFFSET starts from zero
+    const offset = page - 1;
+    // OFFSET * LIMIT
+    page = offset * page_size;
+
+    const args = [
+        userId,
+        parseInt(page_size),
+        parseInt(page)
+    ];
+    
+    const query = "SELECT user.name,  DATE_FORMAT(review.review_date, '%d/%m/%Y') As date,review.rate, review.feedback FROM Review JOIN Product JOIN User ON review.product_id = product.id AND review.user_id = user.id WHERE user_id = ? LIMIT ? OFFSET ?"
+    database.query(query, args, (error, result) => {
+        if(error) throw error;
+        response.status(200).json({
+            "page": offset + 1,
+            "error" : false,
+            "review" : result[0]
+        })
+
+    })
+});
+
 // Add Review about Product
 router.post("/add", (request, response) => {
     const userId = request.body.userId
