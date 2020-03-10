@@ -28,14 +28,14 @@ router.get("/", (request, response) => {
         parseInt(page_size),
         parseInt(page)
     ];
-    
-    const query = "SELECT user.name,  DATE_FORMAT(review.review_date, '%d/%m/%Y') As date,review.rate, review.feedback FROM Review JOIN Product JOIN User ON review.product_id = product.id AND review.user_id = user.id WHERE user_id = ? LIMIT ? OFFSET ?"
+
+    const query = "SELECT user.name, DATE_FORMAT(review.review_date, '%d/%m/%Y') As date,review.rate,(SELECT AVG(rate) FROM review WHERE review.product_id = product.id) AS averageRate,review.feedback FROM Review JOIN Product JOIN User ON review.product_id = product.id AND review.user_id = user.id WHERE user_id = ? LIMIT ? OFFSET ?"
     database.query(query, args, (error, result) => {
         if(error) throw error;
         response.status(200).json({
             "page": offset + 1,
             "error" : false,
-            "review" : result[0]
+            "review" : result
         })
 
     })
