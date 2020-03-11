@@ -16,4 +16,8 @@ public class Constant {
     public static final int CAMERA_PERMISSION_CODE = 400;
 
 
+    public static String PRODUCT_ID = "ProductId";
+
+
+
 }

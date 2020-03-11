@@ -15,6 +15,8 @@ import com.marwaeltayeb.souq.model.Review;
 
 import java.util.List;
 
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
+
 public class AllReviewsActivity extends AppCompatActivity {
 
     private ActivityAllReviewsBinding binding;
@@ -31,7 +33,7 @@ public class AllReviewsActivity extends AppCompatActivity {
         reviewViewModel = ViewModelProviders.of(this).get(ReviewViewModel.class);
 
         Intent intent = getIntent();
-        productId = intent.getIntExtra("ProductId", 0);
+        productId = intent.getIntExtra(PRODUCT_ID, 0);
 
         setUpRecycleView();
 

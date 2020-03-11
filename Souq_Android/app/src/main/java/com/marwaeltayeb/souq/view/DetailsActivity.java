@@ -22,6 +22,7 @@ import java.util.List;
 
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
 
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -90,7 +91,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         if (view.getId() == R.id.txtSeeAllReviews) {
             Intent allReviewIntent = new Intent(DetailsActivity.this, AllReviewsActivity.class);
-            allReviewIntent.putExtra("ProductId",product.getProductId());
+            allReviewIntent.putExtra(PRODUCT_ID,product.getProductId());
             startActivity(allReviewIntent);
         } else if (view.getId() == R.id.writeReview) {
             Intent allReviewIntent = new Intent(DetailsActivity.this, WriteReviewActivity.class);
