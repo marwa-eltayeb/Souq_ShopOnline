@@ -93,5 +93,5 @@ public interface Api {
     Call<ResponseBody> addReview(@Body Review review);
 
     @GET("review")
-    Call<ReviewApiResponse> getAllReviews(@Query("userId") int userId);
+    Call<ReviewApiResponse> getAllReviews(@Query("productId") int productId);
 }

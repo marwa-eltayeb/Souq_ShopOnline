@@ -1,47 +1,44 @@
 package com.marwaeltayeb.souq.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.ViewModel.ReviewViewModel;
 import com.marwaeltayeb.souq.adapter.ReviewAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityDetailsBinding;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.model.Review;
-import com.marwaeltayeb.souq.model.ReviewApiResponse;
-import com.marwaeltayeb.souq.net.RetrofitClient;
-import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 
-public class DetailsActivity extends AppCompatActivity implements View.OnClickListener{
+public class DetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "DetailsActivity";
 
     private ActivityDetailsBinding binding;
+    private ReviewViewModel reviewViewModel;
     private ReviewAdapter reviewAdapter;
     private List<Review> reviewList;
+    private Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
+
+        reviewViewModel = ViewModelProviders.of(this).get(ReviewViewModel.class);
 
         binding.txtSeeAllReviews.setOnClickListener(this);
         binding.writeReview.setOnClickListener(this);
@@ -53,32 +50,14 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         getReviewsOfProduct();
     }
 
-    private void setUpRecycleView(){
+    private void setUpRecycleView() {
         binding.listOfReviews.setHasFixedSize(true);
         binding.listOfReviews.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
-    private void getReviewsOfProduct() {
-        RetrofitClient.getInstance().getApi().getAllReviews(LoginUtils.getInstance(this).getUserInfo().getId()).enqueue(new Callback<ReviewApiResponse>() {
-            @Override
-            public void onResponse(Call<ReviewApiResponse> call, Response<ReviewApiResponse> response) {
-                Toast.makeText(DetailsActivity.this, LoginUtils.getInstance(getApplicationContext()).getUserInfo().getId() +"", Toast.LENGTH_SHORT).show();
-                reviewList = response.body().getReviewList();
-                reviewAdapter = new ReviewAdapter(getApplicationContext(), reviewList);
-                binding.listOfReviews.setAdapter(reviewAdapter);
-                reviewAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<ReviewApiResponse> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
-            }
-        });
-    }
-
-    private void getProductDetails(){
+    private void getProductDetails() {
         // Receive the product object
-        Product product = getIntent().getParcelableExtra(PRODUCT);
+        product = getIntent().getParcelableExtra(PRODUCT);
 
         // Set Custom ActionBar Layout
         ActionBar actionBar = getSupportActionBar();
@@ -96,12 +75,23 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 .into(binding.imageOfProduct);
     }
 
+    private void getReviewsOfProduct() {
+        reviewViewModel.getReviews(product.getProductId()).observe(this, reviewApiResponse -> {
+            if (reviewApiResponse != null) {
+                reviewList = reviewApiResponse.getReviewList();
+                reviewAdapter = new ReviewAdapter(getApplicationContext(), reviewList);
+                binding.listOfReviews.setAdapter(reviewAdapter);
+                reviewAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.txtSeeAllReviews) {
             Intent allReviewIntent = new Intent(DetailsActivity.this, AllReviewsActivity.class);
             startActivity(allReviewIntent);
-        }else if(view.getId() == R.id.writeReview){
+        } else if (view.getId() == R.id.writeReview) {
             Intent allReviewIntent = new Intent(DetailsActivity.this, WriteReviewActivity.class);
             startActivity(allReviewIntent);
         }
