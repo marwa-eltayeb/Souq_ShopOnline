@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Review {
 
+    private int userId;
+    private int productId;
     @SerializedName("name")
     private String userName;
     @SerializedName("date")
@@ -14,6 +16,13 @@ public class Review {
     private String feedback;
     @SerializedName("averageRate")
     private int averageRate;
+
+    public Review(int userId, int productId, int reviewRate, String feedback) {
+        this.userId = userId;
+        this.productId = productId;
+        this.reviewRate = reviewRate;
+        this.feedback = feedback;
+    }
 
     public String getUserName() {
         return userName;
