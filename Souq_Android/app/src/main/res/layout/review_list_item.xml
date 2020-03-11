@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         card_view:cardCornerRadius="@dimen/dimen10dp"
-        card_view:cardElevation="@dimen/dimen5dp"
+        card_view:cardElevation="@dimen/dimen10dp"
         card_view:cardUseCompatPadding="true"
         card_view:elevation="@dimen/dimen1dp">
 
@@ -32,7 +32,7 @@
                     android:gravity="start"
                     android:padding="@dimen/dimen10dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/dimen20sp"
+                    android:textSize="@dimen/dimen18sp"
                     tools:text="@string/marwa_eltayeb" />
 
                 <TextView
@@ -43,7 +43,7 @@
                     android:gravity="end"
                     android:padding="@dimen/dimen10dp"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/dimen18sp"
+                    android:textSize="@dimen/dimen16sp"
                     tools:text="@string/dateOfReview" />
             </LinearLayout>
 

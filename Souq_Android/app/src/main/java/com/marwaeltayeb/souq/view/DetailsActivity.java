@@ -90,6 +90,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         if (view.getId() == R.id.txtSeeAllReviews) {
             Intent allReviewIntent = new Intent(DetailsActivity.this, AllReviewsActivity.class);
+            allReviewIntent.putExtra("ProductId",product.getProductId());
             startActivity(allReviewIntent);
         } else if (view.getId() == R.id.writeReview) {
             Intent allReviewIntent = new Intent(DetailsActivity.this, WriteReviewActivity.class);

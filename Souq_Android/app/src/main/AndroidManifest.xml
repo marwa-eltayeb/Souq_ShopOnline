@@ -37,6 +37,7 @@
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".view.DetailsActivity"
+            android:launchMode="singleTop"
             android:parentActivityName=".view.AllMobilesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
