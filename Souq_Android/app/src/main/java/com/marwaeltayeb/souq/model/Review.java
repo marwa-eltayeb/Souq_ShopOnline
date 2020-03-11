@@ -12,6 +12,8 @@ public class Review {
     private int reviewRate;
     @SerializedName("feedback")
     private String feedback;
+    @SerializedName("averageRate")
+    private int averageRate;
 
     public String getUserName() {
         return userName;
@@ -27,5 +29,9 @@ public class Review {
 
     public String getFeedback() {
         return feedback;
+    }
+
+    public int getAverageRate() {
+        return averageRate;
     }
 }
