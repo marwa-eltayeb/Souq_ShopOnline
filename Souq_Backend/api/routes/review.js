@@ -4,7 +4,6 @@ const router = express.Router()
 // import file
 const database = require("../../config")
 
-// Get All review
 router.get("/", (request, response) => {
     var productId = request.query.productId;
     var page = request.query.page;
@@ -29,15 +28,21 @@ router.get("/", (request, response) => {
         parseInt(page)
     ];
 
-    const query = "SELECT user.name, DATE_FORMAT(review.review_date, '%d/%m/%Y') As date,review.rate,(SELECT AVG(rate) FROM review WHERE review.product_id = product.id) AS averageRate,review.feedback FROM Review JOIN Product JOIN User ON review.product_id = product.id AND review.user_id = user.id WHERE product_id = ? LIMIT ? OFFSET ?"
-    database.query(query, args, (error, result) => {
+    const query = "SELECT user.name, DATE_FORMAT(review.review_date, '%d/%m/%Y') As date,review.rate, review.feedback FROM Review JOIN Product JOIN User ON review.product_id = product.id AND review.user_id = user.id WHERE product_id = ? LIMIT ? OFFSET ?"
+    database.query(query, args, (error, reviews) => {
         if(error) throw error;
-        response.status(200).json({
-            "page": offset + 1,
-            "error" : false,
-            "review" : result
-        })
 
+        const avgQuery = 'SELECT AVG(rate) AS averageRate FROM review WHERE product_id = ?'
+
+        database.query(avgQuery, productId, (err, avrg) => {
+            if(err) throw err;
+            response.status(200).json({
+                "page": offset + 1,
+                "error" : false,
+                "avrg_review" : avrg[0]['averageRate'],
+                "review" : reviews
+            })
+        });
     })
 });
 
@@ -53,8 +58,15 @@ router.post("/add", (request, response) => {
     const args = [userId, productId, feedback,rate]
 
     database.query(query, args, (error, result) => {
-        if(error) throw error
-        response.status(200).send("Review is Added")
+        if (error) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                response.status(500).send("Deplicate Entry")
+            } else {
+                throw error;
+            }
+        } else {
+            response.status(200).send("Review is Added")
+        }
     });
 });
 
