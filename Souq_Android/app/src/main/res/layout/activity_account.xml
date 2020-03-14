@@ -129,6 +129,21 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/changePassword"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/touch_feedback"
+                android:drawableStart="@drawable/ic_secure"
+                android:drawablePadding="20dp"
+                android:gravity="start|center"
+                android:text="@string/change_password"
+                android:textColor="@color/vDarkGray"
+                android:textSize="18sp" />
+
+            <TextView
                 android:id="@+id/deleteAccount"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

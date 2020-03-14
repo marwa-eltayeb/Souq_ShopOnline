@@ -106,6 +106,7 @@
     <string name="submit">Submit</string>
     <string name="dummyRate">3.0/5</string>
     <string name="highestNumber">/5</string>
+    <string name="change_password">Change Password</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>

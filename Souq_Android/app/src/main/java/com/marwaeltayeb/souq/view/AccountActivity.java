@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.marwaeltayeb.souq.PasswordActivity;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.DeleteUserViewModel;
 import com.marwaeltayeb.souq.ViewModel.FromHistoryViewModel;
@@ -102,6 +103,10 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.rateUs:
                 rateAppOnGooglePlay(this);
+                break;
+            case R.id.changePassword:
+                Intent passwordIntent = new Intent(this, PasswordActivity.class);
+                startActivity(passwordIntent);
                 break;
             case R.id.deleteAccount:
                 deleteAccount();
