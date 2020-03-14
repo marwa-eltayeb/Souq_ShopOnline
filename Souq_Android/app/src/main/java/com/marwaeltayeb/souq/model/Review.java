@@ -14,8 +14,6 @@ public class Review {
     private float reviewRate;
     @SerializedName("feedback")
     private String feedback;
-    @SerializedName("averageRate")
-    private int averageRate;
 
     public Review(int userId, int productId, float reviewRate, String feedback) {
         this.userId = userId;
@@ -40,7 +38,4 @@ public class Review {
         return feedback;
     }
 
-    public int getAverageRate() {
-        return averageRate;
-    }
 }

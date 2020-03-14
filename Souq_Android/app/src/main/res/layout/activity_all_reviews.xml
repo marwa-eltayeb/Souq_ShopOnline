@@ -22,17 +22,18 @@
                 android:layout_weight="1.5"
                 android:gravity="start"
                 android:numStars="5"
-                android:progressTint="@color/gray"
+                android:progressTint="@color/orange"
                 android:secondaryProgressTint="@android:color/transparent"
                 tools:targetApi="lollipop" />
 
             <TextView
+                android:id="@+id/rateNumber"
                 android:layout_width="0dp"
                 android:layout_height="47dp"
                 android:layout_marginEnd="@dimen/dimen10dp"
                 android:layout_weight=".6"
                 android:gravity="end|center"
-                android:text="@string/dummyRate"
+                tools:text="@string/dummyRate"
                 android:textSize="@dimen/dimen25sp" />
         </LinearLayout>
 
