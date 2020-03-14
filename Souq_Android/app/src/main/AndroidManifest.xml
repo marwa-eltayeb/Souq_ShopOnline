@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PasswordActivity"></activity>
+
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/NoActionBar">
@@ -115,6 +115,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.DetailsActivity" />
+        </activity>
+
+        <activity android:name=".PasswordActivity"
+            android:label="@string/change_password"
+            android:parentActivityName=".view.ProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.ProductActivity" />
         </activity>
 
         <receiver android:name=".receiver.NetworkChangeReceiver" />

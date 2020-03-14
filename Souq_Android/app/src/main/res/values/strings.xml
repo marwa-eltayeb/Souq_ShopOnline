@@ -107,6 +107,11 @@
     <string name="dummyRate">3.0/5</string>
     <string name="highestNumber">/5</string>
     <string name="change_password">Change Password</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New Password</string>
+    <string name="re_type_new_password">Re-type new password</string>
+    <string name="cancel">Cancel</string>
+    <string name="save_changes">Save Changes</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>

@@ -48,6 +48,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         binding.helpCenter.setOnClickListener(this);
         binding.shareWithFriends.setOnClickListener(this);
         binding.rateUs.setOnClickListener(this);
+        binding.changePassword.setOnClickListener(this);
         binding.deleteAccount.setOnClickListener(this);
     }
 
