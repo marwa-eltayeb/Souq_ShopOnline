@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -37,6 +39,8 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
         binding.btnSubmit.setOnClickListener(this);
         binding.txtName.setText(LoginUtils.getInstance(this).getUserInfo().getName());
 
+        getCurrentTextLength();
+
         Intent intent = getIntent();
         productId = intent.getIntExtra(PRODUCT_ID, 0);
 
@@ -51,7 +55,7 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
 
     private void writeReview() {
         int userId = LoginUtils.getInstance(this).getUserInfo().getId();
-        String feedback = binding.txtFeedback.getText().toString().trim();
+        String feedback = binding.editFeedback.getText().toString().trim();
         float rate = binding.rateProduct.getRating();
 
         Review review = new Review(userId, productId, rate, feedback);
@@ -62,6 +66,27 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+    }
+
+    private void getCurrentTextLength(){
+        binding.editFeedback.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int textLength = 150;
+                int writtenTextLength = s.toString().length();
+                binding.textLength.setText(String.valueOf(textLength - writtenTextLength));
             }
         });
     }

@@ -16,10 +16,10 @@
             android:clickable="false"
             android:enabled="false"
             android:focusable="false"
-            tools:hint="@string/marwa_eltayeb"
-            android:textColorHint="@color/colorAccent"
             android:importantForAutofill="no"
-            android:inputType="none" />
+            android:inputType="none"
+            android:textColorHint="@color/colorAccent"
+            tools:hint="@string/marwa_eltayeb" />
 
         <RatingBar
             android:id="@+id/rateProduct"
@@ -31,18 +31,33 @@
             android:secondaryProgressTint="@android:color/transparent"
             tools:targetApi="lollipop" />
 
-        <EditText
-            android:id="@+id/txtFeedback"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/custom_border"
-            android:gravity="top"
-            android:maxLength="200"
-            android:hint="@string/write_your_feedback_here"
-            android:importantForAutofill="no"
-            android:inputType="textMultiLine"
-            android:padding="@dimen/dimen10dp" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/editFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/custom_border"
+                android:gravity="top"
+                android:hint="@string/write_your_feedback_here"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:maxLength="50"
+                android:padding="@dimen/dimen10dp" />
+
+            <TextView
+                android:id="@+id/textLength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:textSize="25sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_margin="20dp"
+                android:text="@string/text_length" />
+        </FrameLayout>
 
         <Button
             android:id="@+id/btnSubmit"

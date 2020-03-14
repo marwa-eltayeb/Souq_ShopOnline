@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.marwaeltayeb.souq.PasswordActivity;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.DeleteUserViewModel;
 import com.marwaeltayeb.souq.ViewModel.FromHistoryViewModel;

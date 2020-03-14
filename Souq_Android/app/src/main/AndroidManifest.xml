@@ -117,7 +117,7 @@
                 android:value=".view.DetailsActivity" />
         </activity>
 
-        <activity android:name=".PasswordActivity"
+        <activity android:name=".view.PasswordActivity"
             android:label="@string/change_password"
             android:parentActivityName=".view.ProductActivity">
             <meta-data

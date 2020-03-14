@@ -112,6 +112,7 @@
     <string name="re_type_new_password">Re-type new password</string>
     <string name="cancel">Cancel</string>
     <string name="save_changes">Save Changes</string>
+    <string name="text_length">150</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>
