@@ -11,13 +11,13 @@ public class Review {
     @SerializedName("date")
     private String reviewDate;
     @SerializedName("rate")
-    private int reviewRate;
+    private float reviewRate;
     @SerializedName("feedback")
     private String feedback;
     @SerializedName("averageRate")
     private int averageRate;
 
-    public Review(int userId, int productId, int reviewRate, String feedback) {
+    public Review(int userId, int productId, float reviewRate, String feedback) {
         this.userId = userId;
         this.productId = productId;
         this.reviewRate = reviewRate;
@@ -32,7 +32,7 @@ public class Review {
         return reviewDate;
     }
 
-    public int getReviewRate() {
+    public float getReviewRate() {
         return reviewRate;
     }
 

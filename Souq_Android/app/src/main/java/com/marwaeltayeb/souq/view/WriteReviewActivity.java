@@ -52,7 +52,7 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
     private void writeReview() {
         int userId = LoginUtils.getInstance(this).getUserInfo().getId();
         String feedback = binding.txtFeedback.getText().toString().trim();
-        int rate = (int) binding.rateProduct.getRating();
+        float rate = binding.rateProduct.getRating();
 
         Review review = new Review(userId, productId, rate, feedback);
         writeReviewViewModel.writeReview(review).observe(this, responseBody -> {
