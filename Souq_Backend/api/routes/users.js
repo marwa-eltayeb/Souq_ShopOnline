@@ -175,23 +175,22 @@ router.delete("/:id", (request, response) => {
     });
 });
  
-// Update two Info
+// Update Password
 router.put("/info", (request, response) => {
     const id = request.body.id;
-    const name = request.body.name;
     const password = request.body.password;
 
-    const query = "UPDATE user SET name = ?, password = ? WHERE id = ?"    
+    const query = "UPDATE user SET password = ? WHERE id = ?"    
    
     // Encrypt Password
     bcrypt.hash(password, 10, (error, hashedPassword) => {
         if(error) throw error
 
-        const args = [name,hashedPassword,id]
+        const args = [hashedPassword,id]
 
         database.query(query, args, (error, result) => {
             if(result['affectedRows']  == 1){
-                response.status(200).send("User Info is updated")
+                response.status(200).send("Password is updated")
             }else{
                 response.status(500).send("Invalid Update")
             }
