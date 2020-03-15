@@ -80,6 +80,7 @@ router.get("/login", (request, response) => {
                            "isAdmin" : result[0]["isAdmin"],
                            "error" : false, 
                            "message" : "Successful Login",
+                           "password": password,
                            "token" : token});
                     });
                 }else{
@@ -177,8 +178,8 @@ router.delete("/:id", (request, response) => {
  
 // Update Password
 router.put("/info", (request, response) => {
-    const id = request.body.id;
-    const password = request.body.password;
+    const id = request.query.id;
+    const password = request.query.password;
 
     const query = "UPDATE user SET password = ? WHERE id = ?"    
    

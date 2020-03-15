@@ -7,6 +7,7 @@ public class LoginApiResponse {
     private String email;
     private boolean error;
     private String message;
+    private String password;
     private String token;
     private boolean isAdmin;
 
@@ -40,6 +41,10 @@ public class LoginApiResponse {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getToken() {

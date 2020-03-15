@@ -32,6 +32,7 @@ public class LoginUtils {
         editor.putInt("id", response.getId());
         editor.putString("name", response.getName());
         editor.putString("email", response.getEmail());
+        editor.putString("password", response.getPassword());
         editor.putString("token", response.getToken());
         editor.putBoolean("isAdmin", response.isAdmin());
         editor.apply();

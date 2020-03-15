@@ -46,9 +46,12 @@ public interface Api {
     @PUT("users/upload")
     Call<ResponseBody> uploadPhoto(@Part MultipartBody.Part userPhoto, @Part("id") RequestBody userId);
 
+    @PUT("users/info")
+    Call<ResponseBody> updatePassword(@Query("password") String password, @Query("id") int userId);
+
     @Multipart
     @POST("products/insert")
-    Call<ResponseBody> insertProduct(@PartMap Map<String,RequestBody> productInfo, @Part MultipartBody.Part image);
+    Call<ResponseBody> insertProduct(@PartMap Map<String, RequestBody> productInfo, @Part MultipartBody.Part image);
 
     @GET("users/getImage")
     Call<Image> getUserImage(@Query("id") int userId);
@@ -57,7 +60,7 @@ public interface Api {
     Call<ProductApiResponse> getProducts(@Query("page") int page);
 
     @GET("products")
-    Call<ProductApiResponse> getProductsByCategory(@Query("category") String category,@Query("page") int page);
+    Call<ProductApiResponse> getProductsByCategory(@Query("category") String category, @Query("page") int page);
 
     @GET("products/search")
     Call<ProductApiResponse> searchForProduct(@Query("q") String keyword);
@@ -87,7 +90,7 @@ public interface Api {
     Call<ResponseBody> removeAllFromHistory();
 
     @GET("history")
-    Call<HistoryApiResponse> getProductsInHistory(@Query("userId") int userId,@Query("page") int page);
+    Call<HistoryApiResponse> getProductsInHistory(@Query("userId") int userId, @Query("page") int page);
 
     @POST("review/add")
     Call<ResponseBody> addReview(@Body Review review);
