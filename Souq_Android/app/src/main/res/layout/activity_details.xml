@@ -104,6 +104,18 @@
                 tools:listitem="@layout/review_list_item" />
 
             <TextView
+                android:id="@+id/txtFirst"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:padding="@dimen/dimen10dp"
+                android:text="@string/be_the_first_to_review_this_product"
+                android:textColor="@color/vDarkGray"
+                android:textSize="20sp"
+                android:background="@color/white"
+                android:visibility="gone" />
+
+            <TextView
                 android:id="@+id/writeReview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

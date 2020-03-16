@@ -115,6 +115,7 @@
     <string name="text_length">150</string>
     <string name="password_not_match">Password Does not match</string>
     <string name="enter_current_password">Please Enter your current password</string>
+    <string name="be_the_first_to_review_this_product">Be the first to review this product</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>

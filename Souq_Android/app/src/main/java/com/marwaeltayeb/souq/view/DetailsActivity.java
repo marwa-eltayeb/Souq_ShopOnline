@@ -84,6 +84,11 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 binding.listOfReviews.setAdapter(reviewAdapter);
                 reviewAdapter.notifyDataSetChanged();
             }
+
+            if(reviewList.size() == 0){
+                binding.listOfReviews.setVisibility(View.GONE);
+                binding.txtFirst.setVisibility(View.VISIBLE);
+            }
         });
     }
 
