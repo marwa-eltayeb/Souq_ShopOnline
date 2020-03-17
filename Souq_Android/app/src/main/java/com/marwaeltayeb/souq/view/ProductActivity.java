@@ -63,6 +63,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_PERMISSION_CODE;
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_REQUEST;
+import static com.marwaeltayeb.souq.utils.Constant.CATEGORY;
 import static com.marwaeltayeb.souq.utils.Constant.GALLERY_REQUEST;
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
@@ -167,7 +168,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private void getMobiles() {
         if (isNetworkConnected(this)) {
-            // Observe the productPagedList from ViewModel
             productViewModel.productPagedList.observe(this, new Observer<PagedList<Product>>() {
                 @Override
                 public void onChanged(@Nullable PagedList<Product> products) {
@@ -185,7 +185,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private void getLaptops() {
         if (isNetworkConnected(this)) {
-            // Observe the productPagedList from ViewModel
             productViewModel.laptopPagedList.observe(this, new Observer<PagedList<Product>>() {
                 @Override
                 public void onChanged(@Nullable PagedList<Product> products) {
@@ -203,7 +202,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private void getHistory() {
         if (isNetworkConnected(this)) {
-            // Observe the productPagedList from ViewModel
             historyViewModel.historyPagedList.observe(this, new Observer<PagedList<Product>>() {
                 @Override
                 public void onChanged(@Nullable PagedList<Product> products) {
@@ -520,20 +518,20 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         int id = menuItem.getItemId();
 
         if (id == R.id.nav_mobiles) {
-            getMobiles();
+            goToCategoryActivity("Mobile");
         } else if (id == R.id.nav_laptops) {
-            getLaptops();
+            goToCategoryActivity("Laptop");
         } else if (id == R.id.nav_babies) {
-
+            goToCategoryActivity("Baby");
         } else if (id == R.id.nav_toys) {
-
+            goToCategoryActivity("Toy");
         } else if (id == R.id.nav_trackOrder) {
-
+            // TODO: Track Order
         } else if (id == R.id.nav_myAccount) {
             Intent accountIntent = new Intent(this, AccountActivity.class);
             startActivity(accountIntent);
         } else if (id == R.id.nav_newsFeed) {
-
+            // TODO: NewsFeed
         } else if (id == R.id.nav_wishList) {
             Intent wishListIntent = new Intent(this, WishListActivity.class);
             startActivity(wishListIntent);
@@ -542,6 +540,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void goToCategoryActivity(String category){
+        Intent categoryIntent = new Intent(this, CategoryActivity.class);
+        categoryIntent.putExtra(CATEGORY, category);
+        startActivity(categoryIntent);
     }
 
     @Override

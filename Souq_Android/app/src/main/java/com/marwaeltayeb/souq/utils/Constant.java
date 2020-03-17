@@ -2,7 +2,7 @@ package com.marwaeltayeb.souq.utils;
 
 public class Constant {
 
-    public static String LOCALHOST = "http://192.168.1.23:3000/";
+    public static String LOCALHOST = "http://192.168.1.32:3000/";
 
     // Constant Variables
     public static String PRODUCT = "product";
@@ -17,6 +17,8 @@ public class Constant {
 
 
     public static String PRODUCT_ID = "ProductId";
+
+    public static String CATEGORY = "Category";
 
 
 

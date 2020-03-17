@@ -31,6 +31,7 @@
         <activity
             android:name=".view.ProductActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".view.LoginActivity" />
         <activity
             android:name=".view.SignUpActivity"
@@ -116,9 +117,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.DetailsActivity" />
         </activity>
-
-        <activity android:name=".view.PasswordActivity"
+        <activity
+            android:name=".view.PasswordActivity"
             android:label="@string/change_password"
+            android:parentActivityName=".view.ProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.ProductActivity" />
+        </activity>
+
+        <activity
+            android:name=".view.CategoryActivity"
             android:parentActivityName=".view.ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
