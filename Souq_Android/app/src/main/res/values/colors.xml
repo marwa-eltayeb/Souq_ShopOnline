@@ -12,6 +12,7 @@
     <color name="black">#000</color>
     <color name="red">#FE0000</color>
     <color name="green">#3BD98C</color>
+    <color name="darkGreen">#289C62</color>
     <color name="startColor">#00376B</color>
     <color name="centerColor">#63B7FF</color>
     <color name="endColor">#007AE2</color>

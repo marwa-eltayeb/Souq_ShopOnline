@@ -24,6 +24,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -113,6 +114,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         binding.included.content.txtSeeAllMobiles.setOnClickListener(this);
         binding.included.content.txtSeeAllLaptops.setOnClickListener(this);
+        binding.included.content.txtCash.setOnClickListener(this);
+        binding.included.content.txtReturn.setOnClickListener(this);
 
         setUpViews();
 
@@ -248,10 +251,24 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.profile_image:
                 showCustomAlertDialog();
                 break;
+            case R.id.txtCash:
+                showNormalAlertDialog(getString(R.string.cash));
+                break;
+            case R.id.txtReturn:
+                showNormalAlertDialog(getString(R.string.returnProduct));
+                break;
         }
     }
 
-    public void showCustomAlertDialog() {
+    private void showNormalAlertDialog(String message){
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton("OK", null).show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.darkGreen));
+    }
+
+    private void showCustomAlertDialog() {
         final Dialog dialog = new Dialog(ProductActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.customdialog);

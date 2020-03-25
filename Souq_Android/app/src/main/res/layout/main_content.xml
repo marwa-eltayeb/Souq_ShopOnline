@@ -109,9 +109,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:layout_marginBottom="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewHistory" />
+
+            <TextView
+                android:id="@+id/txtReturn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="10dp"
+                android:drawableStart="@drawable/ic_return"
+                android:drawablePadding="@dimen/dimen5dp"
+                android:text="@string/free_returns"
+                android:textColor="@color/vDarkGray"
+                android:textSize="@dimen/dimen14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/historyList" />
+
+            <TextView
+                android:id="@+id/txtCash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:drawableStart="@drawable/ic_cash"
+                android:drawablePadding="@dimen/dimen5dp"
+                android:text="@string/cash_on_delivery"
+                android:textColor="@color/vDarkGray"
+                android:textSize="@dimen/dimen14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/historyList" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </layout>

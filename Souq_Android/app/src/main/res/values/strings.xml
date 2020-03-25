@@ -116,6 +116,10 @@
     <string name="password_not_match">Password Does not match</string>
     <string name="enter_current_password">Please Enter your current password</string>
     <string name="be_the_first_to_review_this_product">Be the first to review this product</string>
+    <string name="free_returns">Free Returns</string>
+    <string name="cash_on_delivery">Cash On Delivery</string>
+    <string name="cash">Pay for your order in cash at the moment the shipment is delivered to your doorstep.</string>
+    <string name="returnProduct">Changed your mind, you can return your product and get a full refund.</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>
