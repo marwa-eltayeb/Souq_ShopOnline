@@ -1,5 +1,6 @@
 package com.marwaeltayeb.souq.view;
 
+import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -67,13 +68,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
+        ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppTheme_Dialog);
+        progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         loginViewModel.getLoginResponseLiveData(email,password).observe(this, loginApiResponse -> {
             if (!loginApiResponse.isError()) {
                 LoginUtils.getInstance(this).saveUserInfo(loginApiResponse);
                 Toast.makeText(this, loginApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
                 goToProductActivity();
             }else {
+                progressDialog.cancel();
                 Toast.makeText(this, loginApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

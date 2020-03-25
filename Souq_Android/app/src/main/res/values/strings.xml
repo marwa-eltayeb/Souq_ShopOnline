@@ -122,6 +122,8 @@
     <string name="returnProduct">Changed your mind, you can return your product and get a full refund.</string>
     <string name="want_to_exit">Do you really want to exit?</string>
     <string name="ok">OK</string>
+    <string name="create_account">Creating Account...</string>
+    <string name="loading">Loading...</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>

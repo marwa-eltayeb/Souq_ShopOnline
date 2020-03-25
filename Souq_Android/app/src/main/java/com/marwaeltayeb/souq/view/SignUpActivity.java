@@ -1,5 +1,6 @@
 package com.marwaeltayeb.souq.view;
 
+import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -87,13 +88,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
+        ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppTheme_Dialog);
+        progressDialog.setMessage(getString(R.string.create_account));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         registerViewModel.getRegisterResponseLiveData(new User(name, email, password)).observe(this, registerApiResponse -> {
             if (!registerApiResponse.isError()) {
                 Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_LONG).show();
                 LoginUtils.getInstance(this).saveUserInfo(registerApiResponse.getUser());
+                progressDialog.dismiss();
                 goToProductActivity();
             }else {
+                progressDialog.cancel();
                 Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
