@@ -263,7 +263,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     private void showNormalAlertDialog(String message){
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setMessage(message)
-                .setPositiveButton("OK", null).show();
+                .setPositiveButton(R.string.ok, null).show();
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.darkGreen));
     }
@@ -571,7 +571,19 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            closeApplication();
         }
+    }
+
+    private void closeApplication(){
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setMessage(R.string.want_to_exit)
+                .setPositiveButton(R.string.ok, (dialog, which) -> finish())
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.darkGreen));
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.darkGreen));
     }
 }

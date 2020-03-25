@@ -120,6 +120,8 @@
     <string name="cash_on_delivery">Cash On Delivery</string>
     <string name="cash">Pay for your order in cash at the moment the shipment is delivered to your doorstep.</string>
     <string name="returnProduct">Changed your mind, you can return your product and get a full refund.</string>
+    <string name="want_to_exit">Do you really want to exit?</string>
+    <string name="ok">OK</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>
