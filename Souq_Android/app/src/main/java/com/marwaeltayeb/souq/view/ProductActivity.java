@@ -164,7 +164,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         laptopAdapter = new ProductAdapter(this, this);
         historyAdapter = new ProductAdapter(this, this);
 
-        if(historyIsDeleted){
+        if (historyIsDeleted) {
             binding.included.content.textViewHistory.setVisibility(View.GONE);
         }
     }
@@ -208,17 +208,21 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             historyViewModel.historyPagedList.observe(this, new Observer<PagedList<Product>>() {
                 @Override
                 public void onChanged(@Nullable PagedList<Product> products) {
-                    Toast.makeText(ProductActivity.this, products.size() + "", Toast.LENGTH_SHORT).show();
                     historyAdapter.submitList(products);
+                    binding.included.content.historyList.setAdapter(historyAdapter);
+                    historyAdapter.notifyDataSetChanged();
+                    Toast.makeText(ProductActivity.this, products.size() + "", Toast.LENGTH_SHORT).show();
+                    if (products.size() != 0) {
+                        binding.included.content.textViewHistory.setVisibility(View.VISIBLE);
+                    }
                 }
             });
-
-            binding.included.content.historyList.setAdapter(historyAdapter);
-            historyAdapter.notifyDataSetChanged();
         } else {
             showOrHideViews(View.INVISIBLE);
+            binding.included.content.textViewHistory.setVisibility(View.GONE);
             showSnackBar();
         }
+
     }
 
     private void flipImages(ArrayList<Integer> images) {
@@ -260,7 +264,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void showNormalAlertDialog(String message){
+    private void showNormalAlertDialog(String message) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setMessage(message)
                 .setPositiveButton(R.string.ok, null).show();
@@ -498,6 +502,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding.included.content.txtSeeAllMobiles.setVisibility(view);
         binding.included.content.textViewLaptops.setVisibility(view);
         binding.included.content.txtSeeAllLaptops.setVisibility(view);
+        binding.included.content.txtCash.setVisibility(view);
+        binding.included.content.txtReturn.setVisibility(view);
     }
 
     private void hideViews(int view) {
@@ -559,7 +565,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
-    private void goToCategoryActivity(String category){
+    private void goToCategoryActivity(String category) {
         Intent categoryIntent = new Intent(this, CategoryActivity.class);
         categoryIntent.putExtra(CATEGORY, category);
         startActivity(categoryIntent);
@@ -575,7 +581,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void closeApplication(){
+    private void closeApplication() {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setMessage(R.string.want_to_exit)
