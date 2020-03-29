@@ -16,7 +16,7 @@
     <color name="startColor">#00376B</color>
     <color name="centerColor">#63B7FF</color>
     <color name="endColor">#007AE2</color>
-    <color name="nobookmark">#aaa</color>
+    <color name="noBookmark">#aaa</color>
     <color name="dark">#393D48</color>
     <color name="orange">#ffff8800</color>
     <color name="blue">#198DFA</color>

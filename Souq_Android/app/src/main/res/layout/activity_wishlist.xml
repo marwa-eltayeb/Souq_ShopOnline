@@ -17,7 +17,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/your_wishlist_is_empty"
-            android:textColor="@color/nobookmark"
+            android:textColor="@color/noBookmark"
             android:textSize="30sp"
             android:visibility="gone" />
 
@@ -33,9 +33,17 @@
             android:textSize="16sp"
             android:visibility="gone" />
 
+        <ProgressBar
+            android:id="@+id/loadingIndicator"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/favorite_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
     </LinearLayout>
 </layout>
