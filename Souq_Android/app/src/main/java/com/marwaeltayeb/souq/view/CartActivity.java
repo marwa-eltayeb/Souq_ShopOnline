@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.CartViewModel;
@@ -17,6 +18,7 @@ import com.marwaeltayeb.souq.storage.LoginUtils;
 import java.util.List;
 
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -42,19 +44,32 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void getProductsInCart() {
-        cartViewModel.getProductsInCart(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, cartApiResponse -> {
-            if (cartApiResponse != null) {
-                favoriteList = cartApiResponse.getProductsInCart();
-                cartAdapter = new CartAdapter(getApplicationContext(), favoriteList, product -> {
-                    Intent intent = new Intent(CartActivity.this, DetailsActivity.class);
-                    // Pass an object of product class
-                    intent.putExtra(PRODUCT, (product));
-                    startActivity(intent);
-                });
-            }
+        if (isNetworkConnected(this)) {
+            cartViewModel.getProductsInCart(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, cartApiResponse -> {
+                if (cartApiResponse != null) {
+                    favoriteList = cartApiResponse.getProductsInCart();
+                    if (favoriteList.size() == 0) {
+                        binding.noBookmarks.setVisibility(View.VISIBLE);
+                        binding.emptyCart.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.productsInCart.setVisibility(View.VISIBLE);
+                    }
+                    cartAdapter = new CartAdapter(getApplicationContext(), favoriteList, product -> {
+                        Intent intent = new Intent(CartActivity.this, DetailsActivity.class);
+                        // Pass an object of product class
+                        intent.putExtra(PRODUCT, (product));
+                        startActivity(intent);
+                    });
+                }
 
-            binding.productsInCart.setAdapter(cartAdapter);
-            cartAdapter.notifyDataSetChanged();
-        });
+                binding.loadingIndicator.setVisibility(View.GONE);
+                binding.productsInCart.setAdapter(cartAdapter);
+                cartAdapter.notifyDataSetChanged();
+            });
+        } else {
+            binding.emptyCart.setVisibility(View.VISIBLE);
+            binding.loadingIndicator.setVisibility(View.GONE);
+            binding.emptyCart.setText(getString(R.string.no_internet_connection));
+        }
     }
 }
