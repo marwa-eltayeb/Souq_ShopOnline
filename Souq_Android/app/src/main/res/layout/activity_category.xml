@@ -2,12 +2,39 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/lightGray"
-        android:layout_marginStart="@dimen/dimen5dp"
-        tools:context=".view.CategoryActivity"
-        tools:listitem="@layout/product_list_item" />
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".view.CategoryActivity">
+
+        <TextView
+            android:id="@+id/emptyList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen10dp"
+            android:gravity="center"
+            android:text="@string/no_products_in_this_category"
+            android:textColor="@color/vDarkGray"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/loadingIndicator"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/categoryList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dimen5dp"
+            android:background="@color/lightGray"
+            tools:listitem="@layout/product_list_item" />
+    </LinearLayout>
 </layout>

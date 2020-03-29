@@ -126,6 +126,7 @@
     <string name="loading">Loading...</string>
     <string name="don_t_let_go_your_shopping_habit">Don\'t let go your shopping habit</string>
     <string name="your_cart_is_empty">Your Cart is empty</string>
+    <string name="no_products_in_this_category">No products in this category</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>
