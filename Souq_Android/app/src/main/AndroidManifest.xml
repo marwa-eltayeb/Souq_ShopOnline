@@ -119,10 +119,10 @@
         <activity
             android:name=".view.PasswordActivity"
             android:label="@string/change_password"
-            android:parentActivityName=".view.ProductActivity">
+            android:parentActivityName=".view.AccountActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.ProductActivity" />
+                android:value=".view.AccountActivity" />
         </activity>
 
         <activity

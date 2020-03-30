@@ -1,5 +1,6 @@
 package com.marwaeltayeb.souq.view;
 
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
@@ -19,6 +22,8 @@ import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.io.IOException;
 
+import static com.marwaeltayeb.souq.storage.LanguageUtils.getEnglishState;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.setEnglishState;
 import static com.marwaeltayeb.souq.utils.CommunicateUtils.rateAppOnGooglePlay;
 import static com.marwaeltayeb.souq.utils.CommunicateUtils.shareApp;
 
@@ -28,7 +33,6 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     private DeleteUserViewModel deleteUserViewModel;
     private FromHistoryViewModel fromHistoryViewModel;
     public static boolean historyIsDeleted = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +96,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(wishListIntent);
                 break;
             case R.id.languages:
-                // ToDo : language
+                showCustomAlertDialog();
                 break;
             case R.id.helpCenter:
                 Intent helpCenterIntent = new Intent(this, HelpActivity.class);
@@ -133,5 +137,48 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    private void showCustomAlertDialog() {
+        final Dialog dialog = new Dialog(AccountActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_language_dialog);
+
+        Button english = dialog.findViewById(R.id.txtEnglish);
+        Button arabic = dialog.findViewById(R.id.txtArabic);
+
+        if(getEnglishState(this)){
+            english.setEnabled(false);
+            english.setAlpha(.5f);
+            arabic.setEnabled(true);
+        }else {
+            arabic.setEnabled(false);
+            arabic.setAlpha(.5f);
+            english.setEnabled(true);
+        }
+
+        english.setOnClickListener(v -> {
+            english.setEnabled(true);
+            chooseEnglish();
+            dialog.cancel();
+        });
+
+        arabic.setOnClickListener(v -> {
+            arabic.setEnabled(true);
+            chooseArabic();
+            dialog.cancel();
+        });
+
+        dialog.show();
+    }
+
+    private void chooseEnglish() {
+        Toast.makeText(this, "English", Toast.LENGTH_SHORT).show();
+        setEnglishState(this, true);
+    }
+
+    private void chooseArabic() {
+        Toast.makeText(this, "Arabic", Toast.LENGTH_SHORT).show();
+        setEnglishState(this, false);
     }
 }

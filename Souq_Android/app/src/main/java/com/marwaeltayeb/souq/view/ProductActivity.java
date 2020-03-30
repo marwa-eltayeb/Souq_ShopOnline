@@ -275,7 +275,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     private void showCustomAlertDialog() {
         final Dialog dialog = new Dialog(ProductActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.customdialog);
+        dialog.setContentView(R.layout.custom_image_dialog);
 
         Button takePicture = dialog.findViewById(R.id.takePicture);
         Button useGallery = dialog.findViewById(R.id.useGallery);
