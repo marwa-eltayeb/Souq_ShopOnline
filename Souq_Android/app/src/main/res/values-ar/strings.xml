@@ -131,6 +131,7 @@
     <string name="english">الإنجليزية</string>
     <string name="arabic">العربية</string>
     <string name="choose_language">اختر اللغة</string>
+    <string name="shop_online">Shop Online</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>

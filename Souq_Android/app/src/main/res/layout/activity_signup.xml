@@ -14,14 +14,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginBottom="@dimen/dimen24dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:scaleType="fitXY"
-                android:src="@drawable/company_name"
-                android:textSize="@dimen/dimen16sp" />
+                android:textColor="@color/colorPrimary"
+                android:text="@string/app_name"
+                android:textStyle="bold|italic"
+                android:background="@color/lightGray"
+                android:textSize="@dimen/dimen35sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen24dp"
+                android:paddingBottom="@dimen/dimen10dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="@string/shop_online"
+                android:textStyle="bold"
+                android:background="@color/lightGray"
+                android:textSize="@dimen/dimen18sp" />
 
             <!-- Name Label -->
             <android.support.design.widget.TextInputLayout
