@@ -19,6 +19,7 @@
         android:layout_height="70dp"
         android:contentDescription="@string/profile_picture"
         android:src="@drawable/profile_picture"
+        android:visibility="visible"
         app:civ_border_width="2dp"
         app:civ_border_color="@color/gray"/>
 
