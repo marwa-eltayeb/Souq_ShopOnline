@@ -1,4 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">سوق</string>
+    <string name="splash">شاشة البداية</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="password">كلمه السر</string>
+    <string name="name">الاسم</string>
+    <string name="address">العنوان</string>
+    <string name="mobile_number">رقم الهاتف</string>
+    <string name="delete_account">حذف الحساب</string>
+    <string name="register">تسجيل</string>
+    <string name="sign_up">سجل</string>
+    <string name="sign_out">تسجيل الخروج</string>
+    <string name="forget_password">هل نسيت كلمة المرور</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="new_customer_create_your_account">عميل جديد؟ <font color='#008CFF'>أنشئ حسابك</font></string>
+    <string name="_2020_souq">سوق 2020 مروة الطيب. كل الحقوق محفوظة</string>
+    <string name="eight_characters">كلمةالمرور يجب أن تتكون من 8 أحرف على الأقل</string>
+    <string name="create_your_account">أنشئ حسابك</string>
+    <string name="sign_in_already_a_customer">تسجيل الدخول. هل أنت عميل بالفعل؟</string>
+    <string name="boldText">تسجيل الدخول.</string>
+    <string name="normalText">" " هل أنت عميل بالفعل؟</string>
+    <string name="enter_at_least_3_characters">أدخل 3 أحرف على الأقل</string>
+    <string name="email_required">البريد الإلكتروني مطلوب</string>
+    <string name="enter_a_valid_email_address">أدخل عنوان بريد إلكتروني صحيح</string>
+    <string name="password_required">كلمة المرور مطلوبة</string>
+    <string name="password__at_least_8_characters">كلمةالمرور يجب أن تتكون من 8 أحرف على الأقل</string>
 
+    <!--Server Information-->
+    <string name="see_all">اظهار الكل</string>
+    <string name="mobile">الهاتف المحمول</string>
+    <string name="laptop">الحاسوب المحمول</string>
+    <string name="product_image">صورة المنتج</string>
+    <string name="samsung_galaxy_a70">سامسونج جالاكسي ايه 70</string>
+    <string name="share_product">مشاركة المنتج</string>
+    <string name="add_to_cart">أضف إلى عربة التسوق</string>
+    <string name="add_to_favourite">أضف إلى المفضلة</string>
+    <string name="_5399_egp">5399 جنيه مصري</string>
+    <string name="name_required">الاسم مطلوب</string>
+    <string name="all_laptops">جميع أجهزة الحاسوب</string>
+    <string name="all_mobiles">جميع الهواتف</string>
+    <string name="no_internet_connection">لا يوجد اتصال بالإنترنت</string>
+    <string name="free_shipping">الشحن مجانا</string>
+    <string name="fulfilled_by_souq">Fulfilled by Souq</string>
+    <string name="search">بحث</string>
+    <string name="search_hint">عن ماذا تبحث؟</string>
+    <string name="cart">عربة التسوق</string>
+    <string name="profile_picture">الصوره الشخصية</string>
+    <string name="marwa_eltayeb_yahoo_com">marwa_eltayeb@yahoo.com</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--Navigation Menu Titles-->
+    <string name="share">شارك</string>
+    <string name="rate">قيمنا</string>
+    <string name="communicate">التواصل</string>
+    <string name="mobiles">الهواتف المحمولة</string>
+    <string name="laptops">أجهزة الحاسوب</string>
+    <string name="babies">منتجات الأطفال</string>
+    <string name="toys">ألعاب الأطفال</string>
+    <string name="track_orders">تتبع الطلبات</string>
+    <string name="my_account">حسابي</string>
+    <string name="news_feed">موجز الأخبار</string>
+    <string name="my_wishList">قائمة رغباتي</string>
+    <string name="marwa_eltayeb">مروة الطيب</string>
+    <string name="take_picture">التقط صورة</string>
+    <string name="use_gallery">استخدم معرض الصور</string>
+    <string name="choose_profile_picture">اختار الصورة الشخصية</string>
+    <string name="my_orders">طلباتي</string>
+    <string name="my_wishlist">قائمة رغباتي</string>
+    <string name="languages">اللغة</string>
+    <string name="share_with_friends">شارك مع الاصدقاء</string>
+    <string name="rate_us_on_play_store">قيمنا على المتجر</string>
+    <string name="help_center">مركز المساعدة</string>
+    <string name="delete_my_account">حذف الحساب</string>
+    <string name="your_wishlist_is_empty">قائمة رغباتك فارغة</string>
+    <string name="an_empty_wishlist_does_not_look_good">قائمة الرغبات الفارغة لا تبدو جيدة</string>
+    <string name="add_product">أضف منتج</string>
+
+    <string name="nameOfProduct">الاسم</string>
+    <string name="price">السعر</string>
+    <string name="quantity">الكمية</string>
+    <string name="supplier">المورد</string>
+    <string name="category">القسم</string>
+    <string name="image_of_product">صورة المنتج</string>
+    <string name="select_image">اختر صورة</string>
+    <string name="save">حفظ</string>
+    <string name="required_data">لا يتم قبول قيم فارغة</string>
+    <string name="hi_how_can_we_help">مرحبا! كيف يمكن أن نساعدك؟</string>
+    <string name="inquiryOne">تم تحصيل رسوم شحن إضافية</string>
+    <string name="answerOne">لا تفرض سوق على العملاء أي رسوم شحن إضافية. يتم ذكر جميع الرسوم المطبقة في الفاتورة. يُرجى التأكد من التحقق من سعر السلعة بالإضافة إلى رسوم الشحن في صفحة الدفع قبل إتمام عملية الشراء.n\n\إذا طلب ممثل البريد السريع أو قام بتحصيل رسوم منك أكثر من المبلغ المذكور في فاتورة طلبك، يرجى الاتصال بخدمة العملاء على الفور للحصول على المساعدة.</string>
+    <string name="inquiryTwo">اين طلبي؟</string>
+    <string name="answerTwo">سيتم تسليم طلبك في التاريخ المتوقع المحدد في طلبك. تاريخ التسليم المتوقع هو التاريخ الذي يمكنك فيه توقع وصول السلعة إلى عنوان الشحن المفضل لديك أو قبله.n\n\سترى تاريخ التسليم المتوقع لكل شحنة في ملخص الطلب، مباشرة قبل وضع طلب. سيظهر تاريخ التسليم المتوقع أيضًا في قسم "الطلبات" في حسابك بعد تقديم طلبك.</string>
+    <string name="inquiryThree">تتبع شحنتك</string>
+    <string name="answerThree">تتبع شحنتك سهل للغاية على سوق. يمكنك استخدام الرابط المرسل إليك عبر الرسائل القصيرة على رقم هاتفك المحمول المسجل أو على عنوان بريدك الإلكتروني المسجل لتتبع مكان طلبك حاليًا. بالإضافة إلى ذلك، يمكنك أيضًا تسجيل الدخول إلى حساب سوق الخاص بك لتتبع طلباتك على النحو التالي:n\n\ قم بتسجيل الدخول إلى حساب سوق باستخدام عنوان بريدك الإلكتروني المسجل وكلمة المرور.n\n\ انقر فوق اسمك المعروض في الزاوية العلوية اليمنى من الصفحة.n\n\ انقر فوق "طلبي" من القائمة المنسدلة.n\n\ حدد موقع طلبك على الشاشة.n\n\ انقر فوق "تعقب الشحنة" مقابل الشحنة التي تريد معرفة حالة.n\n\ ستظهر الشاشة المنبثقة مكان الطلب الحالي جنبًا إلى جنب مع رقم تتبع الشحنة للرجوع إليها.</string>
+    <string name="inquiryFour">السلعة ليست متاحة في الموقع المحدد</string>
+    <string name="answerFour">إذا قمت بتحديد خيار الالتقاط الذاتي لطلبك، فبمجرد وصول العنصر إلى مركزه أو موقعه المحدد، ستتلقى رسالة تأكيد صغيرة على الرقم المقدم بالترتيب بأن العنصر جاهز للتجميع. بمجرد أن يكون العنصر في مركزه أو موقعه المحدد وإصدار إشعار رسالة قصيرة، سيكون العنصر متاحًا للتحصيل لمدة 4 أيام عمل. إذا واجهت أي مشاكل في جمع العنصر الخاص بك من المركز أو الموقع المحدد، فيرجى الاتصال بدعم العملاء للحصول على المساعدة.</string>
+    <string name="inquiryFive">لماذا حصلت على شحنات متعددة لنفس الطلب؟</string>
+    <string name="answerFive">عند شراء منتجات من بائعين مختلفين في طلب ما ، سيكون لكل بائع شحنة منفصلة وسيتم تسليم المنتج أو المنتجات من كل بائع لك بشكل منفصل. إذا كنت ترغب في شحن جميع العناصر في شحنة واحدة ، فسيتعين عليك تقديم الطلب لجميع العناصر من نفس البائع.</string>
+    <string name="recently_viewed_items">العناصر التي تم مشاهدتها مؤخرًا</string>
+    <string name="all_removed">تمت إزالة جميع المنتجات من السجل</string>
+    <string name="reviews">المراجعات</string>
+    <string name="write_review">أكتب مراجعة</string>
+    <string name="dateOfReview">7 أبريل 2020</string>
+    <string name="write_your_feedback_here">اكتب ملاحظاتك هنا</string>
+    <string name="submit">إرسال</string>
+    <string name="dummyRate">3.0/5</string>
+    <string name="highestNumber">/5</string>
+    <string name="change_password">تغيير كلمة السر</string>
+    <string name="current_password">كلمة السر الحالية</string>
+    <string name="new_password">كلمة السر الجديدة</string>
+    <string name="re_type_new_password">أعد كتابة كلمة السر الجديدة</string>
+    <string name="cancel">إلغاء</string>
+    <string name="save_changes">حفظ التعديلات</string>
+    <string name="text_length">150</string>
+    <string name="password_not_match">كلمة السر غير متطابقة</string>
+    <string name="enter_current_password">الرجاء إدخال كلمة المرور الحالية</string>
+    <string name="be_the_first_to_review_this_product">كن أول من يراجع هذا المنتج</string>
+    <string name="free_returns">إرجاع مجاني</string>
+    <string name="cash_on_delivery">الدفع عند الاستلام</string>
+    <string name="cash">ادفع مقابل طلبك نقدًا في لحظة تسليم الشحنة إلى باب منزلك.</string>
+    <string name="returnProduct">بعد تغيير رأيك، يمكنك إرجاع منتجك واسترداد أموالك بالكامل.</string>
+    <string name="want_to_exit">هل حقا تريد الخروج؟</string>
+    <string name="ok">موافق</string>
+    <string name="create_account">إنشاء حساب...</string>
+    <string name="loading">جار التحميل...</string>
+    <string name="don_t_let_go_your_shopping_habit">لا تترك عادة التسوق الخاصة بك</string>
+    <string name="your_cart_is_empty">عربة التسوق فارغة</string>
+    <string name="no_products_in_this_category">لا توجد منتجات في هذا القسم</string>
+    <string name="english">الإنجليزية</string>
+    <string name="arabic">العربية</string>
+    <string name="choose_language">اختر اللغة</string>
+
+    <string-array name="categories_array">
+        <item>Mobile</item>
+        <item>Laptop</item>
+        <item>Baby</item>
+        <item>Toy</item>
+    </string-array>
 </resources>

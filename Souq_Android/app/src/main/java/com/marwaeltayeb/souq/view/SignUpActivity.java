@@ -20,6 +20,8 @@ import com.marwaeltayeb.souq.model.User;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.Validation;
 
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "SignUpActivity";
@@ -30,6 +32,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
 
         binding.buttonSignUp.setOnClickListener(this);

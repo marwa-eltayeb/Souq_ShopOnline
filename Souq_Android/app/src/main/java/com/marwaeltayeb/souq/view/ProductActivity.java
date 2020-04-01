@@ -62,6 +62,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_PERMISSION_CODE;
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_REQUEST;
 import static com.marwaeltayeb.souq.utils.Constant.CATEGORY;
@@ -102,6 +103,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product);
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);

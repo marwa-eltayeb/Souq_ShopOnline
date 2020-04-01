@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +19,7 @@ import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.io.IOException;
 
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
 
 public class WriteReviewActivity extends AppCompatActivity implements View.OnClickListener {
@@ -32,7 +34,11 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_write_review);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.write_review));
 
         writeReviewViewModel = ViewModelProviders.of(this).get(WriteReviewViewModel.class);
 

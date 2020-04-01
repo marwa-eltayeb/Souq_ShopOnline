@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -23,7 +24,9 @@ import com.marwaeltayeb.souq.storage.LoginUtils;
 import java.io.IOException;
 
 import static com.marwaeltayeb.souq.storage.LanguageUtils.getEnglishState;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.storage.LanguageUtils.setEnglishState;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.setLocale;
 import static com.marwaeltayeb.souq.utils.CommunicateUtils.rateAppOnGooglePlay;
 import static com.marwaeltayeb.souq.utils.CommunicateUtils.shareApp;
 
@@ -37,7 +40,11 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale(this);
         ActivityAccountBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_account);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.my_account));
 
         deleteUserViewModel = ViewModelProviders.of(this).get(DeleteUserViewModel.class);
         fromHistoryViewModel = ViewModelProviders.of(this).get(FromHistoryViewModel.class);
@@ -173,11 +180,15 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void chooseEnglish() {
+        setLocale(this,"en");
+        recreate();
         Toast.makeText(this, "English", Toast.LENGTH_SHORT).show();
         setEnglishState(this, true);
     }
 
     private void chooseArabic() {
+        setLocale(this,"ar");
+        recreate();
         Toast.makeText(this, "Arabic", Toast.LENGTH_SHORT).show();
         setEnglishState(this, false);
     }

@@ -20,6 +20,7 @@ import com.marwaeltayeb.souq.model.Review;
 
 import java.util.List;
 
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
@@ -37,7 +38,11 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.app_name));
 
         reviewViewModel = ViewModelProviders.of(this).get(ReviewViewModel.class);
 

@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
@@ -15,6 +16,7 @@ import com.marwaeltayeb.souq.model.Review;
 
 import java.util.List;
 
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
 
 public class AllReviewsActivity extends AppCompatActivity {
@@ -28,7 +30,11 @@ public class AllReviewsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_all_reviews);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.reviews));
 
         reviewViewModel = ViewModelProviders.of(this).get(ReviewViewModel.class);
 

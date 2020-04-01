@@ -2,6 +2,11 @@ package com.marwaeltayeb.souq.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+
+import java.util.Locale;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class LanguageUtils {
 
@@ -17,4 +22,22 @@ public class LanguageUtils {
         return sharedpreferences.getBoolean("language", false);
     }
 
+    public static void setLocale(Context context,String language){
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        // Save data to shared preferences
+        SharedPreferences.Editor editor = context.getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_lang",language);
+        editor.apply();
+    }
+
+    // Load language saved in shared preferences
+    public static void loadLocale(Context context){
+        SharedPreferences prefs = context.getSharedPreferences("Settings", MODE_PRIVATE);
+        String language = prefs.getString("My_lang","");
+        setLocale(context,language);
+    }
 }

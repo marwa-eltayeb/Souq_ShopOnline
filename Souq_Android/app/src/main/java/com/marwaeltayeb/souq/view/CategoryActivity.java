@@ -27,6 +27,7 @@ import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
 import com.marwaeltayeb.souq.utils.Constant;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
 
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
@@ -43,13 +44,14 @@ public class CategoryActivity extends AppCompatActivity implements ProductAdapte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale(this);
         binding= DataBindingUtil.setContentView(this, R.layout.activity_category);
 
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
-            // This line shows Up button
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        actionBar.setTitle(getResources().getString(R.string.app_name));
+
+        // This line shows Up button
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         snack = Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.no_internet_connection), Snackbar.LENGTH_INDEFINITE);
 

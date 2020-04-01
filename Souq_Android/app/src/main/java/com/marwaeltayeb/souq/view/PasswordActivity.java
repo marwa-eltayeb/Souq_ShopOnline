@@ -3,6 +3,7 @@ package com.marwaeltayeb.souq.view;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -15,6 +16,8 @@ import com.marwaeltayeb.souq.utils.Validation;
 
 import java.io.IOException;
 
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+
 public class PasswordActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "PasswordActivity";
@@ -24,7 +27,11 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_password);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.change_password));
 
         passwordViewModel = ViewModelProviders.of(this).get(PasswordViewModel.class);
 
