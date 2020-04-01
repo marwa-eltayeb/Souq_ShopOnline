@@ -19,7 +19,7 @@ public class LanguageUtils {
 
     public static boolean getEnglishState(Context context){
         SharedPreferences sharedpreferences = context.getSharedPreferences("language_data", Context.MODE_PRIVATE);
-        return sharedpreferences.getBoolean("language", false);
+        return sharedpreferences.getBoolean("language", true);
     }
 
     public static void setLocale(Context context,String language){
