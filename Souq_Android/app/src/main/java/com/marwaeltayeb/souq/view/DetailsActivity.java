@@ -13,10 +13,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.ReviewViewModel;
+import com.marwaeltayeb.souq.ViewModel.ToCartViewModel;
 import com.marwaeltayeb.souq.adapter.ReviewAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityDetailsBinding;
+import com.marwaeltayeb.souq.model.Cart;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.model.Review;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.util.List;
 
@@ -31,6 +34,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
 
     private ActivityDetailsBinding binding;
     private ReviewViewModel reviewViewModel;
+    private ToCartViewModel toCartViewModel;
     private ReviewAdapter reviewAdapter;
     private List<Review> reviewList;
     private Product product;
@@ -41,13 +45,12 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         loadLocale(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(getResources().getString(R.string.app_name));
-
         reviewViewModel = ViewModelProviders.of(this).get(ReviewViewModel.class);
+        toCartViewModel = ViewModelProviders.of(this).get(ToCartViewModel.class);
 
         binding.txtSeeAllReviews.setOnClickListener(this);
         binding.writeReview.setOnClickListener(this);
+        binding.addToCart.setOnClickListener(this);
 
         getProductDetails();
 
@@ -107,8 +110,16 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             Intent allReviewIntent = new Intent(DetailsActivity.this, WriteReviewActivity.class);
             allReviewIntent.putExtra(PRODUCT_ID,product.getProductId());
             startActivity(allReviewIntent);
+        }else if(view.getId() == R.id.addToCart){
+            insertToCart();
+            Intent cartIntent = new Intent(DetailsActivity.this, CartActivity.class);
+            startActivity(cartIntent);
         }
     }
 
+    private void insertToCart() {
+        Cart cart = new Cart(LoginUtils.getInstance(this).getUserInfo().getId(), product.getProductId());
+        toCartViewModel.addToCart(cart);
+    }
 
 }
