@@ -46,8 +46,15 @@ router.post("/add", (request, response) => {
     const args = [userId, productId]
 
     database.query(query, args, (error, result) => {
-        if(error) throw error
-        response.status(200).send("Bookmark as favorite")
+        if (error) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                response.status(500).send("Deplicate Entry")
+            } else {
+                throw error;
+            }
+        } else {
+            response.status(200).send("Bookmark as favorite")
+        }
     });
 });
       
