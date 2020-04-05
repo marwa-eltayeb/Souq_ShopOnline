@@ -1,6 +1,6 @@
 # Souq (Shop Online)
 
-  Online Store prototype implemented in Java. 
+  Online Store prototype implemented in MVVM Architecture using Java and MySQL for the server. 
 
 ## Features: 
 
@@ -16,7 +16,8 @@
 - Sign out or delete user's account.
 
 
-## Libraries included in this project:
+## Libraries included (Android Side):
+
 - Paging
 - Glide
 - Retrofit
@@ -25,3 +26,14 @@
 - ViewModel (Android Architecture Components)
 - RecyclerView
 - CardView
+- GSON
+- CircleImageView
+
+## Libraries included (Server Side):
+
+ - NodeJS
+ - Express
+ - Multer
+ - Bcrypt
+ - JWT
+ - Body Parser
