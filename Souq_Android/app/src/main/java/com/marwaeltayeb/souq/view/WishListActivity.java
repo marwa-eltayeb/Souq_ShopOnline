@@ -65,7 +65,7 @@ public class WishListActivity extends AppCompatActivity {
                         // Pass an object of product class
                         intent.putExtra(PRODUCT, (product));
                         startActivity(intent);
-                    });
+                    },this);
                 }
                 binding.loadingIndicator.setVisibility(View.GONE);
                 binding.favoriteList.setAdapter(wishListAdapter);

@@ -213,7 +213,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                     historyAdapter.submitList(products);
                     binding.included.content.historyList.setAdapter(historyAdapter);
                     historyAdapter.notifyDataSetChanged();
-                    Toast.makeText(ProductActivity.this, products.size() + "", Toast.LENGTH_SHORT).show();
                     if (products.size() != 0) {
                         binding.included.content.textViewHistory.setVisibility(View.VISIBLE);
                     }

@@ -97,12 +97,12 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             holder.binding.imgShare.setOnClickListener(v -> shareProduct(mContext, productName, imageUrl));
 
             // If product is inserted
-            if (getFavoriteState(mContext, product.getProductId())) {
+            if (getFavoriteState(mContext,String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()) ,product.getProductId())) {
                 holder.binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
             }
 
             // If product is added to cart
-            if (getCartState(mContext, product.getProductId())) {
+            if (getCartState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId())) {
                 holder.binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
             }
 
@@ -180,32 +180,31 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
 
         private void toggleFavourite() {
             // If favorite is not bookmarked
-            if (!getFavoriteState(mContext, product.getProductId())) {
+            if (!getFavoriteState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId())) {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
                 insertFavoriteProduct();
-                setFavoriteState(mContext, product.getProductId(), true);
-                Toast.makeText(mContext, product.getProductId() + "", Toast.LENGTH_SHORT).show();
+                setFavoriteState(mContext,String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()) ,product.getProductId(), true);
                 showSnackBar("Bookmark Added");
             } else {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_border);
                 deleteFavoriteProduct();
-                setFavoriteState(mContext, product.getProductId(), false);
+                setFavoriteState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId(), false);
                 showSnackBar("Bookmark Removed");
             }
         }
 
         private void toggleProductsInCart() {
             // If Product is not added to cart
-            if (!getCartState(mContext, product.getProductId())) {
+            if (!getCartState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId())) {
                 binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
                 insertToCart();
-                setCartState(mContext, product.getProductId(), true);
-                Toast.makeText(mContext, product.getProductId() + "", Toast.LENGTH_SHORT).show();
+                setCartState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId(), true);
+                //Toast.makeText(mContext, product.getProductId() + "", Toast.LENGTH_SHORT).show();
                 showSnackBar("Added To Cart");
             } else {
                 binding.imgCart.setImageResource(R.drawable.ic_add_shopping_cart);
                 deleteFromCart();
-                setCartState(mContext, product.getProductId(), false);
+                setCartState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId(), false);
                 showSnackBar("Removed From Cart");
             }
         }
@@ -215,6 +214,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         }
 
         private void insertFavoriteProduct() {
+            Toast.makeText(mContext, LoginUtils.getInstance(mContext).getUserInfo().getId() + " " + product.getProductId(), Toast.LENGTH_SHORT).show();
             Favorite favorite = new Favorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
             addFavoriteViewModel.addFavorite(favorite);
         }

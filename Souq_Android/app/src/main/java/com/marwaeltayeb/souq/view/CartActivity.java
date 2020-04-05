@@ -65,7 +65,7 @@ public class CartActivity extends AppCompatActivity {
                         // Pass an object of product class
                         intent.putExtra(PRODUCT, (product));
                         startActivity(intent);
-                    });
+                    }, this);
                 }
 
                 binding.loadingIndicator.setVisibility(View.GONE);
