@@ -14,7 +14,11 @@
 - See reviews about products from other users.
 - See all products in user's shopping cart or wishlist.
 - Sign out or delete user's account.
-
+- Upadate Password.
+- Share application with friends.
+- Rate application on play store.
+- Provide Support through help center
+- Change language of the application.
 
 ## Libraries included (Android Side):
 
