@@ -132,6 +132,8 @@
     <string name="choose_language">Choose Language</string>
     <string name="shop_online">Shop Online</string>
 
+    <string name="wishlist">WishList</string>
+
     <string-array name="categories_array">
         <item>Mobile</item>
         <item>Laptop</item>
