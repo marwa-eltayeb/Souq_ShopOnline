@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 // Upload and store images
 const multer = require('multer')
+// Send mail
+const mail_util = require('../../utils/mail');
 
 const storage = multer.diskStorage({
     // Place of picture
@@ -261,5 +263,19 @@ router.get("/getImage", (request, response) => {
         })
     });
 }); 
+
+
+// Get opt
+router.get("/opt", (request, response) => {
+    const email = request.query.email
+
+    const opt = mail_util.getRandomInt(100000, 999999)
+    mail_util.sendOptMail(email, opt);
+   
+    response.status(200).json({
+        "opt": opt
+    });
+});
+
 
 module.exports = router
