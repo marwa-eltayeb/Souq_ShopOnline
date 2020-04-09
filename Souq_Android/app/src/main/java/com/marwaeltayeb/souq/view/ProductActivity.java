@@ -41,6 +41,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.HistoryViewModel;
 import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
@@ -366,8 +369,18 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         userImageViewModel.getUserImage(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, response -> {
             if (response != null) {
                 String imageUrl = LOCALHOST + response.getImage().replaceAll("\\\\", "/");
+
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .placeholder(R.drawable.profile_picture)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .priority(Priority.HIGH)
+                        .dontAnimate()
+                        .dontTransform();
+
                 Glide.with(getApplicationContext())
                         .load(imageUrl)
+                        .apply(options)
                         .into(circleImageView);
             }
         });
