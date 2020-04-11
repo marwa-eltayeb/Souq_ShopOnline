@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         binding.buttonLogin.setOnClickListener(this);
         binding.textViewSignUp.setOnClickListener(this);
+        binding.forgetPassword.setOnClickListener(this);
 
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
     }
@@ -102,6 +103,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.textViewSignUp:
                 goToSignUpActivity();
                 break;
+            case R.id.forgetPassword:
+                goToPasswordAssistantActivity();
+                break;
         }
     }
 
@@ -113,6 +117,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void goToProductActivity() {
         Intent intent = new Intent(this, ProductActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void goToPasswordAssistantActivity() {
+        Intent intent = new Intent(this, PasswordAssistantActivity.class);
         startActivity(intent);
     }
 

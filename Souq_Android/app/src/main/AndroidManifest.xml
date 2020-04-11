@@ -29,7 +29,7 @@
 
             <meta-data
                 android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts"/>
+                android:resource="@xml/shortcuts" />
         </activity>
         <activity
             android:name=".view.ProductActivity"
@@ -127,7 +127,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.AccountActivity" />
         </activity>
-
         <activity
             android:name=".view.CategoryActivity"
             android:parentActivityName=".view.ProductActivity">
@@ -135,6 +134,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
         </activity>
+
+        <activity
+            android:name=".view.PasswordAssistantActivity"
+            android:theme="@style/NoActionBar" />
 
         <receiver android:name=".receiver.NetworkChangeReceiver" />
     </application>

@@ -133,6 +133,10 @@
     <string name="shop_online">Shop Online</string>
 
     <string name="wishlist">WishList</string>
+    <string name="password_assistance">Password assistance</string>
+    <string name="enter_the_email_address_associated_with_your_account">Enter the email address associated with your account.</string>
+    <string name="proceed">Continue</string>
+    <string name="email_address">Email Address</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>
