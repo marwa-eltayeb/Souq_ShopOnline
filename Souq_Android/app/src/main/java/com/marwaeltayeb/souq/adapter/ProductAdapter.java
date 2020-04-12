@@ -31,6 +31,8 @@ import com.marwaeltayeb.souq.model.History;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 
+import java.text.DecimalFormat;
+
 import static com.marwaeltayeb.souq.storage.CartUtils.getCartState;
 import static com.marwaeltayeb.souq.storage.CartUtils.setCartState;
 import static com.marwaeltayeb.souq.storage.FavoriteUtils.getFavoriteState;
@@ -84,7 +86,10 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         if (product != null) {
             String productName = product.getProductName();
             holder.binding.txtProductName.setText(productName);
-            holder.binding.txtProductPrice.setText(String.valueOf(product.getProductPrice()));
+
+            DecimalFormat formatter = new DecimalFormat("#,###,###");
+            String formattedPrice = formatter.format(product.getProductPrice());
+            holder.binding.txtProductPrice.setText(formattedPrice);
 
             // Load the Product image into ImageView
             String imageUrl = LOCALHOST + product.getProductImage().replaceAll("\\\\", "/");

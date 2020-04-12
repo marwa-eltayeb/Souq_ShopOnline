@@ -13,6 +13,7 @@ import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.SearchListItemBinding;
 import com.marwaeltayeb.souq.model.Product;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
@@ -52,7 +53,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         currentProduct = productList.get(position);
         holder.binding.txtProductName.setText(currentProduct.getProductName());
-        holder.binding.txtProductPrice.setText(String.valueOf(currentProduct.getProductPrice()));
+
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+        String formattedPrice = formatter.format(currentProduct.getProductPrice());
+        holder.binding.txtProductPrice.setText(formattedPrice);
 
         // Load the Product image into ImageView
         String imageUrl = LOCALHOST + currentProduct.getProductImage().replaceAll("\\\\", "/");

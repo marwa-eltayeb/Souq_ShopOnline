@@ -24,6 +24,7 @@ import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.marwaeltayeb.souq.storage.CartUtils.getCartState;
@@ -76,7 +77,10 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
     public void onBindViewHolder(@NonNull WishListViewHolder holder, int position) {
         currentProduct = favoriteList.get(position);
         holder.binding.txtProductName.setText(currentProduct.getProductName());
-        holder.binding.txtProductPrice.setText(String.valueOf(currentProduct.getProductPrice()));
+
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+        String formattedPrice = formatter.format(currentProduct.getProductPrice());
+        holder.binding.txtProductPrice.setText(formattedPrice);
 
         // Load the Product image into ImageView
         String imageUrl = LOCALHOST + currentProduct.getProductImage().replaceAll("\\\\", "/");
