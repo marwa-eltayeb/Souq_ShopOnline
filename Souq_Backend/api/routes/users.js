@@ -265,16 +265,32 @@ router.get("/getImage", (request, response) => {
 }); 
 
 
-// Get opt
-router.get("/opt", (request, response) => {
+// Get OTP
+router.get("/otp", (request, response) => {
     const email = request.query.email
 
-    const opt = mail_util.getRandomInt(100000, 999999)
-    mail_util.sendOptMail(email, opt);
-   
-    response.status(200).json({
-        "opt": opt
-    });
+    const args = [email];
+
+    const query = "SELECT email FROM user WHERE email = ?"
+    database.query(query, args, (error, result) => {
+        // Error in database
+        if(error) throw error;
+
+        // if email is correct
+        if(result.length == 1) {
+
+            const otp = mail_util.getRandomInt(100000, 999999)
+            mail_util.sendOptMail(email, otp);
+           
+            response.status(200).json({
+                "otp": otp,
+                "email": email
+            });
+
+        } else{
+            response.status(500).send("Incorrect Email")
+        }
+    })
 });
 
 

@@ -11,13 +11,13 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-function sendOptMail(email, optCode){
+function sendOptMail(email, otpCode){
   
   var mailOptions = {
     from: 'mardroid.apps@gmail.com',
     to: email,
     subject: 'Sending Email using Node.js',
-    text: 'That was easy! This is your opt' + optCode
+    text: 'That was easy! This is your otp' + otpCode
   };
   
   
