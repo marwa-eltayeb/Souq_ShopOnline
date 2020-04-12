@@ -138,5 +138,17 @@
             app:layout_constraintHorizontal_bias="0.362"
             app:layout_constraintStart_toEndOf="@+id/reSend"
             app:layout_constraintTop_toBottomOf="@+id/proceed" />
+
+        <TextView
+            android:id="@+id/numberOClicks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/darkGreen"
+            android:textSize="@dimen/dimen16sp"
+            android:visibility="invisible"
+            android:text="@string/you_have_exceeded_number_of_requests"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reSend" />
     </android.support.constraint.ConstraintLayout>
 </layout>

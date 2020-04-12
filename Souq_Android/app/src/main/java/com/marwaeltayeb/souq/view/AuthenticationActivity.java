@@ -25,6 +25,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     private String email;
     private String correctOtpCode;
     static boolean isActivityRunning = false;
+    private int clickCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +46,21 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
         authentication.setText(formatted);
     }
 
-
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.proceed) {
             checkOtpCode();
-        }else if(view.getId() == R.id.reSend){
+        } else if (view.getId() == R.id.reSend) {
+            clickCount = clickCount + 1;
             getAnotherOtpCode();
+            if (clickCount > 3) {
+                binding.reSend.setEnabled(false);
+                binding.numberOClicks.setVisibility(View.VISIBLE);
+            }
         }
     }
 
-    private void getAnotherOtpCode(){
+    private void getAnotherOtpCode() {
         otpViewModel.getOtpCode(email).observe(this, responseBody -> {
             if (!responseBody.isError()) {
                 correctOtpCode = responseBody.getOtp();
@@ -69,10 +74,10 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     private void checkOtpCode() {
         String otpEntered = binding.otpCode.getText().toString();
 
-        if(!otpEntered.equals(correctOtpCode)){
+        if (!otpEntered.equals(correctOtpCode)) {
             binding.otpCode.setError(getString(R.string.incorrect_code));
             binding.otpCode.requestFocus();
-        }else {
+        } else {
             Intent passwordIntent = new Intent(this, PasswordActivity.class);
             startActivity(passwordIntent);
         }
@@ -90,12 +95,13 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
         isActivityRunning = false;
     }
 
-    private void countDownTimer(TextView textView){
+    private void countDownTimer(TextView textView) {
         new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 textView.setText(String.valueOf(millisUntilFinished / 1000));
             }
+
             public void onFinish() {
                 Log.d(TAG, "onFinish: " + "done!");
                 binding.reSend.setEnabled(true);

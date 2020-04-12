@@ -146,6 +146,7 @@
     <string name="incorrect_code">Incorrect Code</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="counter">60</string>
+    <string name="you_have_exceeded_number_of_requests">You have exceeded number of requests.</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>
