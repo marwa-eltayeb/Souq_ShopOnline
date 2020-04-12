@@ -134,9 +134,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
         </activity>
-
         <activity
             android:name=".view.PasswordAssistantActivity"
+            android:theme="@style/NoActionBar" />
+
+        <activity
+            android:name=".view.AuthenticationActivity"
             android:theme="@style/NoActionBar" />
 
         <receiver android:name=".receiver.NetworkChangeReceiver" />

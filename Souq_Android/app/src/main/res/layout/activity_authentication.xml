@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.AuthenticationActivity">
+
+    <TextView
+        android:id="@+id/souq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightGray"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dimen35sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/shopOnline"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/shopOnline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightGray"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dimen10dp"
+        android:text="@string/shop_online"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/souq" />
+
+    <TextView
+        android:id="@+id/authenticationRequired"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_margin="@dimen/dimen10dp"
+        android:text="@string/authentication_required"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shopOnline" />
+
+    <TextView
+        android:id="@+id/authentication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_margin="@dimen/dimen10dp"
+        android:text="@string/description2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authenticationRequired" />
+
+
+    <EditText
+        android:id="@+id/emailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/dimen30dp"
+        android:layout_marginLeft="@dimen/dimen10dp"
+        android:layout_marginRight="@dimen/dimen10dp"
+        android:layout_marginBottom="@dimen/dimen10dp"
+        android:background="@drawable/custom_border"
+        android:hint="@string/enter_otp"
+        android:maxLines="1"
+        android:inputType="textEmailAddress"
+        android:paddingStart="@dimen/dimen10dp"
+        android:paddingEnd="@dimen/dimen10dp"
+        android:singleLine="true"
+        android:textColorHint="@color/vDarkGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authentication"
+        android:importantForAutofill="no" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/proceed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen10dp"
+        android:layout_marginLeft="@dimen/dimen10dp"
+        android:layout_marginRight="@dimen/dimen10dp"
+        android:layout_marginBottom="@dimen/dimen10dp"
+        android:background="@color/yellow"
+        android:text="@string/proceed"
+        android:textAllCaps="false"
+        android:textSize="@dimen/dimen18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailAddress" />
+</android.support.constraint.ConstraintLayout>

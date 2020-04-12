@@ -21,5 +21,9 @@ public class Constant {
     public static String CATEGORY = "Category";
 
 
+    public static String EMAIL = "email";
+    public static String OTP = "otp";
+
+
 
 }

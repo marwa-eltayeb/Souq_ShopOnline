@@ -8,6 +8,7 @@ import com.marwaeltayeb.souq.model.History;
 import com.marwaeltayeb.souq.model.HistoryApiResponse;
 import com.marwaeltayeb.souq.model.Image;
 import com.marwaeltayeb.souq.model.LoginApiResponse;
+import com.marwaeltayeb.souq.model.Otp;
 import com.marwaeltayeb.souq.model.ProductApiResponse;
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
 import com.marwaeltayeb.souq.model.Review;
@@ -55,6 +56,9 @@ public interface Api {
 
     @GET("users/getImage")
     Call<Image> getUserImage(@Query("id") int userId);
+
+    @GET("users/otp")
+    Call<Otp> getOtp(@Query("email") String email);
 
     @GET("products")
     Call<ProductApiResponse> getProducts(@Query("page") int page);
