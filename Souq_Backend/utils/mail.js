@@ -16,8 +16,9 @@ function sendOptMail(email, otpCode){
   var mailOptions = {
     from: 'mardroid.apps@gmail.com',
     to: email,
-    subject: 'Sending Email using Node.js',
-    text: 'That was easy! This is your otp' + otpCode
+    subject: 'Souq password assistance',
+    text: 'To authenticate, please use the following One Time Password (OTP): \n' + otpCode + '\nDo not share this OTP with anyone.\n Souq takes your account security very seriously.'+
+    '\nSouq will never ask you to disclose or varify your Souq password, OTP, credit card, or banking account number'
   };
   
   

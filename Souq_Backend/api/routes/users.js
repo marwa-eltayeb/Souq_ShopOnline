@@ -283,12 +283,13 @@ router.get("/otp", (request, response) => {
             mail_util.sendOptMail(email, otp);
            
             response.status(200).json({
+                "error" : false,
                 "otp": otp,
                 "email": email
             });
 
         } else{
-            response.status(500).send("Incorrect Email")
+            response.status(500).json({"error" : true,"message": "Incorrect Email"});
         }
     })
 });
