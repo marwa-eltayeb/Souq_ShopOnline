@@ -17,6 +17,7 @@ import com.marwaeltayeb.souq.utils.Validation;
 import java.io.IOException;
 
 import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import static com.marwaeltayeb.souq.view.AuthenticationActivity.isActivityRunning;
 
 public class PasswordActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -37,6 +38,10 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
 
         binding.saveChanges.setOnClickListener(this);
         binding.cancel.setOnClickListener(this);
+
+        if(isActivityRunning){
+            binding.currentPassword.setVisibility(View.GONE);
+        }
     }
 
     @Override

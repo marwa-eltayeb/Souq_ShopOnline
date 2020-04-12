@@ -17,6 +17,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
 
     private ActivityAuthenticationBinding binding;
     private String correctOtpCode;
+    static boolean isActivityRunning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,17 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             Intent passwordIntent = new Intent(this, PasswordActivity.class);
             startActivity(passwordIntent);
         }
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        isActivityRunning = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isActivityRunning = false;
     }
 }
