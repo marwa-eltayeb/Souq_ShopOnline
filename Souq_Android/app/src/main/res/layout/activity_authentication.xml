@@ -102,5 +102,41 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/otpCode" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/reSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen10dp"
+            android:layout_marginLeft="@dimen/dimen10dp"
+            android:layout_marginRight="@dimen/dimen10dp"
+            android:layout_marginBottom="@dimen/dimen10dp"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:text="@string/resend_otp"
+            android:textAllCaps="false"
+            android:textSize="@dimen/dimen16sp"
+            android:textColor="@color/darkBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/proceed" />
+
+        <TextView
+            android:id="@+id/countDownTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/dimen10dp"
+            android:background="@drawable/custom_border"
+            android:hint="@string/counter"
+            android:paddingStart="@dimen/dimen10dp"
+            android:paddingEnd="@dimen/dimen10dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/dimen20sp"
+            android:visibility="invisible"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.362"
+            app:layout_constraintStart_toEndOf="@+id/reSend"
+            app:layout_constraintTop_toBottomOf="@+id/proceed" />
     </android.support.constraint.ConstraintLayout>
 </layout>

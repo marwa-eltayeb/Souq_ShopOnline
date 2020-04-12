@@ -144,6 +144,8 @@
     <string name="description2">For your security, we need to authenticate your request. We\'ve sent a code from <b>Souq</b> to the email %1$s. Please enter it below.</string>
     <string name="enter_your_email">Please Enter your correct email</string>
     <string name="incorrect_code">Incorrect Code</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="counter">60</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>
