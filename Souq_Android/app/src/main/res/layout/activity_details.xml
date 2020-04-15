@@ -60,10 +60,26 @@
                 android:id="@+id/addToCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="@dimen/dimen10dp"
+                android:layout_marginBottom="@dimen/dimen10dp"
                 android:background="@color/green"
                 android:padding="10dp"
                 android:text="@string/add_to_cart"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/buy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="@dimen/dimen20dp"
+                android:background="#FFB900"
+                android:text="@string/buy"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 

@@ -147,6 +147,13 @@
     <string name="you_have_exceeded_number_of_requests">You have exceeded number of requests.</string>
     <string name="poster">poster</string>
     <string name="close">close</string>
+    <string name="buy">Buy</string>
+    <string name="street_address">Street address</string>
+    <string name="city">City</string>
+    <string name="country">Country</string>
+    <string name="phone_number">Phone number</string>
+    <string name="zip">ZIP</string>
+    <string name="enter_a_shipping_address">Enter a shipping address</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>

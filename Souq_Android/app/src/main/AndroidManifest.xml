@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".view.ShippingAddressActivity"></activity>
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/NoActionBar">
@@ -140,12 +140,10 @@
         <activity
             android:name=".view.AuthenticationActivity"
             android:theme="@style/NoActionBar" />
-
         <activity
             android:name=".view.NewsFeedActivity"
             android:label="@string/news_feed"
             android:parentActivityName=".view.ProductActivity">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
@@ -153,4 +151,5 @@
 
         <receiver android:name=".receiver.NetworkChangeReceiver" />
     </application>
+
 </manifest>

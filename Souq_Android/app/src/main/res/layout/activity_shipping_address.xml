@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.ShippingAddressActivity">
+
+        <TextView
+            android:id="@+id/shippingAddress"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/dimen10dp"
+            android:layout_marginTop="@dimen/dimen10dp"
+            android:textSize="@dimen/dimen25sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="@string/enter_a_shipping_address" />
+
+
+        <EditText
+            android:id="@+id/txtName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_border"
+            android:clickable="false"
+            android:enabled="false"
+            android:focusable="false"
+            android:inputType="none"
+            android:paddingStart="@dimen/dimen10dp"
+            android:paddingEnd="@dimen/dimen10dp"
+            android:textColorHint="@color/black"
+            tools:hint="@string/marwa_eltayeb" />
+
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_border"
+            android:hint="@string/street_address"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dimen10dp"
+            android:paddingEnd="@dimen/dimen10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/vDarkGray" />
+
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_border"
+            android:hint="@string/city"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dimen10dp"
+            android:paddingEnd="@dimen/dimen10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/vDarkGray" />
+
+        <EditText
+            android:id="@+id/country"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_border"
+            android:hint="@string/country"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dimen10dp"
+            android:paddingEnd="@dimen/dimen10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/vDarkGray" />
+
+
+        <EditText
+            android:id="@+id/zip"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_border"
+            android:hint="@string/zip"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dimen10dp"
+            android:paddingEnd="@dimen/dimen10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/vDarkGray" />
+
+
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_border"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dimen10dp"
+            android:paddingEnd="@dimen/dimen10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/vDarkGray" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/proceed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen10dp"
+            android:layout_marginLeft="@dimen/dimen10dp"
+            android:layout_marginRight="@dimen/dimen10dp"
+            android:layout_marginBottom="@dimen/dimen10dp"
+            android:background="@drawable/custom_button_border2"
+            android:text="@string/proceed"
+            android:textAllCaps="false"
+            android:textSize="@dimen/dimen18sp" />
+    </LinearLayout>
+</layout>

@@ -51,6 +51,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         binding.txtSeeAllReviews.setOnClickListener(this);
         binding.writeReview.setOnClickListener(this);
         binding.addToCart.setOnClickListener(this);
+        binding.buy.setOnClickListener(this);
 
         getProductDetails();
 
@@ -114,6 +115,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             insertToCart();
             Intent cartIntent = new Intent(DetailsActivity.this, CartActivity.class);
             startActivity(cartIntent);
+        }else if(view.getId() == R.id.buy){
+            Intent shippingIntent = new Intent(DetailsActivity.this, ShippingAddressActivity.class);
+            startActivity(shippingIntent);
         }
     }
 
