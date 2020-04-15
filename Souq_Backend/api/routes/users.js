@@ -4,6 +4,10 @@ const router = express.Router()
 const jwt = require('jsonwebtoken')
 // For encrypted password
 const bcrypt = require('bcrypt');
+
+// Deal with file
+const fileSystem = require('fs');
+
 // Upload and store images
 const multer = require('multer')
 // Send mail
