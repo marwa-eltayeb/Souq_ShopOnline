@@ -568,7 +568,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             Intent accountIntent = new Intent(this, AccountActivity.class);
             startActivity(accountIntent);
         } else if (id == R.id.nav_newsFeed) {
-            // TODO: NewsFeed
+            Intent newsFeedIntent = new Intent(this, NewsFeedActivity.class);
+            startActivity(newsFeedIntent);
         } else if (id == R.id.nav_wishList) {
             Intent wishListIntent = new Intent(this, WishListActivity.class);
             startActivity(wishListIntent);

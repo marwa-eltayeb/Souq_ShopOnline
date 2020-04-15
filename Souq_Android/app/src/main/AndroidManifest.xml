@@ -137,12 +137,20 @@
         <activity
             android:name=".view.PasswordAssistantActivity"
             android:theme="@style/NoActionBar" />
-
         <activity
             android:name=".view.AuthenticationActivity"
             android:theme="@style/NoActionBar" />
 
+        <activity
+            android:name=".view.NewsFeedActivity"
+            android:label="@string/news_feed"
+            android:parentActivityName=".view.ProductActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.ProductActivity" />
+        </activity>
+
         <receiver android:name=".receiver.NetworkChangeReceiver" />
     </application>
-
 </manifest>

@@ -51,7 +51,7 @@ router.get("/", (request, response) => {
    
     const query = "SELECT * FROM poster";
 
-    database.query(query, args, (error, result) => {
+    database.query(query, (error, result) => {
         if(error) throw error
         response.status(200).json({
             "error" : false,

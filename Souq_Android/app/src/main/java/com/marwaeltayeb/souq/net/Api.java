@@ -8,6 +8,7 @@ import com.marwaeltayeb.souq.model.History;
 import com.marwaeltayeb.souq.model.HistoryApiResponse;
 import com.marwaeltayeb.souq.model.Image;
 import com.marwaeltayeb.souq.model.LoginApiResponse;
+import com.marwaeltayeb.souq.model.NewsFeedResponse;
 import com.marwaeltayeb.souq.model.Otp;
 import com.marwaeltayeb.souq.model.ProductApiResponse;
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
@@ -101,4 +102,7 @@ public interface Api {
 
     @GET("review")
     Call<ReviewApiResponse> getAllReviews(@Query("productId") int productId);
+
+    @GET("posters")
+    Call<NewsFeedResponse> getPosters();
 }
