@@ -1,6 +1,6 @@
 # Souq (Shop Online)
 
-  Online Store prototype implemented in MVVM Architecture using Java and MySQL for the server. 
+  Online Store prototype implemented in MVVM Architecture using Java and MySQL, NodeJS for the server. 
 
 ## Features: 
 
@@ -14,11 +14,13 @@
 - See reviews about products from other users.
 - See all products in user's shopping cart or wishlist.
 - Sign out or delete user's account.
-- Upadate Password.
+- Take Picture or upload it from Gallery
+- Update Password.
 - Share application with friends.
 - Rate application on play store.
 - Provide Support through help center
 - Change language of the application.
+- Get OTP via email to varify your identity if user forgets password
 
 ## Libraries included (Android Side):
 
@@ -35,9 +37,9 @@
 
 ## Libraries included (Server Side):
 
- - NodeJS
  - Express
  - Multer
  - Bcrypt
  - JWT
  - Body Parser
+ - nodemailer
