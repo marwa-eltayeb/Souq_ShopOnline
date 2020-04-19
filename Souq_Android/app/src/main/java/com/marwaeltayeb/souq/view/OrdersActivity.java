@@ -1,26 +1,22 @@
 package com.marwaeltayeb.souq.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.ViewModel.OrderViewModel;
 import com.marwaeltayeb.souq.adapter.OrderAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityOrdersBinding;
-import com.marwaeltayeb.souq.model.OrderApiResponse;
-import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.storage.LoginUtils;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class OrdersActivity extends AppCompatActivity {
 
     private ActivityOrdersBinding binding;
+    private OrderViewModel orderViewModel;
     private OrderAdapter orderAdapter;
 
     @Override
@@ -28,6 +24,8 @@ public class OrdersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_orders);
+
+        orderViewModel = ViewModelProviders.of(this).get(OrderViewModel.class);
 
         setUpRecycleView();
 
@@ -44,18 +42,10 @@ public class OrdersActivity extends AppCompatActivity {
     }
 
     private void getOrders() {
-        RetrofitClient.getInstance().getApi().getOrders(LoginUtils.getInstance(this).getUserInfo().getId()).enqueue(new Callback<OrderApiResponse>() {
-            @Override
-            public void onResponse(Call<OrderApiResponse> call, Response<OrderApiResponse> response) {
-                orderAdapter = new OrderAdapter(getApplicationContext(), response.body().getOrderList());
-                binding.orderList.setAdapter(orderAdapter);
-                orderAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<OrderApiResponse> call, Throwable t) {
-                Toast.makeText(OrdersActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+        orderViewModel.getOrders(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, orderApiResponse -> {
+            orderAdapter = new OrderAdapter(getApplicationContext(), orderApiResponse.getOrderList());
+            binding.orderList.setAdapter(orderAdapter);
+            orderAdapter.notifyDataSetChanged();
         });
     }
 }

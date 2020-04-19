@@ -167,6 +167,7 @@
     <string name="add_your_card">Add your card</string>
     <string name="expiration_date">Expiration Date</string>
     <string name="drop_down_menu">Drop Down Menu</string>
+    <string name="orders">Orders</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>
