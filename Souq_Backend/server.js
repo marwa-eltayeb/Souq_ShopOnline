@@ -16,6 +16,8 @@ const cartRouter = require('./api/routes/carts')
 const historyRouter = require('./api/routes/history')
 const reviewRouter = require('./api/routes/review')
 const posterRouter = require('./api/routes/posters')
+const addressRouter = require('./api/routes/address')
+const orderRouter = require('./api/routes/orders')
 
 const port = 3000
 
@@ -31,6 +33,8 @@ app.use('/carts',cartRouter)
 app.use('/history',historyRouter)
 app.use('/review',reviewRouter)
 app.use('/posters',posterRouter)
+app.use('/address',addressRouter)
+app.use('/orders',orderRouter)
 
 // Make my server work on port 3000 and listen when user use it
 app.listen(port, () => console.log("Server Started"))
