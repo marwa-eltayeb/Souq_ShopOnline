@@ -563,7 +563,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         } else if (id == R.id.nav_toys) {
             goToCategoryActivity("Toy");
         } else if (id == R.id.nav_trackOrder) {
-            // TODO: Track Order
+            Intent orderIntent = new Intent(this, OrdersActivity.class);
+            startActivity(orderIntent);
         } else if (id == R.id.nav_myAccount) {
             Intent accountIntent = new Intent(this, AccountActivity.class);
             startActivity(accountIntent);
