@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.ShippingAddressActivity"></activity>
+
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/NoActionBar">
@@ -148,6 +148,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
         </activity>
+        <activity android:name=".view.ShippingAddressActivity" />
+        <activity android:name=".view.OrderProductActivity" />
+        <activity
+            android:name=".view.OrdersActivity"
+            android:label="@string/my_orders" />
+
+        <activity android:name=".view.StatusActivity"
+                  android:label="@string/status"/>
 
         <receiver android:name=".receiver.NetworkChangeReceiver" />
     </application>

@@ -148,6 +148,25 @@
     <string name="counter">60</string>
     <string name="you_have_exceeded_number_of_requests">You have exceeded number of requests.</string>
     <string name="poster">poster</string>
+    <string name="close">close</string>
+    <string name="buy">Buy</string>
+    <string name="street_address">Street address</string>
+    <string name="city">City</string>
+    <string name="country">Country</string>
+    <string name="phone_number">Phone number</string>
+    <string name="zip">ZIP</string>
+    <string name="enter_a_shipping_address">Enter a shipping address</string>
+    <string name="my_order_history">MY ORDER HISTORY</string>
+    <string name="order_number">324432442</string>
+    <string name="order_date">23-11-2020</string>
+    <string name="track_order">Track Order</string>
+    <string name="status">Status</string>
+    <string name="add_a_credit_or_debit_card">Add a credit or debit card</string>
+    <string name="name_on_card">Name On Card</string>
+    <string name="card_number">Card Number</string>
+    <string name="add_your_card">Add your card</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="drop_down_menu">Drop Down Menu</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>
