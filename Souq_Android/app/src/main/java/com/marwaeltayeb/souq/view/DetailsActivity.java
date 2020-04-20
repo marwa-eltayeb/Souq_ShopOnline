@@ -26,6 +26,7 @@ import java.util.List;
 import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
 
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -117,6 +118,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(cartIntent);
         }else if(view.getId() == R.id.buy){
             Intent shippingIntent = new Intent(DetailsActivity.this, ShippingAddressActivity.class);
+            shippingIntent.putExtra(PRODUCTID, product.getProductId());
             startActivity(shippingIntent);
         }
     }

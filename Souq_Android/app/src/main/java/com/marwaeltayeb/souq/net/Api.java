@@ -15,6 +15,7 @@ import com.marwaeltayeb.souq.model.ProductApiResponse;
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
 import com.marwaeltayeb.souq.model.Review;
 import com.marwaeltayeb.souq.model.ReviewApiResponse;
+import com.marwaeltayeb.souq.model.Shipping;
 import com.marwaeltayeb.souq.model.User;
 
 import java.util.Map;
@@ -109,5 +110,8 @@ public interface Api {
 
     @GET("orders/get")
     Call<OrderApiResponse> getOrders(@Query("userId") int userId);
+
+    @POST("address/add")
+    Call<ResponseBody> addShippingAddress(@Body Shipping shipping);
 
 }

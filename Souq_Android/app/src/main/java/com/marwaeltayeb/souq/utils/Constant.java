@@ -25,6 +25,8 @@ public class Constant {
     public static String EMAIL = "email";
     public static String OTP = "otp";
 
+    public static String PRODUCTID = "Product_id";
+
 
 
 }
