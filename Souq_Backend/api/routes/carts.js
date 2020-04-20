@@ -26,7 +26,7 @@ router.get("/", (request, response) => {
         parseInt(page)
     ];
 
-    const query = "SELECT product.id,product.name, product.price, product.image, product.category, product.quantity, product.supplier FROM Cart JOIN product JOIN User ON cart.product_id = product.id AND cart.user_id = user.id WHERE user_id = ? LIMIT ? OFFSET ?"
+    const query = "SELECT product.id,product.product_name, product.price, product.image, product.category, product.quantity, product.supplier FROM Cart JOIN product JOIN User ON cart.product_id = product.id AND cart.user_id = user.id WHERE user_id = ? LIMIT ? OFFSET ?"
     database.query(query, args, (error, result) => {
         if(error) throw error;
         response.status(200).json({

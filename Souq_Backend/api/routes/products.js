@@ -126,7 +126,7 @@ router.get("/search", (request, response) => {
         parseInt(page)
     ];
 
-    const query = "SELECT * FROM product WHERE name LIKE ? OR category LIKE ? LIMIT ? OFFSET ?";
+    const query = "SELECT * FROM product WHERE product_name LIKE ? OR category LIKE ? LIMIT ? OFFSET ?";
 
     database.query(query, args, (error, result) => {
         if(error) throw error
@@ -152,7 +152,7 @@ router.post("/insert",uploadImage.single('image'), (request, response) => {
         filePath = file.path
     }
    
-    const query = "INSERT INTO product(name, price, quantity, supplier, category, image) VALUES(?, ?, ?, ?, ?,?)"
+    const query = "INSERT INTO product(product_name, price, quantity, supplier, category, image) VALUES(?, ?, ?, ?, ?,?)"
         
     const args = [name, price, quantity, supplier, category, filePath]
 
