@@ -4,19 +4,21 @@ const router = express.Router()
 // import file
 const database = require("../../config")
 
-
+const util = require('../../utils/mail');
+const util2 = require('../../utils/encrypt');
 
 // Order a product
 router.post("/add", (request, response) => {
     var status = request.body.status
     const name_on_card = request.body.name_on_card
-    const card_number = request.body.card_number
+    var card_number = request.body.card_number
     const expiration_date = request.body.expiration_date
     const userId = request.body.userId
     const productId = request.body.productId
-
     var order_number;
 
+    card_number = util2.encrypt(card_number)
+     
     const queryCategory = 'SELECT category FROM product WHERE id = ?'
     database.query(queryCategory,productId, (error, result) => {
         if(error) throw error;
@@ -24,13 +26,13 @@ router.post("/add", (request, response) => {
         result = result[0]["category"]
        
         if(result == "mobile"){
-            order_number = 55 + getRandomInt(100000, 999999)
+            order_number = '55' + util.getRandomInt(100000, 999999)
         }else if(result == "laptop"){
-            order_number = 66 + getRandomInt(100000, 999999)
+            order_number = '66' + util.getRandomInt(100000, 999999)
         }else if(result == "baby"){
-            order_number = 77 + getRandomInt(100000, 999999)
+            order_number = '77' + util.getRandomInt(100000, 999999)
         }else if(result == "toy"){
-            order_number = 88 + getRandomInt(100000, 999999)
+            order_number = '88' + util.getRandomInt(100000, 999999)
         }
 
         if(typeof status == 'undefined' && status == null){
@@ -54,13 +56,6 @@ router.post("/add", (request, response) => {
 
         
     })
-
-
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min; 
-    }
 });
 
 
@@ -126,7 +121,7 @@ router.get("/get", (request, response) => {
         parseInt(page)
     ];
 
-    const query = "SELECT Ordering.order_number,DATE_FORMAT(Ordering.order_date, '%d/%m/%Y') As order_date,product.price FROM Ordering JOIN product JOIN User ON Ordering.product_id = product.id AND Ordering.user_id = user.id WHERE user_id = ? LIMIT ? OFFSET ?"
+    const query = "SELECT Ordering.order_number,DATE_FORMAT(Ordering.order_date, '%d/%m/%Y') As order_date, Ordering.status,Product.product_name,Product.price,Product.id,User.name,Shipping.address, Shipping.phone FROM Ordering JOIN Product JOIN User JOIN Shipping ON Ordering.product_id = product.id AND Ordering.user_id = user.id WHERE Ordering.user_id = ? LIMIT ? OFFSET ?"
 
     database.query(query, args, (error, orders) => {
         if(error) throw error;
