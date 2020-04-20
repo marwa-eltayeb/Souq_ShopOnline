@@ -163,9 +163,13 @@
 
         <activity
             android:name=".view.StatusActivity"
-            android:label="@string/status" />
+            android:label="@string/status"
+            android:parentActivityName=".view.OrdersActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.OrdersActivity" />
+        </activity>
 
         <receiver android:name=".receiver.NetworkChangeReceiver" />
     </application>
-
 </manifest>

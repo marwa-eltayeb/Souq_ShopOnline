@@ -168,6 +168,14 @@
     <string name="expiration_date">Expiration Date</string>
     <string name="drop_down_menu">Drop Down Menu</string>
     <string name="orders">Orders</string>
+    <string name="order_n">ORDER N:</string>
+    <string name="shipping">Shipping</string>
+    <string name="user_address">23 Mohamed Ali St, Sidi Bishr</string>
+    <string name="dummy_phone">01034238328</string>
+    <string name="items_in_your_order">ITEMS IN YOUR ORDER</string>
+    <string name="item">Your Item has been %1$s</string>
+    <string name="reorder">REORDER</string>
+    <string name="status_bar">STATUS:</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>

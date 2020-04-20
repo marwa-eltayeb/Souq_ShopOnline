@@ -36,7 +36,7 @@ import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private Context mContext;
-    // Declare an arrayList for favorite products
+
     private List<Product> productsInCart;
 
     private Product currentProduct;
@@ -46,7 +46,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private ToCartViewModel toCartViewModel;
     private FromCartViewModel fromCartViewModel;
 
-    // Create a final private SearchAdapterOnClickHandler called mClickHandler
     private CartAdapter.CartAdapterOnClickHandler clickHandler;
 
     /**

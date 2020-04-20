@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.marwaeltayeb.souq.R;
@@ -18,10 +19,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     private Context mContext;
     private List<Order> orderList;
+    private Order currentOrder;
 
-    public OrderAdapter(Context mContext, List<Order> orderList) {
+    private OrderAdapter.OrderAdapterOnClickHandler clickHandler;
+
+    /**
+     * The interface that receives onClick messages.
+     */
+    public interface OrderAdapterOnClickHandler {
+        void onClick(Order order);
+    }
+
+    public OrderAdapter(Context mContext, List<Order> orderList, OrderAdapter.OrderAdapterOnClickHandler clickHandler) {
         this.mContext = mContext;
         this.orderList = orderList;
+        this.clickHandler = clickHandler;
     }
 
     @NonNull
@@ -33,7 +45,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Order currentOrder = orderList.get(position);
+        currentOrder = orderList.get(position);
 
         DecimalFormat formatter = new DecimalFormat("#,###,###");
         String formattedPrice = formatter.format(currentOrder.getProductPrice());
@@ -51,7 +63,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return orderList.size();
     }
 
-    class OrderViewHolder extends RecyclerView.ViewHolder {
+    class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         // Create view instances
         private final OrderListItemBinding binding;
@@ -59,6 +71,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private OrderViewHolder(OrderListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            // Register a callback to be invoked when this view is clicked.
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            // Get position of the product
+            currentOrder = orderList.get(position);
+            // Send product through click
+            clickHandler.onClick(currentOrder);
         }
     }
 }

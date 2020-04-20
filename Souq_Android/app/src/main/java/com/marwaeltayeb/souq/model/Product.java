@@ -9,7 +9,7 @@ public class Product implements Parcelable {
 
     @SerializedName("id")
     private int productId;
-    @SerializedName("name")
+    @SerializedName("product_name")
     private String productName;
     @SerializedName("price")
     private double productPrice;
