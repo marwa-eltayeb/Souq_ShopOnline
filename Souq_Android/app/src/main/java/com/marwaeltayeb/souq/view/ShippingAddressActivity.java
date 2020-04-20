@@ -1,5 +1,6 @@
 package com.marwaeltayeb.souq.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,17 +9,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.ViewModel.ShippingViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityShippingAddressBinding;
 import com.marwaeltayeb.souq.model.Shipping;
-import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.io.IOException;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
 
@@ -27,10 +23,14 @@ public class ShippingAddressActivity extends AppCompatActivity implements View.O
     private static final String TAG = "ShippingAddressActivity";
     private ActivityShippingAddressBinding binding;
 
+    private ShippingViewModel shippingViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shipping_address);
+
+        shippingViewModel = ViewModelProviders.of(this).get(ShippingViewModel.class);
 
         binding.proceed.setOnClickListener(this);
 
@@ -55,23 +55,15 @@ public class ShippingAddressActivity extends AppCompatActivity implements View.O
         int productId = intent.getIntExtra(PRODUCTID, 0);
 
         Shipping shipping = new Shipping(address, city, country, zip, phone,userId, productId);
-        RetrofitClient.getInstance().getApi().addShippingAddress(shipping).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Toast.makeText(ShippingAddressActivity.this, response.body().string()+"", Toast.LENGTH_SHORT).show();
-                    Intent orderProductIntent = new Intent(ShippingAddressActivity.this, OrderProductActivity.class);
-                    startActivity(orderProductIntent);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(ShippingAddressActivity.this, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+        shippingViewModel.addShippingAddress(shipping).observe(this, responseBody -> {
+            try {
+                Toast.makeText(ShippingAddressActivity.this, responseBody.string()+"", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            Intent orderProductIntent = new Intent(ShippingAddressActivity.this, OrderProductActivity.class);
+            startActivity(orderProductIntent);
         });
-
     }
 }
