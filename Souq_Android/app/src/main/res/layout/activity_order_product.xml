@@ -1,136 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".view.OrderProductActivity">
-
-    <TextView
-        android:id="@+id/card"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="@dimen/dimen10dp"
-        android:layout_marginTop="@dimen/dimen10dp"
-        android:text="@string/add_a_credit_or_debit_card"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/dimen25sp" />
-
-
-    <EditText
-        android:id="@+id/nameOnCrad"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/custom_border"
-        android:hint="@string/name_on_card"
-        android:inputType="text"
-        android:maxLines="1"
-        android:paddingStart="@dimen/dimen10dp"
-        android:paddingEnd="@dimen/dimen10dp"
-        android:singleLine="true"
-        android:textColorHint="@color/vDarkGray" />
-
-    <EditText
-        android:id="@+id/cardNumber"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/custom_border"
-        android:hint="@string/card_number"
-        android:inputType="number"
-        android:maxLines="1"
-        android:paddingStart="@dimen/dimen10dp"
-        android:paddingEnd="@dimen/dimen10dp"
-        android:singleLine="true"
-        android:textColorHint="@color/vDarkGray" />
-
-
-    <TextView
-        android:id="@+id/expirationDate"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="@dimen/dimen10dp"
-        android:layout_marginTop="@dimen/dimen10dp"
-        android:text="@string/expiration_date"
-        android:textColor="@color/black"
-        android:textSize="@dimen/dimen20sp"
-        android:textStyle="bold" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.OrderProductActivity">
 
-        <RelativeLayout
-            android:layout_width="150dp"
+        <TextView
+            android:id="@+id/card"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="@dimen/dimen10dp"
-            android:layout_marginEnd="@dimen/dimen10dp"
-            android:layout_weight="1"
-            android:background="@drawable/spinner">
-
-            <Spinner
-                android:id="@+id/spinnerDay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:spinnerMode="dropdown" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:contentDescription="@string/drop_down_menu"
-                android:src="@drawable/ic_drop_down" />
-        </RelativeLayout>
+            android:layout_marginTop="@dimen/dimen10dp"
+            android:text="@string/add_a_credit_or_debit_card"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/dimen25sp" />
 
 
-        <RelativeLayout
-            android:layout_width="150dp"
+        <EditText
+            android:id="@+id/nameOnCard"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_border"
+            android:hint="@string/name_on_card"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dimen10dp"
+            android:paddingEnd="@dimen/dimen10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/vDarkGray" />
+
+        <EditText
+            android:id="@+id/cardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_border"
+            android:hint="@string/card_number"
+            android:inputType="number"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dimen10dp"
+            android:paddingEnd="@dimen/dimen10dp"
+            android:singleLine="true"
+            android:textColorHint="@color/vDarkGray" />
+
+        <TextView
+            android:id="@+id/expirationDate"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="@dimen/dimen10dp"
-            android:layout_marginEnd="@dimen/dimen10dp"
-            android:layout_weight="1"
-            android:background="@drawable/spinner">
+            android:layout_marginTop="@dimen/dimen10dp"
+            android:text="@string/expiration_date"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen20sp"
+            android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinnerYear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:spinnerMode="dropdown" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:contentDescription="@string/drop_down_menu"
-                android:src="@drawable/ic_drop_down" />
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/dimen10dp"
+                android:layout_marginEnd="@dimen/dimen10dp"
+                android:layout_weight="1"
+                android:background="@drawable/spinner">
+
+                <Spinner
+                    android:id="@+id/spinnerMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/drop_down_menu"
+                    android:src="@drawable/ic_drop_down" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/dimen10dp"
+                android:layout_marginEnd="@dimen/dimen10dp"
+                android:layout_weight="1"
+                android:background="@drawable/spinner">
+
+                <Spinner
+                    android:id="@+id/spinnerYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/drop_down_menu"
+                    android:src="@drawable/ic_drop_down" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/addCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen10dp"
+            android:layout_marginTop="@dimen/dimen20dp"
+            android:layout_marginRight="@dimen/dimen10dp"
+            android:layout_marginBottom="@dimen/dimen10dp"
+            android:background="@drawable/custom_button_border2"
+            android:text="@string/add_your_card"
+            android:textAllCaps="false"
+            android:textSize="@dimen/dimen18sp" />
     </LinearLayout>
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/proceed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen10dp"
-        android:layout_marginTop="@dimen/dimen20dp"
-        android:layout_marginRight="@dimen/dimen10dp"
-        android:layout_marginBottom="@dimen/dimen10dp"
-        android:background="@drawable/custom_button_border2"
-        android:text="@string/add_your_card"
-        android:textAllCaps="false"
-        android:textSize="@dimen/dimen18sp" />
-</LinearLayout>
+</layout>

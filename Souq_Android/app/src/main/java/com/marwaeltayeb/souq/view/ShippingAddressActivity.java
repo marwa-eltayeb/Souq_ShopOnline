@@ -63,6 +63,7 @@ public class ShippingAddressActivity extends AppCompatActivity implements View.O
                 e.printStackTrace();
             }
             Intent orderProductIntent = new Intent(ShippingAddressActivity.this, OrderProductActivity.class);
+            orderProductIntent.putExtra(PRODUCTID,productId);
             startActivity(orderProductIntent);
         });
     }

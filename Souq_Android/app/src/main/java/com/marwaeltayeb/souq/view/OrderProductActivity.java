@@ -1,5 +1,7 @@
 package com.marwaeltayeb.souq.view;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,18 +11,27 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.ViewModel.OrderingViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityOrderProductBinding;
+import com.marwaeltayeb.souq.model.Ordering;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
+
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
 
 public class OrderProductActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ActivityOrderProductBinding binding;
+    private OrderingViewModel orderingViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_order_product);
+
+        orderingViewModel = ViewModelProviders.of(this).get(OrderingViewModel.class);
 
         binding.addCard.setOnClickListener(this);
 
@@ -32,9 +43,23 @@ public class OrderProductActivity extends AppCompatActivity implements View.OnCl
         String cardNumber = binding.cardNumber.getText().toString().trim();
 
         String year = binding.spinnerYear.getSelectedItem().toString().toLowerCase();
-        String day = binding.spinnerMonth.getSelectedItem().toString().toLowerCase();
+        String month = binding.spinnerMonth.getSelectedItem().toString().toLowerCase();
+        String fullDate = year + "-" + month + "-00";
 
-        Toast.makeText(this, year + " " + day, Toast.LENGTH_SHORT).show();
+        int userId = LoginUtils.getInstance(this).getUserInfo().getId();
+        Intent intent = getIntent();
+        int productId = intent.getIntExtra(PRODUCTID, 0);
+
+        Ordering ordering = new Ordering(nameOnCard,cardNumber,fullDate,userId,productId);
+
+        orderingViewModel.orderProduct(ordering).observe(this, responseBody -> {
+            try {
+                Toast.makeText(OrderProductActivity.this, responseBody.string() + "", Toast.LENGTH_SHORT).show();
+                finish();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override

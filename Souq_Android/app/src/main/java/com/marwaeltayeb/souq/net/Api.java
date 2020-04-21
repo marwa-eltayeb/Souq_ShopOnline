@@ -10,6 +10,7 @@ import com.marwaeltayeb.souq.model.Image;
 import com.marwaeltayeb.souq.model.LoginApiResponse;
 import com.marwaeltayeb.souq.model.NewsFeedResponse;
 import com.marwaeltayeb.souq.model.OrderApiResponse;
+import com.marwaeltayeb.souq.model.Ordering;
 import com.marwaeltayeb.souq.model.Otp;
 import com.marwaeltayeb.souq.model.ProductApiResponse;
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
@@ -114,4 +115,6 @@ public interface Api {
     @POST("address/add")
     Call<ResponseBody> addShippingAddress(@Body Shipping shipping);
 
+    @POST("orders/add")
+    Call<ResponseBody> orderProduct(@Body Ordering ordering);
 }
