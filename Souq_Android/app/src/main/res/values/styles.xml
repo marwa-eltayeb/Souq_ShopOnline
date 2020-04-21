@@ -37,4 +37,7 @@
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:background">@color/white</item>
     </style>
+
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem"/>
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem"/>
 </resources>
