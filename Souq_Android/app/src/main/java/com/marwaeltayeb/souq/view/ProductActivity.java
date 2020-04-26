@@ -8,7 +8,6 @@ import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
@@ -26,7 +25,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -36,7 +34,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,11 +44,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.ViewModel.HistoryViewModel;
 import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
-import com.marwaeltayeb.souq.ViewModel.SearchViewModel;
 import com.marwaeltayeb.souq.ViewModel.UploadPhotoViewModel;
 import com.marwaeltayeb.souq.ViewModel.UserImageViewModel;
 import com.marwaeltayeb.souq.adapter.ProductAdapter;
-import com.marwaeltayeb.souq.adapter.SearchAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.net.HistoryDataSourceFactory;
@@ -61,7 +56,6 @@ import com.marwaeltayeb.souq.utils.OnNetworkListener;
 import com.marwaeltayeb.souq.utils.Slide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -87,12 +81,9 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     private ProductAdapter mobileAdapter;
     private ProductAdapter laptopAdapter;
     private ProductAdapter historyAdapter;
-    private SearchAdapter searchAdapter;
-    private List<Product> searchedMovieList;
 
     private ProductViewModel productViewModel;
     private HistoryViewModel historyViewModel;
-    private SearchViewModel searchViewModel;
     private UploadPhotoViewModel uploadPhotoViewModel;
     private UserImageViewModel userImageViewModel;
 
@@ -111,7 +102,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
         historyViewModel = ViewModelProviders.of(this, new HistoryDataSourceFactory(LoginUtils.getInstance(this).getUserInfo().getId())).get(HistoryViewModel.class);
-        searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
         uploadPhotoViewModel = ViewModelProviders.of(this).get(UploadPhotoViewModel.class);
         userImageViewModel = ViewModelProviders.of(this).get(UserImageViewModel.class);
 
@@ -121,6 +111,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding.included.content.txtSeeAllLaptops.setOnClickListener(this);
         binding.included.content.txtCash.setOnClickListener(this);
         binding.included.content.txtReturn.setOnClickListener(this);
+        binding.included.txtSearch.setOnClickListener(this);
 
         setUpViews();
 
@@ -264,6 +255,10 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.txtReturn:
                 showNormalAlertDialog(getString(R.string.returnProduct));
+                break;
+            case R.id.txtSearch:
+                Intent searchIntent = new Intent(ProductActivity.this, SearchActivity.class);
+                startActivity(searchIntent);
                 break;
         }
     }
@@ -441,50 +436,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
 
-        MenuItem searchViewItem = menu.findItem
-                (R.id.action_search);
-        SearchView searchView = (SearchView)
-                searchViewItem.getActionView();
-
         MenuItem addMenu = menu.findItem(R.id.action_addProduct);
         if (LoginUtils.getInstance(this).getUserInfo().isAdmin()) {
             addMenu.setVisible(true);
         } else {
             addMenu.setVisible(false);
         }
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                if (isNetworkConnected(getApplicationContext())) {
-                    Search(query);
-                }
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (isNetworkConnected(getApplicationContext())) {
-                    Search(newText);
-                }
-                return false;
-            }
-        });
-
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                if (searchedMovieList != null) {
-                    searchAdapter.clear();
-                    setUpViews();
-                    showOrHideViews(View.VISIBLE);
-                    hideViews(View.VISIBLE);
-                    getMobiles();
-                    getLaptops();
-                }
-                return false;
-            }
-        });
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -504,13 +461,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
-    private void setViewsAfterSearch() {
-        binding.included.content.listOfMobiles.setHasFixedSize(true);
-        binding.included.content.listOfMobiles.setLayoutManager(new GridLayoutManager(this, (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 2 : 4));
-        showOrHideViews(View.GONE);
-        hideViews(View.GONE);
-    }
-
     private void showOrHideViews(int view) {
         binding.included.content.textViewMobiles.setVisibility(view);
         binding.included.content.txtSeeAllMobiles.setVisibility(view);
@@ -519,36 +469,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         binding.included.content.txtCash.setVisibility(view);
         binding.included.content.txtReturn.setVisibility(view);
     }
-
-    private void hideViews(int view) {
-        binding.included.content.listOfLaptops.setVisibility(view);
-        binding.included.content.imageSlider.setVisibility(view);
-    }
-
-    private void Search(String query) {
-        setViewsAfterSearch();
-
-        searchViewModel.getProductsBySearch(query).observe(this, productApiResponse -> {
-            if (productApiResponse != null) {
-                searchedMovieList = productApiResponse.getProducts();
-                if (searchedMovieList.isEmpty()) {
-                    Toast.makeText(ProductActivity.this, "No Result", Toast.LENGTH_SHORT).show();
-                }
-
-                searchAdapter = new SearchAdapter(getApplicationContext(), searchedMovieList, new SearchAdapter.SearchAdapterOnClickHandler() {
-                    @Override
-                    public void onClick(Product product) {
-                        Intent intent = new Intent(ProductActivity.this, DetailsActivity.class);
-                        // Pass an object of product class
-                        intent.putExtra(PRODUCT, (product));
-                        startActivity(intent);
-                    }
-                });
-            }
-            binding.included.content.listOfMobiles.setAdapter(searchAdapter);
-        });
-    }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

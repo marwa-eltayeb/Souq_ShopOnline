@@ -19,7 +19,7 @@
                 android:id="@+id/imageSlider"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="110dp"
                 android:gravity="center"
                 android:scaleType="fitXY"
                 android:src="@drawable/slide1"

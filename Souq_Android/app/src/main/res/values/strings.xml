@@ -174,6 +174,10 @@
     <string name="item">Your Item has been %1$s</string>
     <string name="reorder">REORDER</string>
     <string name="status_bar">STATUS:</string>
+    <string name="recent_searches">Recent Searches</string>
+    <string name="schedule">schedule</string>
+    <string name="clear_all">Clear all</string>
+    <string name="what_are_you_looking_for">What are you looking for?</string>
 
     <string-array name="categories_array">
         <item>Mobile</item>

@@ -31,10 +31,13 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
+
         <activity
             android:name=".view.ProductActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".view.LoginActivity" />
+
         <activity
             android:name=".view.SignUpActivity"
             android:theme="@style/NoActionBar" />
@@ -148,10 +151,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
         </activity>
-
         <activity android:name=".view.ShippingAddressActivity" />
         <activity android:name=".view.OrderProductActivity" />
-
         <activity
             android:name=".view.OrdersActivity"
             android:label="@string/orders"
@@ -160,7 +161,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ProductActivity" />
         </activity>
-
         <activity
             android:name=".view.StatusActivity"
             android:label="@string/status"
@@ -170,6 +170,10 @@
                 android:value=".view.OrdersActivity" />
         </activity>
 
+        <activity android:name=".view.SearchActivity" android:theme="@style/noAnimTheme" />
+        <activity android:name=".view.ResultActivity"/>
+
         <receiver android:name=".receiver.NetworkChangeReceiver" />
     </application>
+
 </manifest>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.SearchActivity">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:background="@color/colorPrimary">
+
+            <EditText
+                android:id="@+id/editQuery"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/white"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:drawableStart="@drawable/ic_arrow_back"
+                android:drawableEnd="@drawable/ic_search"
+                android:drawablePadding="10dp"
+                android:hint="@string/what_are_you_looking_for"
+                android:gravity="start|center"
+                android:paddingStart="8dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="12dp"
+                android:textSize="@dimen/dimen16sp"
+                android:textColor="#979797"
+                android:importantForAutofill="no"
+                android:paddingBottom="12dp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/recent_searches"
+                android:layout_margin="@dimen/dimen10dp"
+                android:textSize="@dimen/dimen16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/clearAll"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/clear_all"
+                android:gravity="end|center"
+                android:onClick="clearAll"
+                android:layout_margin="@dimen/dimen10dp"
+                android:textSize="@dimen/dimen16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/wordList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:drawSelectorOnTop="true"
+            android:orientation="vertical"
+            tools:listitem="@layout/word_list_item" />
+    </LinearLayout>
+</layout>

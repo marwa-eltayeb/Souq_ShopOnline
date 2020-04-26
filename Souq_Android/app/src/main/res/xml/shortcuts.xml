@@ -15,4 +15,18 @@
             android:targetPackage="com.marwaeltayeb.souq"
             android:targetClass="com.marwaeltayeb.souq.view.WishListActivity" />
     </shortcut>
+
+    <shortcut
+        android:shortcutId="search"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
+        android:shortcutShortLabel="@string/search"
+        android:shortcutLongLabel="@string/search"
+        tools:targetApi="n_mr1">
+
+        <intent
+            android:action="android.intent.action.View"
+            android:targetPackage="com.marwaeltayeb.souq"
+            android:targetClass="com.marwaeltayeb.souq.view.SearchActivity" />
+    </shortcut>
 </shortcut>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recent_searches"
+        android:layout_margin="10dp"
+        android:textSize="16sp"
+        android:src="@drawable/ic_schedule"
+        android:textStyle="bold"
+        android:contentDescription="@string/schedule" />
+
+    <TextView
+        android:id="@+id/txtWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Mobile"
+        android:gravity="end|center"
+        android:layout_margin="10dp"
+        android:textColor="#8D8D8D"
+        android:textSize="16sp" />
+</LinearLayout>
