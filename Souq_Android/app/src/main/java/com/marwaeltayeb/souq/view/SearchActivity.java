@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ import java.util.Map;
 
 import static com.marwaeltayeb.souq.utils.Constant.KEYWORD;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     private ActivitySearchBinding binding;
     private String word;
@@ -46,6 +47,7 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setElevation(0);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
 
+        binding.wordList.setOnItemClickListener(this);
 
         list = new ArrayList<>(getWords(this).keySet());
 
@@ -159,5 +161,12 @@ public class SearchActivity extends AppCompatActivity {
         clearSharedPreferences(getApplicationContext());
         adapter.clear();
         Toast.makeText(SearchActivity.this, "Cleared", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        intent.putExtra(KEYWORD, list.get(position));
+        startActivity(intent);
     }
 }

@@ -15,6 +15,7 @@ import com.marwaeltayeb.souq.ViewModel.SearchViewModel;
 import com.marwaeltayeb.souq.adapter.SearchAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityResultBinding;
 import com.marwaeltayeb.souq.model.Product;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class ResultActivity extends AppCompatActivity {
     private SearchAdapter searchAdapter;
     private List<Product> searchedList;
     private SearchViewModel searchViewModel;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class ResultActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(keyword);
 
+        userId = LoginUtils.getInstance(this).getUserInfo().getId();
+
         if (isNetworkConnected(getApplicationContext())) {
             Search(keyword);
         }
@@ -52,7 +56,7 @@ public class ResultActivity extends AppCompatActivity {
         binding.listOfSearchedList.setHasFixedSize(true);
         binding.listOfSearchedList.setLayoutManager(new GridLayoutManager(this, (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 2 : 4));
 
-        searchViewModel.getProductsBySearch(query).observe(this, productApiResponse -> {
+        searchViewModel.getProductsBySearch(query, userId).observe(this, productApiResponse -> {
             if (productApiResponse != null) {
                 searchedList = productApiResponse.getProducts();
                 if (searchedList.isEmpty()) {
@@ -67,10 +71,9 @@ public class ResultActivity extends AppCompatActivity {
                         intent.putExtra(PRODUCT, (product));
                         startActivity(intent);
                     }
-                });
+                },this);
             }
             binding.listOfSearchedList.setAdapter(searchAdapter);
         });
     }
-
 }
