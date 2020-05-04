@@ -63,9 +63,11 @@ router.get("/all", (request, response) => {
 
 // Get products by category
 router.get("/", (request, response) => {
+    const user_id = request.query.userId;
     const category = request.query.category
     var page = request.query.page;
     var page_size = request.query.page_size;
+
 
     if(page == null || page < 1){
         page = 1;
@@ -80,13 +82,30 @@ router.get("/", (request, response) => {
     // OFFSET * LIMIT
     page = offset * page_size; // 20
 
+    console.log(user_id)
+    console.log(category)
+    
     const args = [
+        user_id,
+        user_id,
         category,
         parseInt(page_size),
         parseInt(page)
     ];
 
-    const query = "SELECT * FROM product WHERE category = ? LIMIT ? OFFSET ?";
+    //const query = "SELECT * FROM product WHERE category = ? LIMIT ? OFFSET ?";
+    const query = `SELECT product.id,
+    product.product_name,
+    product.price,
+    product.quantity,
+    product.supplier,
+    product.image,
+    product.category,
+    (SELECT IF(COUNT(*) >= 1, TRUE, FALSE) FROM favorite WHERE favorite.user_id = ? AND favorite.product_id = product.id) as isFavourite,
+    (SELECT IF(COUNT(*) >= 1, TRUE, FALSE) FROM cart WHERE cart.user_id = ? AND cart.product_id = product.id) as isInCart
+    FROM product 
+    WHERE category = ? 
+    LIMIT ? OFFSET ?`;
 
     database.query(query, args, (error, result) => {
         if(error) throw error
@@ -100,6 +119,7 @@ router.get("/", (request, response) => {
 
 // Search for products
 router.get("/search", (request, response) => {
+    const user_id = request.query.userId;
     const keyword = request.query.q.toLowerCase();
     var page = request.query.page;
     var page_size = request.query.page_size;
@@ -120,13 +140,29 @@ router.get("/search", (request, response) => {
     const searchQuery = '%' + keyword + '%';
 
     const args = [
+        user_id,
+        user_id,
         searchQuery,
         searchQuery,
         parseInt(page_size),
         parseInt(page)
     ];
 
-    const query = "SELECT * FROM product WHERE product_name LIKE ? OR category LIKE ? LIMIT ? OFFSET ?";
+    //const query = "SELECT * FROM product WHERE product_name LIKE ? OR category LIKE ? LIMIT ? OFFSET ?";
+
+    const query = `SELECT product.id,
+    product.product_name,
+    product.price,
+    product.quantity,
+    product.supplier,
+    product.image,
+    product.category,
+    (SELECT IF(COUNT(*) >= 1, TRUE, FALSE) FROM favorite WHERE favorite.user_id = ? AND favorite.product_id = product.id) as isFavourite,
+    (SELECT IF(COUNT(*) >= 1, TRUE, FALSE) FROM cart WHERE cart.user_id = ? AND cart.product_id = product.id) as isInCart
+    FROM product 
+    WHERE product_name LIKE ? OR category LIKE ?
+    LIMIT ? OFFSET ?`;
+
 
     database.query(query, args, (error, result) => {
         if(error) throw error

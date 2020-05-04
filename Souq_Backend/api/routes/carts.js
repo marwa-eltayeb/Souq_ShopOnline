@@ -22,11 +22,24 @@ router.get("/", (request, response) => {
 
      const args = [
         userId,
+        userId,
         parseInt(page_size),
         parseInt(page)
     ];
 
-    const query = "SELECT product.id,product.product_name, product.price, product.image, product.category, product.quantity, product.supplier FROM Cart JOIN product JOIN User ON cart.product_id = product.id AND cart.user_id = user.id WHERE user_id = ? LIMIT ? OFFSET ?"
+    const query = `SELECT product.id,
+                 product.product_name, 
+                 product.price, 
+                 product.image, 
+                 product.category, 
+                 product.quantity, 
+                 product.supplier, 
+                 (SELECT IF(COUNT(*) >= 1, TRUE, FALSE) FROM favorite WHERE favorite.user_id = ? AND favorite.product_id = product.id) as isFavourite
+                 FROM Cart JOIN product JOIN User 
+                 ON cart.product_id = product.id AND cart.user_id = user.id 
+                 WHERE user_id = ? 
+                 LIMIT ? OFFSET ?`
+
     database.query(query, args, (error, result) => {
         if(error) throw error;
         response.status(200).json({
