@@ -17,6 +17,7 @@ import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
 import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityAllMobilesBinding;
 import com.marwaeltayeb.souq.model.Product;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
@@ -36,7 +37,10 @@ public class AllMobilesActivity extends AppCompatActivity implements ProductAdap
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getResources().getString(R.string.all_mobiles));
 
+        int userID = LoginUtils.getInstance(this).getUserInfo().getId();
+
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+        productViewModel.loadMobiles("mobile", userID);
 
         setupRecyclerViews();
 
