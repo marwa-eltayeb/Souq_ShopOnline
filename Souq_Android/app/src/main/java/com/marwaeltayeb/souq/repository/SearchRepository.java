@@ -21,11 +21,11 @@ public class SearchRepository {
         this.application = application;
     }
 
-    public LiveData<ProductApiResponse> getResponseDataBySearch(String keyword) {
+    public LiveData<ProductApiResponse> getResponseDataBySearch(String keyword, int userId) {
         final MutableLiveData<ProductApiResponse> mutableLiveData = new MutableLiveData<>();
 
         RetrofitClient.getInstance()
-                .getApi().searchForProduct(keyword)
+                .getApi().searchForProduct(keyword, userId)
                 .enqueue(new Callback<ProductApiResponse>() {
                     @Override
                     public void onResponse(Call<ProductApiResponse> call, Response<ProductApiResponse> response) {

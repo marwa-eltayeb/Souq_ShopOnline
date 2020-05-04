@@ -21,8 +21,13 @@ public class Product implements Parcelable {
     private String productCategory;
     @SerializedName("image")
     private String productImage;
+    @SerializedName("isFavourite")
+    private int isFavourite;
+    @SerializedName("isInCart")
+    private int isInCart;
     // Include child Parcelable objects
     private Product mInfo;
+
 
     public Product(String productName, double productPrice, int productQuantity, String productSupplier, String productCategory) {
         this.productName = productName;
@@ -64,6 +69,17 @@ public class Product implements Parcelable {
         return productImage;
     }
 
+
+    public int isFavourite() {
+        return isFavourite;
+    }
+
+    public int isInCart() {
+        return isInCart;
+    }
+
+
+
     // Write the values to be saved to the `Parcel`.
     @Override
     public void writeToParcel(Parcel out, int flags) {
@@ -74,6 +90,8 @@ public class Product implements Parcelable {
         out.writeString(productSupplier);
         out.writeString(productCategory);
         out.writeString(productImage);
+        out.writeInt(isFavourite);
+        out.writeInt(isInCart);
         out.writeParcelable(mInfo, flags);
     }
 
@@ -86,6 +104,8 @@ public class Product implements Parcelable {
         productSupplier = in.readString();
         productCategory = in.readString();
         productImage = in.readString();
+        isFavourite = in.readInt();
+        isInCart = in.readInt();
         mInfo = in.readParcelable(Product.class.getClassLoader());
     }
 

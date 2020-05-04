@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
@@ -69,6 +70,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     private void getProductDetails() {
         // Receive the product object
         product = getIntent().getParcelableExtra(PRODUCT);
+
+        Toast.makeText(this, "isFavourite " + product.isFavourite() + " isInCart " + product.isInCart(), Toast.LENGTH_SHORT).show();
 
         // Set Custom ActionBar Layout
         ActionBar actionBar = getSupportActionBar();

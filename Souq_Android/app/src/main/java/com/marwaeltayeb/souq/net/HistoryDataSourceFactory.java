@@ -1,16 +1,12 @@
 package com.marwaeltayeb.souq.net;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.paging.DataSource;
 import android.arch.paging.PageKeyedDataSource;
-import android.support.annotation.NonNull;
 
-import com.marwaeltayeb.souq.ViewModel.HistoryViewModel;
 import com.marwaeltayeb.souq.model.Product;
 
-public class HistoryDataSourceFactory extends DataSource.Factory implements ViewModelProvider.Factory{
+public class HistoryDataSourceFactory extends DataSource.Factory{
 
     private int userId;
 
@@ -35,16 +31,8 @@ public class HistoryDataSourceFactory extends DataSource.Factory implements View
         return historyDataSource;
     }
 
-
     // Getter for Product live DataSource
     public MutableLiveData<PageKeyedDataSource<Integer, Product>> getProductsInHistory() {
         return historyLiveDataSource;
     }
-
-    @NonNull
-    @Override
-    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new HistoryViewModel(userId);
-    }
-
 }

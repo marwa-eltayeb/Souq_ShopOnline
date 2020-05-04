@@ -90,7 +90,7 @@
                         android:layout_height="@dimen/dimen30dp"
                         android:layout_margin="@dimen/dimen20dp"
                         android:contentDescription="@string/add_to_cart"
-                        android:src="@drawable/ic_add_shopping_cart" />
+                        android:src="@drawable/ic_delete" />
 
                     <ImageView
                         android:id="@+id/imgFavourite"

@@ -10,27 +10,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.AddFavoriteViewModel;
 import com.marwaeltayeb.souq.ViewModel.FromCartViewModel;
 import com.marwaeltayeb.souq.ViewModel.RemoveFavoriteViewModel;
 import com.marwaeltayeb.souq.ViewModel.ToCartViewModel;
 import com.marwaeltayeb.souq.databinding.WishlistItemBinding;
 import com.marwaeltayeb.souq.model.Cart;
-import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
-import static com.marwaeltayeb.souq.storage.CartUtils.getCartState;
-import static com.marwaeltayeb.souq.storage.CartUtils.setCartState;
-import static com.marwaeltayeb.souq.storage.FavoriteUtils.getFavoriteState;
-import static com.marwaeltayeb.souq.storage.FavoriteUtils.setFavoriteState;
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 
 public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishListViewHolder> {
@@ -41,7 +34,6 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
 
     private Product currentProduct;
 
-    private AddFavoriteViewModel addFavoriteViewModel;
     private RemoveFavoriteViewModel removeFavoriteViewModel;
     private ToCartViewModel toCartViewModel;
     private FromCartViewModel fromCartViewModel;
@@ -60,7 +52,6 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
         this.mContext = mContext;
         this.favoriteList = favoriteList;
         this.clickHandler = clickHandler;
-        addFavoriteViewModel = ViewModelProviders.of(activity).get(AddFavoriteViewModel.class);
         removeFavoriteViewModel = ViewModelProviders.of(activity).get(RemoveFavoriteViewModel.class);
         toCartViewModel = ViewModelProviders.of(activity).get(ToCartViewModel.class);
         fromCartViewModel = ViewModelProviders.of(activity).get(FromCartViewModel.class);
@@ -88,13 +79,8 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
                 .load(imageUrl)
                 .into(holder.binding.imgProductImage);
 
-        // If product is inserted
-        if (getFavoriteState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()), currentProduct.getProductId())) {
-            holder.binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
-        }
-
         // If product is added to cart
-        if (getCartState(mContext,String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()) ,currentProduct.getProductId())) {
+        if (currentProduct.isInCart()==1) {
             holder.binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
         }
 
@@ -143,38 +129,28 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
         }
 
         private void deleteFavorite() {
-            binding.imgFavourite.setImageResource(R.drawable.ic_favorite_border);
             deleteFavoriteProduct();
-            favoriteList.remove(currentProduct);
-            notifyItemRemoved(currentProduct.getProductId());
-            notifyItemRangeChanged(currentProduct.getProductId(), favoriteList.size());
-            setFavoriteState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()), currentProduct.getProductId(), false);
+            favoriteList.remove(getAdapterPosition());
+            notifyItemRemoved(getAdapterPosition());
+            notifyItemRangeChanged(getAdapterPosition(), favoriteList.size());
             showSnackBar("Bookmark Removed");
         }
 
         private void toggleProductsInCart() {
             // If Product is not added to cart
-            if (!getCartState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),currentProduct.getProductId())) {
+            if (currentProduct.isInCart()!=1) {
                 binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
                 insertToCart();
-                setCartState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),currentProduct.getProductId(), true);
-                Toast.makeText(mContext, currentProduct.getProductId() + "", Toast.LENGTH_SHORT).show();
                 showSnackBar("Added To Cart");
             } else {
                 binding.imgCart.setImageResource(R.drawable.ic_add_shopping_cart);
                 deleteFromCart();
-                setCartState(mContext,String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()) ,currentProduct.getProductId(), false);
                 showSnackBar("Removed From Cart");
             }
         }
 
         private void showSnackBar(String text) {
             Snackbar.make(itemView, text, Snackbar.LENGTH_SHORT).show();
-        }
-
-        private void insertFavoriteProduct() {
-            Favorite favorite = new Favorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
-            addFavoriteViewModel.addFavorite(favorite);
         }
 
         private void deleteFavoriteProduct() {

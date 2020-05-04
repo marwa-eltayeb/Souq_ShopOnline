@@ -16,15 +16,9 @@ public class CategoryViewModel extends ViewModel {
     public LiveData<PagedList<Product>> categoryPagedList;
     private LiveData<PageKeyedDataSource<Integer, Product>> categoryLiveDataSource;
 
-    private String category;
-
-    // Constructor
-    public CategoryViewModel(String category) {
-
-        this.category = category;
-
+    public void loadProductsByCategory(String category, int userId) {
         // Get our database source factory
-        ProductDataSourceFactory productDataSourceFactory = new ProductDataSourceFactory(category);
+        ProductDataSourceFactory productDataSourceFactory = new ProductDataSourceFactory(category,userId);
 
         // Get the live database source from database source factory
         categoryLiveDataSource = productDataSourceFactory.getProductLiveDataSource();
@@ -39,7 +33,5 @@ public class CategoryViewModel extends ViewModel {
         // Build the paged list
         categoryPagedList = (new LivePagedListBuilder(productDataSourceFactory, pagedListConfig)).build();
     }
-
-
 
 }

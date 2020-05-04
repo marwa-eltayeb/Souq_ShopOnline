@@ -18,8 +18,8 @@ public class SearchViewModel  extends AndroidViewModel {
     }
 
 
-    public LiveData<ProductApiResponse> getProductsBySearch(String keyword) {
-        return searchRepository.getResponseDataBySearch(keyword);
+    public LiveData<ProductApiResponse> getProductsBySearch(String keyword, int userId) {
+        return searchRepository.getResponseDataBySearch(keyword, userId);
     }
 
 

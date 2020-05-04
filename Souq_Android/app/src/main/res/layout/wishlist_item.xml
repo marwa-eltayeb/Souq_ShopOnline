@@ -85,7 +85,7 @@
                         android:layout_height="@dimen/dimen30dp"
                         android:layout_margin="@dimen/dimen20dp"
                         android:contentDescription="@string/add_to_favourite"
-                        android:src="@drawable/ic_favorite_border" />
+                        android:src="@drawable/ic_delete" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

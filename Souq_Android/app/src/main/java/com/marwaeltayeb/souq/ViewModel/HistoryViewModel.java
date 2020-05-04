@@ -16,12 +16,7 @@ public class HistoryViewModel extends ViewModel {
     public LiveData<PagedList<Product>> historyPagedList;
     private LiveData<PageKeyedDataSource<Integer, Product>> liveDataSource;
 
-    private int userId;
-
-    public HistoryViewModel(int userId) {
-
-        this.userId = userId;
-
+    public void loadHistory(int userId) {
         HistoryDataSourceFactory historyDataSourceFactory = new HistoryDataSourceFactory(userId);
 
         liveDataSource = historyDataSourceFactory.getProductsInHistory();
@@ -35,6 +30,4 @@ public class HistoryViewModel extends ViewModel {
         // Build the paged list
         historyPagedList = (new LivePagedListBuilder(historyDataSourceFactory, pagedListConfig)).build();
     }
-
-
 }

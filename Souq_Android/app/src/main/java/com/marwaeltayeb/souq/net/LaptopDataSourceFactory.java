@@ -13,10 +13,18 @@ public class LaptopDataSourceFactory extends DataSource.Factory{
 
     public ProductDataSource laptopDataSource;
 
+    private String category;
+    private int userId;
+
+    public LaptopDataSourceFactory(String category, int userId){
+        this.category = category;
+        this.userId = userId;
+    }
+
     @Override
     public DataSource<Integer, Product> create() {
         // Getting our Data source object
-        laptopDataSource = new ProductDataSource("laptop");
+        laptopDataSource = new ProductDataSource(category,userId);
 
         // Posting the Data source to get the values
         laptopLiveDataSource.postValue(laptopDataSource);

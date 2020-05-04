@@ -21,24 +21,16 @@ public class ProductViewModel extends ViewModel {
     public LiveData<PagedList<Product>> laptopPagedList;
     private LiveData<PageKeyedDataSource<Integer, Product>> laptopLiveDataSource;
 
-    private PagedList.Config pagedListConfig;
+    // Get PagedList configuration
+    private final static PagedList.Config  pagedListConfig =
+            (new PagedList.Config.Builder())
+                    .setEnablePlaceholders(false)
+                    .setPageSize(ProductDataSource.PAGE_SIZE)
+                    .build();
 
-    // Constructor
-    public ProductViewModel() {
-        // Get PagedList configuration
-        pagedListConfig =
-                (new PagedList.Config.Builder())
-                        .setEnablePlaceholders(false)
-                        .setPageSize(ProductDataSource.PAGE_SIZE)
-                        .build();
-
-        initProductDataSource();
-        initLaptopDataSource();
-    }
-
-    private void initProductDataSource(){
+    public void loadMobiles(String category, int userId){
         // Get our database source factory
-        ProductDataSourceFactory productDataSourceFactory = new ProductDataSourceFactory();
+        ProductDataSourceFactory productDataSourceFactory = new ProductDataSourceFactory(category,userId);
 
         // Get the live database source from database source factory
         productLiveDataSource = productDataSourceFactory.getProductLiveDataSource();
@@ -47,16 +39,14 @@ public class ProductViewModel extends ViewModel {
         productPagedList = (new LivePagedListBuilder(productDataSourceFactory, pagedListConfig)).build();
     }
 
-    private void initLaptopDataSource(){
+    public void loadLaptops(String category, int userId){
         // Get our database source factory
-        LaptopDataSourceFactory laptopDataSourceFactory = new LaptopDataSourceFactory();
+        LaptopDataSourceFactory laptopDataSourceFactory = new LaptopDataSourceFactory(category,userId);
 
         // Get the live database source from database source factory
-        laptopLiveDataSource = laptopDataSourceFactory.getLaptopLiveDataSource();
-
+        productLiveDataSource = laptopDataSourceFactory.getLaptopLiveDataSource();
 
         // Build the paged list
         laptopPagedList = (new LivePagedListBuilder(laptopDataSourceFactory, pagedListConfig)).build();
     }
-
 }

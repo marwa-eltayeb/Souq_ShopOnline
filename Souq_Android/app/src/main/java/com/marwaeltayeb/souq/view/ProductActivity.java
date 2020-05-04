@@ -49,7 +49,6 @@ import com.marwaeltayeb.souq.ViewModel.UserImageViewModel;
 import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
 import com.marwaeltayeb.souq.model.Product;
-import com.marwaeltayeb.souq.net.HistoryDataSourceFactory;
 import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
@@ -100,8 +99,13 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         loadLocale(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product);
 
+        int userID = LoginUtils.getInstance(this).getUserInfo().getId();
+
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        historyViewModel = ViewModelProviders.of(this, new HistoryDataSourceFactory(LoginUtils.getInstance(this).getUserInfo().getId())).get(HistoryViewModel.class);
+        productViewModel.loadMobiles("mobile", userID);
+        productViewModel.loadLaptops("laptop",userID);
+        historyViewModel = ViewModelProviders.of(this).get(HistoryViewModel.class);
+        historyViewModel.loadHistory(userID);
         uploadPhotoViewModel = ViewModelProviders.of(this).get(UploadPhotoViewModel.class);
         userImageViewModel = ViewModelProviders.of(this).get(UserImageViewModel.class);
 

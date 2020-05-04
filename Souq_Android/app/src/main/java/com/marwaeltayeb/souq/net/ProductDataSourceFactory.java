@@ -1,16 +1,12 @@
 package com.marwaeltayeb.souq.net;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.paging.DataSource;
 import android.arch.paging.PageKeyedDataSource;
-import android.support.annotation.NonNull;
 
-import com.marwaeltayeb.souq.ViewModel.CategoryViewModel;
 import com.marwaeltayeb.souq.model.Product;
 
-public class ProductDataSourceFactory extends DataSource.Factory implements ViewModelProvider.Factory{
+public class ProductDataSourceFactory extends DataSource.Factory{
 
     // Creating the mutable live database
     private MutableLiveData<PageKeyedDataSource<Integer, Product>> productLiveDataSource = new MutableLiveData<>();
@@ -18,20 +14,17 @@ public class ProductDataSourceFactory extends DataSource.Factory implements View
     private ProductDataSource productDataSource;
 
     private String category;
+    private int userId;
 
-    public ProductDataSourceFactory(){
-        category = "mobile";
-    }
-
-    public ProductDataSourceFactory(String category){
+    public ProductDataSourceFactory(String category, int userId){
         this.category = category;
+        this.userId = userId;
     }
-
 
     @Override
     public DataSource<Integer, Product> create() {
         // Getting our Data source object
-        productDataSource = new ProductDataSource(category);
+        productDataSource = new ProductDataSource(category, userId);
 
         // Posting the Data source to get the values
         productLiveDataSource.postValue(productDataSource);
@@ -45,11 +38,4 @@ public class ProductDataSourceFactory extends DataSource.Factory implements View
     public MutableLiveData<PageKeyedDataSource<Integer, Product>> getProductLiveDataSource() {
         return productLiveDataSource;
     }
-
-    @NonNull
-    @Override
-    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new CategoryViewModel(category);
-    }
-
 }

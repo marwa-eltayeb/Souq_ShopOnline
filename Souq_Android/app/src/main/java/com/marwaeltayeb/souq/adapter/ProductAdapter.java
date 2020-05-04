@@ -33,10 +33,6 @@ import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.text.DecimalFormat;
 
-import static com.marwaeltayeb.souq.storage.CartUtils.getCartState;
-import static com.marwaeltayeb.souq.storage.CartUtils.setCartState;
-import static com.marwaeltayeb.souq.storage.FavoriteUtils.getFavoriteState;
-import static com.marwaeltayeb.souq.storage.FavoriteUtils.setFavoriteState;
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.Utils.shareProduct;
 
@@ -102,12 +98,12 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             holder.binding.imgShare.setOnClickListener(v -> shareProduct(mContext, productName, imageUrl));
 
             // If product is inserted
-            if (getFavoriteState(mContext,String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()) ,product.getProductId())) {
+            if (product.isFavourite()==1){
                 holder.binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
             }
 
             // If product is added to cart
-            if (getCartState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId())) {
+            if (product.isInCart()==1) {
                 holder.binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
             }
 
@@ -185,31 +181,26 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
 
         private void toggleFavourite() {
             // If favorite is not bookmarked
-            if (!getFavoriteState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId())) {
+            if (product.isFavourite()!=1) {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
                 insertFavoriteProduct();
-                setFavoriteState(mContext,String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()) ,product.getProductId(), true);
                 showSnackBar("Bookmark Added");
             } else {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_border);
                 deleteFavoriteProduct();
-                setFavoriteState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId(), false);
                 showSnackBar("Bookmark Removed");
             }
         }
 
         private void toggleProductsInCart() {
             // If Product is not added to cart
-            if (!getCartState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId())) {
+            if (product.isInCart()!=1) {
                 binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
                 insertToCart();
-                setCartState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId(), true);
-                //Toast.makeText(mContext, product.getProductId() + "", Toast.LENGTH_SHORT).show();
                 showSnackBar("Added To Cart");
             } else {
                 binding.imgCart.setImageResource(R.drawable.ic_add_shopping_cart);
                 deleteFromCart();
-                setCartState(mContext, String.valueOf(LoginUtils.getInstance(mContext).getUserInfo().getId()),product.getProductId(), false);
                 showSnackBar("Removed From Cart");
             }
         }
@@ -219,7 +210,6 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         }
 
         private void insertFavoriteProduct() {
-            Toast.makeText(mContext, LoginUtils.getInstance(mContext).getUserInfo().getId() + " " + product.getProductId(), Toast.LENGTH_SHORT).show();
             Favorite favorite = new Favorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
             addFavoriteViewModel.addFavorite(favorite);
         }

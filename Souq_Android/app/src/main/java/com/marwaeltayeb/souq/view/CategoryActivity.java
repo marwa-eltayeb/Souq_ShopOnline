@@ -22,8 +22,8 @@ import com.marwaeltayeb.souq.ViewModel.CategoryViewModel;
 import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityCategoryBinding;
 import com.marwaeltayeb.souq.model.Product;
-import com.marwaeltayeb.souq.net.ProductDataSourceFactory;
 import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.Constant;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
 
@@ -62,7 +62,9 @@ public class CategoryActivity extends AppCompatActivity implements ProductAdapte
         // Update Toolbar
         getSupportActionBar().setTitle(category);
 
-        categoryViewModel = ViewModelProviders.of(this, new ProductDataSourceFactory(category.toLowerCase())).get(CategoryViewModel.class);
+        int userID = LoginUtils.getInstance(this).getUserInfo().getId();
+        categoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel.class);
+        categoryViewModel.loadProductsByCategory(category.toLowerCase(), userID);
 
         setupRecyclerViews();
 
