@@ -92,11 +92,16 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         }
 
         Map<String, RequestBody> map = new HashMap<>();
-        map.put("product", toRequestBody(nameString));
+        map.put("name", toRequestBody(nameString));
         map.put("price", toRequestBody(priceString));
         map.put("quantity", toRequestBody(quantityString));
         map.put("supplier", toRequestBody(supplierString));
         map.put("category", toRequestBody(categoryString));
+
+        if(TextUtils.isEmpty(pathname)){
+            Toast.makeText(this, "No picture is chosen", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // Pathname
         File file = new File(pathname);
