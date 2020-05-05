@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
@@ -64,11 +65,18 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
         String feedback = binding.editFeedback.getText().toString().trim();
         float rate = binding.rateProduct.getRating();
 
+        // Check if there are no empty values
+        if (TextUtils.isEmpty(feedback) || rate == 0.0f) {
+            Toast.makeText(this, getString(R.string.required_data), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Review review = new Review(userId, productId, rate, feedback);
         writeReviewViewModel.writeReview(review).observe(this, responseBody -> {
             if ((responseBody != null)) {
                 try {
                     Toast.makeText(this, responseBody.string(), Toast.LENGTH_SHORT).show();
+                    finish();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
