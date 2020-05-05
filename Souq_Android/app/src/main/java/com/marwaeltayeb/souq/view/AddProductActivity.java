@@ -1,10 +1,14 @@
 package com.marwaeltayeb.souq.view;
 
+import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -30,6 +34,7 @@ import okhttp3.RequestBody;
 
 import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.utils.Constant.PICK_IMAGE;
+import static com.marwaeltayeb.souq.utils.Constant.READ_EXTERNAL_STORAGE_CODE;
 import static com.marwaeltayeb.souq.utils.ImageUtils.getRealPathFromURI;
 
 public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
@@ -49,7 +54,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getResources().getString(R.string.add_product));
 
-        addProductViewModel =  ViewModelProviders.of(this).get(AddProductViewModel.class);
+        addProductViewModel = ViewModelProviders.of(this).get(AddProductViewModel.class);
 
         binding.btnSelectImage.setOnClickListener(this);
 
@@ -83,13 +88,14 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                 TextUtils.isEmpty(quantityString) || TextUtils.isEmpty(supplierString)
                 || TextUtils.isEmpty(categoryString)) {
             Toast.makeText(this, getString(R.string.required_data), Toast.LENGTH_SHORT).show();
+            return;
         }
 
         Map<String, RequestBody> map = new HashMap<>();
-        map.put("name", toRequestBody(nameString));
+        map.put("product", toRequestBody(nameString));
         map.put("price", toRequestBody(priceString));
         map.put("quantity", toRequestBody(quantityString));
-        map.put("supplier",toRequestBody(supplierString));
+        map.put("supplier", toRequestBody(supplierString));
         map.put("category", toRequestBody(categoryString));
 
         // Pathname
@@ -97,7 +103,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part photo = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
-        addProductViewModel.addProduct(map,photo).observe(this, responseBody -> {
+        addProductViewModel.addProduct(map, photo).observe(this, responseBody -> {
             try {
                 if (responseBody != null) {
                     Toast.makeText(AddProductActivity.this, responseBody.string() + "", Toast.LENGTH_SHORT).show();
@@ -109,7 +115,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
-    public static RequestBody toRequestBody (String value) {
+    public static RequestBody toRequestBody(String value) {
         return RequestBody.create(MediaType.parse("text/plain"), value);
     }
 
@@ -121,19 +127,27 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getImageFromGallery() {
-        try {
-            Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-            getIntent.setType("image/*");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (AddProductActivity.this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_CODE);
+            } else {
 
-            Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            pickIntent.setType("image/*");
+                try {
+                    Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                    getIntent.setType("image/*");
 
-            Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
+                    Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    pickIntent.setType("image/*");
 
-            startActivityForResult(chooserIntent, PICK_IMAGE);
-        } catch (Exception exp) {
-            Log.i("Error", exp.toString());
+                    Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
+
+                    startActivityForResult(chooserIntent, PICK_IMAGE);
+                } catch (Exception exp) {
+                    Log.i("Error", exp.toString());
+                }
+            }
         }
     }
 
@@ -145,7 +159,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             selectedImage = data.getData();
             binding.imageOfProduct.setImageURI(selectedImage);
 
-            filePath = getRealPathFromURI(this,selectedImage);
+            filePath = getRealPathFromURI(this, selectedImage);
             Log.d(TAG, "onActivityResult: " + filePath);
         }
     }
