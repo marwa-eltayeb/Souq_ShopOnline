@@ -95,12 +95,16 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 reviewList = reviewApiResponse.getReviewList();
                 reviewAdapter = new ReviewAdapter(getApplicationContext(), reviewList);
                 binding.listOfReviews.setAdapter(reviewAdapter);
+                //reviewAdapter.notifyOnInsertedItem();
                 reviewAdapter.notifyDataSetChanged();
             }
 
             if(reviewList.size() == 0){
                 binding.listOfReviews.setVisibility(View.GONE);
                 binding.txtFirst.setVisibility(View.VISIBLE);
+            }else {
+                binding.listOfReviews.setVisibility(View.VISIBLE);
+                binding.txtFirst.setVisibility(View.GONE);
             }
         });
     }
@@ -130,5 +134,13 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         Cart cart = new Cart(LoginUtils.getInstance(this).getUserInfo().getId(), product.getProductId());
         toCartViewModel.addToCart(cart);
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getReviewsOfProduct();
+    }
+
 
 }
