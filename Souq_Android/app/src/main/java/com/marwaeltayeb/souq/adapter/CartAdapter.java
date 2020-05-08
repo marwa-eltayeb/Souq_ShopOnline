@@ -82,7 +82,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         Toast.makeText(mContext, "Wishlist " + currentProduct.isFavourite(), Toast.LENGTH_SHORT).show();
         // If product is inserted
-        if (currentProduct.isFavourite()==1) {
+        if (currentProduct.isFavourite() == 1) {
             holder.binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
         }
     }
@@ -131,7 +131,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         private void toggleFavourite() {
             // If favorite is not bookmarked
-            if (currentProduct.isFavourite()!=1) {
+            if (currentProduct.isFavourite() != 1) {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
                 insertFavoriteProduct(() -> {
                     currentProduct.setIsFavourite(true);
@@ -140,7 +140,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 showSnackBar("Bookmark Added");
             } else {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_border);
-                deleteFavoriteProduct();
+                deleteFavoriteProduct(() -> {
+                    currentProduct.setIsFavourite(false);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Bookmark Removed");
             }
         }
@@ -159,11 +162,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         private void insertFavoriteProduct(RequestCallback callback) {
             Favorite favorite = new Favorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
-            addFavoriteViewModel.addFavorite(favorite,callback);
+            addFavoriteViewModel.addFavorite(favorite, callback);
         }
 
-        private void deleteFavoriteProduct() {
-            removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
+        private void deleteFavoriteProduct(RequestCallback callback) {
+            removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId(), callback);
         }
 
         private void deleteFromCart() {

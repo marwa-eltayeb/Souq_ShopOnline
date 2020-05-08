@@ -196,9 +196,11 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                 showSnackBar("Bookmark Added");
             } else {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_border);
-                deleteFavoriteProduct();
+                deleteFavoriteProduct(() -> {
+                    product.setIsFavourite(false);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Bookmark Removed");
-                product.setIsFavourite(false);
             }
         }
 
@@ -227,8 +229,8 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             addFavoriteViewModel.addFavorite(favorite,callback);
         }
 
-        private void deleteFavoriteProduct() {
-            removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
+        private void deleteFavoriteProduct(RequestCallback callback) {
+            removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId(),callback);
         }
 
         private void insertToCart() {
