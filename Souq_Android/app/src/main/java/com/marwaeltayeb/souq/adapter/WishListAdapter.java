@@ -151,7 +151,10 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
                 showSnackBar("Added To Cart");
             } else {
                 binding.imgCart.setImageResource(R.drawable.ic_add_shopping_cart);
-                deleteFromCart();
+                deleteFromCart(() -> {
+                    currentProduct.setIsInCart(false);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Removed From Cart");
             }
         }
@@ -169,8 +172,8 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
             toCartViewModel.addToCart(cart, callback);
         }
 
-        private void deleteFromCart() {
-            fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
+        private void deleteFromCart(RequestCallback callback) {
+            fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId(),callback);
         }
     }
 

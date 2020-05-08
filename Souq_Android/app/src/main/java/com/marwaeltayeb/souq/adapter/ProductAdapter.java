@@ -215,9 +215,11 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                 showSnackBar("Added To Cart");
             } else {
                 binding.imgCart.setImageResource(R.drawable.ic_add_shopping_cart);
-                deleteFromCart();
+                deleteFromCart(() -> {
+                    product.setIsInCart(false);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Removed From Cart");
-                product.setIsInCart(false);
             }
         }
 
@@ -239,8 +241,8 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             toCartViewModel.addToCart(cart, callback);
         }
 
-        private void deleteFromCart() {
-            fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
+        private void deleteFromCart(RequestCallback callback) {
+            fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId(),callback);
         }
 
         private void insertProductToHistory() {

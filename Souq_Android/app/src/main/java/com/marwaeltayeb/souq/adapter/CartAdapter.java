@@ -149,7 +149,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
 
         private void deleteProductsInCart() {
-            deleteFromCart();
+            deleteFromCart(() -> {
+                currentProduct.setIsInCart(false);
+                notifyDataSetChanged();
+            });
             productsInCart.remove(getAdapterPosition());
             notifyItemRemoved(getAdapterPosition());
             notifyItemRangeChanged(getAdapterPosition(), productsInCart.size());
@@ -169,8 +172,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId(), callback);
         }
 
-        private void deleteFromCart() {
-            fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
+        private void deleteFromCart(RequestCallback callback) {
+            fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId(), callback);
         }
     }
 }
