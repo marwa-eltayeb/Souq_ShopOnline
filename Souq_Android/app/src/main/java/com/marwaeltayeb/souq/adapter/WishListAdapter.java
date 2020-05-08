@@ -20,6 +20,7 @@ import com.marwaeltayeb.souq.databinding.WishlistItemBinding;
 import com.marwaeltayeb.souq.model.Cart;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.utils.RequestCallback;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -129,7 +130,10 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
         }
 
         private void deleteFavorite() {
-            deleteFavoriteProduct();
+            deleteFavoriteProduct(() -> {
+                currentProduct.setIsFavourite(false);
+                notifyDataSetChanged();
+            });
             favoriteList.remove(getAdapterPosition());
             notifyItemRemoved(getAdapterPosition());
             notifyItemRangeChanged(getAdapterPosition(), favoriteList.size());
@@ -153,8 +157,8 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
             Snackbar.make(itemView, text, Snackbar.LENGTH_SHORT).show();
         }
 
-        private void deleteFavoriteProduct() {
-            removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
+        private void deleteFavoriteProduct(RequestCallback callback) {
+            removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId(), callback);
         }
 
         private void insertToCart() {
