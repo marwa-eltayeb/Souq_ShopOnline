@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.marwaeltayeb.souq.model.Cart;
 import com.marwaeltayeb.souq.net.RetrofitClient;
+import com.marwaeltayeb.souq.utils.RequestCallback;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -22,12 +23,16 @@ public class ToCartRepository {
         this.application = application;
     }
 
-    public LiveData<ResponseBody> addToCart(Cart cart) {
+    public LiveData<ResponseBody> addToCart(Cart cart, RequestCallback callback) {
         final MutableLiveData<ResponseBody> mutableLiveData = new MutableLiveData<>();
         RetrofitClient.getInstance().getApi().addToCart(cart).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d("onResponse", "" + response.code());
+
+                if(response.code() == 200){
+                    callback.onCallBack();
+                }
 
                 ResponseBody responseBody = response.body();
 

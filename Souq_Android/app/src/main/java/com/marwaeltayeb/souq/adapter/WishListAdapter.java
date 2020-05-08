@@ -144,7 +144,10 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
             // If Product is not added to cart
             if (currentProduct.isInCart()!=1) {
                 binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
-                insertToCart();
+                insertToCart(() -> {
+                    currentProduct.setIsInCart(true);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Added To Cart");
             } else {
                 binding.imgCart.setImageResource(R.drawable.ic_add_shopping_cart);
@@ -161,9 +164,9 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
             removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId(), callback);
         }
 
-        private void insertToCart() {
+        private void insertToCart(RequestCallback callback) {
             Cart cart = new Cart(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
-            toCartViewModel.addToCart(cart);
+            toCartViewModel.addToCart(cart, callback);
         }
 
         private void deleteFromCart() {

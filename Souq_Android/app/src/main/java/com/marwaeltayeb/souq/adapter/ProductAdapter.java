@@ -208,16 +208,17 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             // If Product is not added to cart
             if (product.isInCart() != 1) {
                 binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
-                insertToCart();
+                insertToCart(() -> {
+                    product.setIsInCart(true);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Added To Cart");
-                product.setIsInCart(true);
             } else {
                 binding.imgCart.setImageResource(R.drawable.ic_add_shopping_cart);
                 deleteFromCart();
                 showSnackBar("Removed From Cart");
                 product.setIsInCart(false);
             }
-            notifyDataSetChanged();
         }
 
         private void showSnackBar(String text) {
@@ -233,9 +234,9 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId(),callback);
         }
 
-        private void insertToCart() {
+        private void insertToCart(RequestCallback callback) {
             Cart cart = new Cart(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
-            toCartViewModel.addToCart(cart);
+            toCartViewModel.addToCart(cart, callback);
         }
 
         private void deleteFromCart() {
