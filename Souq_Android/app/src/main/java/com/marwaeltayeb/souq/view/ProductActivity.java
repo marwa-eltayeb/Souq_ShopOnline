@@ -536,6 +536,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.darkGreen));
     }
 
+    /*
     @Override
     protected void onResume() {
         super.onResume();
@@ -543,4 +544,5 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         getMobiles();
         getLaptops();
     }
+     */
 }

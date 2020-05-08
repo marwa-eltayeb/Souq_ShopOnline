@@ -78,7 +78,13 @@ public class Product implements Parcelable {
         return isInCart;
     }
 
+    public void setIsFavourite(boolean isFavourite) {
+        this.isFavourite = isFavourite ? 1 : 0;
+    }
 
+    public void setIsInCart(boolean isInCart) {
+        this.isInCart = isInCart ? 1 : 0;
+    }
 
     // Write the values to be saved to the `Parcel`.
     @Override

@@ -30,6 +30,7 @@ import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.History;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.utils.RequestCallback;
 
 import java.text.DecimalFormat;
 
@@ -188,12 +189,16 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             // If favorite is not bookmarked
             if (product.isFavourite() != 1) {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
-                insertFavoriteProduct();
+                insertFavoriteProduct(() -> {
+                    product.setIsFavourite(true);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Bookmark Added");
             } else {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_border);
                 deleteFavoriteProduct();
                 showSnackBar("Bookmark Removed");
+                product.setIsFavourite(false);
             }
         }
 
@@ -203,20 +208,23 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                 binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
                 insertToCart();
                 showSnackBar("Added To Cart");
+                product.setIsInCart(true);
             } else {
                 binding.imgCart.setImageResource(R.drawable.ic_add_shopping_cart);
                 deleteFromCart();
                 showSnackBar("Removed From Cart");
+                product.setIsInCart(false);
             }
+            notifyDataSetChanged();
         }
 
         private void showSnackBar(String text) {
             Snackbar.make(itemView, text, Snackbar.LENGTH_SHORT).show();
         }
 
-        private void insertFavoriteProduct() {
+        private void insertFavoriteProduct(RequestCallback callback) {
             Favorite favorite = new Favorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), product.getProductId());
-            addFavoriteViewModel.addFavorite(favorite);
+            addFavoriteViewModel.addFavorite(favorite,callback);
         }
 
         private void deleteFavoriteProduct() {

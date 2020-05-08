@@ -21,6 +21,7 @@ import com.marwaeltayeb.souq.databinding.CartListItemBinding;
 import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.utils.RequestCallback;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -132,7 +133,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             // If favorite is not bookmarked
             if (currentProduct.isFavourite()!=1) {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
-                insertFavoriteProduct();
+                insertFavoriteProduct(() -> {
+                    currentProduct.setIsFavourite(true);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Bookmark Added");
             } else {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_border);
@@ -153,9 +157,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             Snackbar.make(itemView, text, Snackbar.LENGTH_SHORT).show();
         }
 
-        private void insertFavoriteProduct() {
+        private void insertFavoriteProduct(RequestCallback callback) {
             Favorite favorite = new Favorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
-            addFavoriteViewModel.addFavorite(favorite);
+            addFavoriteViewModel.addFavorite(favorite,callback);
         }
 
         private void deleteFavoriteProduct() {
