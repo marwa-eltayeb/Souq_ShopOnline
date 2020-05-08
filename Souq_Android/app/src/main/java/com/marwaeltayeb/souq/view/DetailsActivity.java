@@ -65,6 +65,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     private void setUpRecycleView() {
         binding.listOfReviews.setHasFixedSize(true);
         binding.listOfReviews.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.listOfReviews.setItemAnimator(null);
     }
 
     private void getProductDetails() {
