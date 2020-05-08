@@ -11,6 +11,9 @@ import com.marwaeltayeb.souq.net.LaptopDataSourceFactory;
 import com.marwaeltayeb.souq.net.ProductDataSource;
 import com.marwaeltayeb.souq.net.ProductDataSourceFactory;
 
+import static com.marwaeltayeb.souq.net.LaptopDataSourceFactory.laptopDataSource;
+import static com.marwaeltayeb.souq.net.ProductDataSourceFactory.productDataSource;
+
 
 public class ProductViewModel extends ViewModel {
 
@@ -48,5 +51,10 @@ public class ProductViewModel extends ViewModel {
 
         // Build the paged list
         laptopPagedList = (new LivePagedListBuilder(laptopDataSourceFactory, pagedListConfig)).build();
+    }
+
+    public void invalidate(){
+        productDataSource.invalidate();
+        laptopDataSource.invalidate();
     }
 }

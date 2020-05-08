@@ -153,12 +153,15 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         binding.included.content.listOfMobiles.setHasFixedSize(true);
         binding.included.content.listOfMobiles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.included.content.listOfMobiles.setItemAnimator(null);
 
         binding.included.content.listOfLaptops.setHasFixedSize(true);
         binding.included.content.listOfLaptops.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.included.content.listOfLaptops.setItemAnimator(null);
 
         binding.included.content.historyList.setHasFixedSize(true);
         binding.included.content.historyList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binding.included.content.historyList.setItemAnimator(null);
 
         mobileAdapter = new ProductAdapter(this, this);
         laptopAdapter = new ProductAdapter(this, this);
@@ -531,5 +534,13 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.darkGreen));
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.darkGreen));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        productViewModel.invalidate();
+        getMobiles();
+        getLaptops();
     }
 }

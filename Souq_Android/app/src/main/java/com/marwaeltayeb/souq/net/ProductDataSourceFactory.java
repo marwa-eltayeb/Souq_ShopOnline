@@ -11,7 +11,7 @@ public class ProductDataSourceFactory extends DataSource.Factory{
     // Creating the mutable live database
     private MutableLiveData<PageKeyedDataSource<Integer, Product>> productLiveDataSource = new MutableLiveData<>();
 
-    private ProductDataSource productDataSource;
+    public static ProductDataSource productDataSource;
 
     private String category;
     private int userId;

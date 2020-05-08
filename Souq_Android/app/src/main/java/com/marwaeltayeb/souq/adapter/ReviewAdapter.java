@@ -47,6 +47,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         return reviewList.size();
     }
 
+    public void notifyOnInsertedItem(){
+        notifyItemInserted(reviewList.size() - 1);
+        notifyItemRangeInserted(reviewList.size() - 1,reviewList.size());
+    }
+
     class ReviewViewHolder extends RecyclerView.ViewHolder {
 
         // Create view instances
@@ -55,7 +60,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         private ReviewViewHolder(ReviewListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-
         }
     }
 }

@@ -98,12 +98,12 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
             holder.binding.imgShare.setOnClickListener(v -> shareProduct(mContext, productName, imageUrl));
 
             // If product is inserted
-            if (product.isFavourite()==1){
+            if (product.isFavourite() == 1) {
                 holder.binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
             }
 
             // If product is added to cart
-            if (product.isInCart()==1) {
+            if (product.isInCart() == 1) {
                 holder.binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
             }
 
@@ -129,6 +129,11 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
     @Override
     public PagedList<Product> getCurrentList() {
         return super.getCurrentList();
+    }
+
+    public void notifyOnInsertedItem() {
+        notifyItemInserted(getCurrentList().size() - 1);
+        notifyItemRangeInserted(getCurrentList().size() - 1, getCurrentList().size());
     }
 
     // It determine if two list objects are the same or not
@@ -181,7 +186,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
 
         private void toggleFavourite() {
             // If favorite is not bookmarked
-            if (product.isFavourite()!=1) {
+            if (product.isFavourite() != 1) {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
                 insertFavoriteProduct();
                 showSnackBar("Bookmark Added");
@@ -194,7 +199,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
 
         private void toggleProductsInCart() {
             // If Product is not added to cart
-            if (product.isInCart()!=1) {
+            if (product.isInCart() != 1) {
                 binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
                 insertToCart();
                 showSnackBar("Added To Cart");
