@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 
 const serverSupportMail = 'mardroid.apps@gmail.com'
-const serverSupportPassword = '12345android'
+const serverSupportPassword = process.env.EMAIL_PASSWORD
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',

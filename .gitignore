@@ -3,3 +3,4 @@ Souq_Backend/node_modules
 Souq_Backend/storage_product/**
 Souq_Backend/storage_user/**
 Souq_Backend/storage_poster/**
+Souq_Backend/.env
