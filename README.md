@@ -1,6 +1,6 @@
 # Souq (Shop Online)
 
-  Online Store prototype implemented in MVVM Architecture using Java and MySQL, NodeJS for the server. 
+  Online e-commerce Store implemented in MVVM Architecture using Backend Rest Api made by MySQL and NodeJS
 
 ## Features: 
 
