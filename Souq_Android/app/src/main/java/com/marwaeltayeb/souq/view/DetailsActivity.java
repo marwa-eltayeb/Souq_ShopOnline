@@ -21,6 +21,7 @@ import com.marwaeltayeb.souq.model.Cart;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.model.Review;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.utils.RequestCallback;
 
 import java.util.List;
 
@@ -121,7 +122,9 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             allReviewIntent.putExtra(PRODUCT_ID,product.getProductId());
             startActivity(allReviewIntent);
         }else if(view.getId() == R.id.addToCart){
-            insertToCart();
+            insertToCart(() -> {
+                product.setIsInCart(true);
+            });
             Intent cartIntent = new Intent(DetailsActivity.this, CartActivity.class);
             startActivity(cartIntent);
         }else if(view.getId() == R.id.buy){
@@ -131,11 +134,10 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void insertToCart() {
+    private void insertToCart(RequestCallback callback) {
         Cart cart = new Cart(LoginUtils.getInstance(this).getUserInfo().getId(), product.getProductId());
-        toCartViewModel.addToCart(cart);
+        toCartViewModel.addToCart(cart, callback);
     }
-
 
     @Override
     protected void onResume() {

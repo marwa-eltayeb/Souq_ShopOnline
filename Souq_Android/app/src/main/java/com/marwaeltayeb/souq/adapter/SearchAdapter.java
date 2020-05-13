@@ -24,6 +24,7 @@ import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.History;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.utils.RequestCallback;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -149,50 +150,63 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
         private void toggleFavourite() {
             // If favorite is not bookmarked
-            if (currentProduct.isFavourite()!=1) {
+            if (currentProduct.isFavourite() != 1) {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);
-                insertFavoriteProduct();
+                insertFavoriteProduct(() -> {
+                    currentProduct.setIsFavourite(true);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Bookmark Added");
             } else {
                 binding.imgFavourite.setImageResource(R.drawable.ic_favorite_border);
-                deleteFavoriteProduct();
+                deleteFavoriteProduct(() -> {
+                    currentProduct.setIsFavourite(false);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Bookmark Removed");
             }
         }
 
         private void toggleProductsInCart() {
             // If Product is not added to cart
-            if (currentProduct.isInCart()!=1) {
+            if (currentProduct.isInCart() != 1) {
                 binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
-                insertToCart();
+                insertToCart(() -> {
+                    currentProduct.setIsInCart(true);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Added To Cart");
             } else {
                 binding.imgCart.setImageResource(R.drawable.ic_add_shopping_cart);
-                deleteFromCart();
+                deleteFromCart(() -> {
+                    currentProduct.setIsInCart(false);
+                    notifyDataSetChanged();
+                });
                 showSnackBar("Removed From Cart");
             }
         }
+
 
         private void showSnackBar(String text) {
             Snackbar.make(itemView, text, Snackbar.LENGTH_SHORT).show();
         }
 
-        private void insertFavoriteProduct() {
+        private void insertFavoriteProduct(RequestCallback callback) {
             Favorite favorite = new Favorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
-            addFavoriteViewModel.addFavorite(favorite);
+            addFavoriteViewModel.addFavorite(favorite,callback);
         }
 
-        private void deleteFavoriteProduct() {
-            removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
+        private void deleteFavoriteProduct(RequestCallback callback) {
+            removeFavoriteViewModel.removeFavorite(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId(),callback);
         }
 
-        private void insertToCart() {
+        private void insertToCart(RequestCallback callback) {
             Cart cart = new Cart(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
-            toCartViewModel.addToCart(cart);
+            toCartViewModel.addToCart(cart, callback);
         }
 
-        private void deleteFromCart() {
-            fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId());
+        private void deleteFromCart(RequestCallback callback) {
+            fromCartViewModel.removeFromCart(LoginUtils.getInstance(mContext).getUserInfo().getId(), currentProduct.getProductId(),callback);
         }
 
         private void insertProductToHistory() {

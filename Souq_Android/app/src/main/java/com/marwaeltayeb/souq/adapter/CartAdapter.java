@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
@@ -80,7 +79,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .load(imageUrl)
                 .into(holder.binding.imgProductImage);
 
-        Toast.makeText(mContext, "Wishlist " + currentProduct.isFavourite(), Toast.LENGTH_SHORT).show();
         // If product is inserted
         if (currentProduct.isFavourite() == 1) {
             holder.binding.imgFavourite.setImageResource(R.drawable.ic_favorite_pink);

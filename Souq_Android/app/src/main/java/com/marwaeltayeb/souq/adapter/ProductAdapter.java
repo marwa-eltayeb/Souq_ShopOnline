@@ -113,10 +113,6 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         }
     }
 
-    public Product getProductAt(int position) {
-        return getItem(position);
-    }
-
     @Override
     public long getItemId(int position) {
         return position;
