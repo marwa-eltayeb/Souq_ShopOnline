@@ -541,8 +541,10 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     protected void onResume() {
         super.onResume();
         productViewModel.invalidate();
+        historyViewModel.invalidate();
         getMobiles();
         getLaptops();
+        getHistory();
     }
 
 

@@ -10,6 +10,8 @@ import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.net.HistoryDataSource;
 import com.marwaeltayeb.souq.net.HistoryDataSourceFactory;
 
+import static com.marwaeltayeb.souq.net.HistoryDataSourceFactory.historyDataSource;
+
 public class HistoryViewModel extends ViewModel {
 
     // Create liveData for PagedList and PagedKeyedDataSource
@@ -29,5 +31,9 @@ public class HistoryViewModel extends ViewModel {
 
         // Build the paged list
         historyPagedList = (new LivePagedListBuilder(historyDataSourceFactory, pagedListConfig)).build();
+    }
+
+    public void invalidate(){
+        if(historyDataSource != null) historyDataSource.invalidate();
     }
 }

@@ -15,8 +15,6 @@ public class HistoryDataSource extends PageKeyedDataSource<Integer, Product> {
 
     private static final int FIRST_PAGE = 1;
     public static final int PAGE_SIZE = 20;
-    //private int USER_ID = 24;
-
     private int userId;
 
     public HistoryDataSource(int userId) {

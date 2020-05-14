@@ -17,7 +17,7 @@ public class HistoryDataSourceFactory extends DataSource.Factory{
     // Creating the mutable live database
     private MutableLiveData<PageKeyedDataSource<Integer, Product>> historyLiveDataSource = new MutableLiveData<>();
 
-    private HistoryDataSource historyDataSource;
+    public static HistoryDataSource historyDataSource;
 
     @Override
     public DataSource<Integer, Product> create() {

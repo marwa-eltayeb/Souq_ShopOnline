@@ -54,7 +54,7 @@ public class ProductViewModel extends ViewModel {
     }
 
     public void invalidate(){
-        productDataSource.invalidate();
-        laptopDataSource.invalidate();
+        if(productDataSource != null) productDataSource.invalidate();
+        if(laptopDataSource!= null) laptopDataSource.invalidate();
     }
 }
