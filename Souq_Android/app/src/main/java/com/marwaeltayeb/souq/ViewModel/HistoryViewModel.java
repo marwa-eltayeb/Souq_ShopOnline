@@ -36,4 +36,6 @@ public class HistoryViewModel extends ViewModel {
     public void invalidate(){
         if(historyDataSource != null) historyDataSource.invalidate();
     }
+
+
 }

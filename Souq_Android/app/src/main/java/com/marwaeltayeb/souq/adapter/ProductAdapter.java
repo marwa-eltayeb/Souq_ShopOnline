@@ -128,9 +128,14 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         return super.getCurrentList();
     }
 
-    public void notifyOnInsertedItem() {
-        notifyItemInserted(getCurrentList().size() - 1);
-        notifyItemRangeInserted(getCurrentList().size() - 1, getCurrentList().size());
+    public Product getProductAt(int position) {
+        return getItem(position);
+    }
+
+    public void notifyOnInsertedItem(int position) {
+        notifyItemInserted(position);
+        notifyItemRangeInserted(position, getCurrentList().size()-1);
+        notifyDataSetChanged();
     }
 
     // It determine if two list objects are the same or not

@@ -211,12 +211,11 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             historyViewModel.historyPagedList.observe(this, new Observer<PagedList<Product>>() {
                 @Override
                 public void onChanged(@Nullable PagedList<Product> products) {
-                    historyAdapter.submitList(products);
                     binding.included.content.historyList.setAdapter(historyAdapter);
+                    historyAdapter.submitList(products);
                     historyAdapter.notifyDataSetChanged();
-                    if (products.size() != 0) {
-                        binding.included.content.textViewHistory.setVisibility(View.VISIBLE);
-                    }
+
+                    products.addWeakCallback(null, productCallback);
                 }
             });
         } else {
@@ -398,9 +397,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void registerNetworkBroadcastForNougat() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         }
@@ -541,11 +537,32 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     protected void onResume() {
         super.onResume();
         productViewModel.invalidate();
-        historyViewModel.invalidate();
         getMobiles();
         getLaptops();
+        historyViewModel.invalidate();
         getHistory();
     }
 
+    private PagedList.Callback productCallback = new PagedList.Callback() {
+        @Override
+        public void onChanged(int position, int count) {
+            Log.d(TAG, "onChanged: "+ count);
+        }
+
+        @Override
+        public void onInserted(int position, int count) {
+            Log.d(TAG, "onInserted: "+ count);
+            if (count != 0) {
+                binding.included.content.textViewHistory.setVisibility(View.VISIBLE);
+                historyAdapter.notifyOnInsertedItem(position);
+                getHistory();
+            }
+        }
+
+        @Override
+        public void onRemoved(int position, int count) {
+            Log.d(TAG, "onRemoved: "+ count);
+        }
+    };
 
 }

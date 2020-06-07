@@ -12,14 +12,14 @@ import okhttp3.ResponseBody;
 
 public class ToHistoryViewModel extends AndroidViewModel {
 
-    private ToHistoryRepository toHistoryViewModel;
+    private ToHistoryRepository toHistoryRepository;
 
     public ToHistoryViewModel(@NonNull Application application) {
         super(application);
-        toHistoryViewModel = new ToHistoryRepository(application);
+        toHistoryRepository = new ToHistoryRepository(application);
     }
 
     public LiveData<ResponseBody> addToHistory(History history) {
-        return toHistoryViewModel.addToHistory(history);
+        return toHistoryRepository.addToHistory(history);
     }
 }
