@@ -25,7 +25,6 @@ function sendOptMail(email, otpCode){
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error);
-      response.status(501).send("Invalid")
     } else {
       console.log('Email sent: ' + info.response);
     }

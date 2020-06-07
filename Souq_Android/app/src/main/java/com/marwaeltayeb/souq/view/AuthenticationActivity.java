@@ -53,9 +53,9 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
         } else if (view.getId() == R.id.reSend) {
             clickCount = clickCount + 1;
             getAnotherOtpCode();
-            if (clickCount > 3) {
-                binding.reSend.setEnabled(false);
-                binding.numberOClicks.setVisibility(View.VISIBLE);
+            if (clickCount >= 3) {
+                binding.reSend.setClickable(false);
+                binding.numberOfClicks.setVisibility(View.VISIBLE);
             }
         }
     }
