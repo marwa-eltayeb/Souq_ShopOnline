@@ -96,7 +96,8 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.myOrders:
-                // ToDo : orders
+                Intent ordersIntent = new Intent(this, OrdersActivity.class);
+                startActivity(ordersIntent);
                 break;
             case R.id.myWishList:
                 Intent wishListIntent = new Intent(this, WishListActivity.class);
