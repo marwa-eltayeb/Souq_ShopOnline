@@ -60,3 +60,7 @@
 
 
 Project Preview: [Youtube](https://youtu.be/8zcm_FyzEtA).
+
+## phpMyAdmin — How to import or restore a database 
+
+[Importing a database](https://bit.ly/3d3ETWV)
