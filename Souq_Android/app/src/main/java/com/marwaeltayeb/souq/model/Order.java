@@ -6,6 +6,8 @@ import java.io.Serializable;
 
 public class Order implements Serializable {
 
+    @SerializedName("id")
+    private int productId;
     @SerializedName("product_name")
     private String productName;
     @SerializedName("order_number")
@@ -24,6 +26,10 @@ public class Order implements Serializable {
     private String shippingPhone;
 
     public Order(){}
+
+    public int getProductId() {
+        return productId;
+    }
 
     public double getProductPrice() {
         return productPrice;

@@ -11,8 +11,11 @@ import com.marwaeltayeb.souq.databinding.ActivityStatusBinding;
 import com.marwaeltayeb.souq.model.Order;
 
 import static com.marwaeltayeb.souq.utils.Constant.ORDER;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
 
 public class StatusActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private int productId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,7 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = getIntent();
         Order order = (Order) intent.getSerializableExtra(ORDER);
 
+        productId = order.getProductId();
         binding.orderDate.setText(order.getOrderDate());
         binding.orderNumber.setText(order.getOrderNumber());
         binding.userName.setText(order.getUserName());
@@ -40,6 +44,7 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId() == R.id.reOrder) {
             Intent reOrderIntent = new Intent(this, OrderProductActivity.class);
+            reOrderIntent.putExtra(PRODUCTID, productId);
             startActivity(reOrderIntent);
         }
     }
