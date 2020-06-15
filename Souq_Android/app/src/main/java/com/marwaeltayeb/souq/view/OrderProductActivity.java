@@ -56,6 +56,8 @@ public class OrderProductActivity extends AppCompatActivity implements View.OnCl
             try {
                 Toast.makeText(OrderProductActivity.this, responseBody.string() + "", Toast.LENGTH_SHORT).show();
                 finish();
+                Intent homeIntent = new Intent(OrderProductActivity.this, ProductActivity.class);
+                startActivity(homeIntent);
             } catch (IOException e) {
                 e.printStackTrace();
             }
