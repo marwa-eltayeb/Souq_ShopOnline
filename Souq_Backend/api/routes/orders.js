@@ -121,7 +121,18 @@ router.get("/get", (request, response) => {
         parseInt(page)
     ];
 
-    const query = "SELECT Ordering.order_number,DATE_FORMAT(Ordering.order_date, '%d/%m/%Y') As order_date, Ordering.status,Product.product_name,Product.price,Product.id,User.name,Shipping.address, Shipping.phone FROM Ordering JOIN Product JOIN User JOIN Shipping ON Ordering.product_id = product.id AND Ordering.user_id = user.id WHERE Ordering.user_id = ? LIMIT ? OFFSET ?"
+    const query = `SELECT DISTINCT Ordering.order_number,
+                          DATE_FORMAT(Ordering.order_date, '%d/%m/%Y') As order_date, 
+                          Ordering.status,Product.product_name,
+                          Product.price,
+                          Product.id,
+                          User.name,
+                          Shipping.address, 
+                          Shipping.phone 
+                          FROM Ordering JOIN Product JOIN User JOIN Shipping 
+                          ON Ordering.product_id = product.id AND Ordering.user_id = user.id AND Ordering.product_id = Shipping.product_id
+                          WHERE Ordering.user_id = ? 
+                          LIMIT ? OFFSET ?`
 
     database.query(query, args, (error, orders) => {
         if(error) throw error;
