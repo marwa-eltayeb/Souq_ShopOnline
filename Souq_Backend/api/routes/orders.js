@@ -127,8 +127,7 @@ router.get("/get", (request, response) => {
                           Product.price,
                           Product.id,
                           User.name,
-                          Shipping.address, 
-                          Shipping.phone 
+                          Shipping.address
                           FROM Ordering JOIN Product JOIN User JOIN Shipping 
                           ON Ordering.product_id = product.id AND Ordering.user_id = user.id AND Ordering.product_id = Shipping.product_id
                           WHERE Ordering.user_id = ? 
