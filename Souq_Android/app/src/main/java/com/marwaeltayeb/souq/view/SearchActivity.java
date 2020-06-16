@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,10 +31,10 @@ import java.util.Map;
 
 import static com.marwaeltayeb.souq.utils.Constant.KEYWORD;
 
-public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private ActivitySearchBinding binding;
-    private String word;
+    private static String word;
     private WordAdapter adapter;
     private List<String> list;
     private SharedPreferences sharedpreferences;
@@ -48,7 +49,9 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
 
         binding.wordList.setOnItemClickListener(this);
+        binding.wordList.setOnItemLongClickListener(this);
 
+        // Return a collection view of the values contained in this map
         list = new ArrayList<>(getWords(this).keySet());
 
         adapter = new WordAdapter(this,  list);
@@ -85,6 +88,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                     // Your piece of code on keyboard search click
                     Intent searchIntent = new Intent(SearchActivity.this, ResultActivity.class);
                     word = binding.editQuery.getText().toString().trim();
+                    // Set Key with its specific key
                     setWord(getApplicationContext(), word, word);
                     searchIntent.putExtra(KEYWORD, word);
                     startActivity(searchIntent);
@@ -122,6 +126,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
                 if (key.equals(word)) {
+                    // Clear the adapter, then add list
                     adapter.clear();
                     list = new ArrayList<>(getWords(getApplicationContext()).keySet());
                     adapter.addAll(list);
@@ -131,6 +136,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         };
 
         sharedpreferences.registerOnSharedPreferenceChangeListener(listener);
+
     }
 
     public void setWord(Context context , String key , String word){
@@ -142,6 +148,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     public Map<String, ?> getWords(Context context){
         sharedpreferences = context.getSharedPreferences("history_data", Context.MODE_PRIVATE);
+        // Returns a map containing a list of pairs key/value representing the preferences.
         return sharedpreferences.getAll();
     }
 
@@ -149,6 +156,9 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         context.getSharedPreferences("history_data", Context.MODE_PRIVATE).edit().clear().apply();
     }
 
+    public static void clearOneItemInSharedPreferences(String key, Context context){
+        context.getSharedPreferences("history_data", Context.MODE_PRIVATE).edit().remove(key).apply();
+    }
 
     @Override
     protected void onDestroy() {
@@ -166,7 +176,22 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+        // Send KEYWORD to ResultActivity
         intent.putExtra(KEYWORD, list.get(position));
         startActivity(intent);
+    }
+
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.v("long clicked","position: " + position);
+        // Get value of a specific position
+        word = list.get(position);
+        // Set word as a key
+        clearOneItemInSharedPreferences(word, getApplicationContext());
+        // Remove element from adapter
+        adapter.remove(word);
+        Toast.makeText(this, "Removed", Toast.LENGTH_SHORT).show();
+        return true;
     }
 }
