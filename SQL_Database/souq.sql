@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2020 at 11:34 PM
+-- Generation Time: Jun 16, 2020 at 05:21 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -75,15 +75,6 @@ CREATE TABLE `history` (
   `product_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `history`
---
-
-INSERT INTO `history` (`history_id`, `user_id`, `product_id`) VALUES
-(7, 24, 15),
-(6, 24, 25),
-(5, 24, 60);
-
 -- --------------------------------------------------------
 
 --
@@ -107,10 +98,12 @@ CREATE TABLE `ordering` (
 --
 
 INSERT INTO `ordering` (`ordering_id`, `order_number`, `order_date`, `status`, `name_on_card`, `card_number`, `expiration_date`, `user_id`, `product_id`) VALUES
-(14, 55638794, '2020-04-20', 'shipped', 'Nora Mohamed', 'de9edb2044d012f04553e49b04d54cbec8e8a46a40ad5a19bc5dcce1da00ecfd', '2021-12-00', 11, 17),
-(15, 66281437, '2020-04-21', 'shipped', 'Marwa', '98901fd51699aa773c25135e1c103be059f7294b660de327108563ef283750e6', '2022-03-00', 24, 26),
-(16, 55186316, '2020-04-21', 'shipped', 'Said', 'c59f7d7b41655a181ce8ac88efbec651b58c0cc2c0ec3b029211aeb405ebfee0', '2022-04-00', 24, 19),
-(17, 66281372, '2020-04-21', 'shipped', 'Hani', 'b1a5c5f838862bf631ead2df4fd3089b1da63170b825cb76a5468de7aa602e59', '2025-07-00', 24, 26);
+(18, 55470123, '2020-06-15', 'shipped', 'Marwa', '51c983fd74d04728e7615b1ddbe2433fb2b8d11995dd6c49434b7278cc559617', '2022-06-00', 24, 18),
+(19, 66595700, '2020-06-15', 'shipped', 'Marwa', '2b211448b53a4ab638b90828957dd5d1c178302280ae6afd3ab7f1028bb9d761', '2023-07-00', 24, 30),
+(20, 55789264, '2020-06-15', 'shipped', 'Nora', '025c975551f0f1c6b9a64c6e2f0b772e63838c950bf9b1d575b7218038c9e77c', '2022-08-00', 11, 21),
+(21, 66116913, '2020-06-15', 'shipped', 'Nora', '966a0b5e0af457852f709b0ec3f006e73e02de025f7d0143d9c8ebf21d36f4da', '2028-04-00', 11, 32),
+(22, 55524173, '2020-06-16', 'shipped', 'Nora', '5681e7cd516a74a88c4b13cfe90a976e322557c3540de331b1a5f502e6c4842c', '2022-08-00', 11, 21),
+(23, 55506266, '2020-06-16', 'shipped', 'Nora', '8a9bc9585ad5a5b5c58b14162996aa2b23afb7a1c0df4a674a4e01dfc5dc74b8', '2024-04-00', 11, 21);
 
 -- --------------------------------------------------------
 
@@ -242,11 +235,11 @@ CREATE TABLE `shipping` (
 --
 
 INSERT INTO `shipping` (`shipping_id`, `address`, `city`, `country`, `zip`, `phone`, `user_id`, `product_id`) VALUES
-(10, 'Roushdy', 'Alexandria', 'Egypt', 'Egypt', '0124430543', 11, 15),
-(14, 'Manadara', 'Alexandria', 'Egypt', '4545', '010565668', 24, 14),
-(15, 'Mandara', 'Alexandria', 'Egypt', '4545', '0126869988', 24, 17),
-(16, 'Saba Basha', 'Alexandria', 'Egypt', '4564', '01235886', 24, 25),
-(17, 'Fleming', 'Alexandria', 'Egypt', '4545', '0853557', 24, 26);
+(18, 'Sidi Gaber', 'Alexandria', 'Egypt', '4545', '012564988', 24, 18),
+(19, 'Sidi Gaber', 'Alexandria', 'Egypt', '4545', '01079559906', 24, 30),
+(20, 'Naser City', 'Cairo', 'Egypt', '3030', '0128686888', 11, 21),
+(21, 'Naser City', 'Cairo', 'Egypt', '3030', '8655686', 11, 32),
+(22, 'Naser City', 'Cairo', 'Egypt', '3030', '8568690', 11, 21);
 
 -- --------------------------------------------------------
 
@@ -372,12 +365,12 @@ ALTER TABLE `favorite`
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `ordering`
 --
 ALTER TABLE `ordering`
-  MODIFY `ordering_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `ordering_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `poster`
 --
@@ -397,7 +390,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT for table `shipping`
 --
 ALTER TABLE `shipping`
-  MODIFY `shipping_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `shipping_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `user`
 --
