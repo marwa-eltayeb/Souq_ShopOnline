@@ -106,6 +106,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         return productList.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     public void clear() {
         int size = productList.size();
         productList.clear();
