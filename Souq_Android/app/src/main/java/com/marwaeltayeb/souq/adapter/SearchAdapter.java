@@ -129,6 +129,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             itemView.setOnClickListener(this);
             binding.imgFavourite.setOnClickListener(this);
             binding.imgCart.setOnClickListener(this);
+            binding.addToCart.setOnClickListener(this);
         }
 
         @Override
@@ -148,6 +149,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                     break;
                 case R.id.imgCart:
                     toggleProductsInCart();
+                    break;
+                case R.id.addToCart:
+                    addToCart();
                     break;
             }
         }
@@ -191,6 +195,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             }
         }
 
+        private void addToCart() {
+            // If Product is not added to cart
+            if (currentProduct.isInCart() != 1) {
+                binding.imgCart.setImageResource(R.drawable.ic_shopping_cart_green);
+                insertToCart(() -> {
+                    currentProduct.setIsInCart(true);
+                    notifyDataSetChanged();
+                });
+                showSnackBar("Added To Cart");
+            }
+        }
 
         private void showSnackBar(String text) {
             Snackbar.make(itemView, text, Snackbar.LENGTH_SHORT).show();
