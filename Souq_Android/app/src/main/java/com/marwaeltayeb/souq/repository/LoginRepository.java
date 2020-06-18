@@ -31,9 +31,11 @@ public class LoginRepository {
                 LoginApiResponse loginResponse;
                 if(response.code() == 200){
                     loginResponse = response.body();
-                }else{
+                }else if (response.code() == 214){
                     // Add Custom message
                     loginResponse = new LoginApiResponse("Account does not exist");
+                }else {
+                    loginResponse = new LoginApiResponse("Incorrect Password");
                 }
                 mutableLiveData.setValue(loginResponse);
             }
