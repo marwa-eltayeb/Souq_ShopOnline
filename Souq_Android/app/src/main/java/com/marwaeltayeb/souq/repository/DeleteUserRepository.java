@@ -1,8 +1,8 @@
 package com.marwaeltayeb.souq.repository;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.marwaeltayeb.souq.net.RetrofitClient;

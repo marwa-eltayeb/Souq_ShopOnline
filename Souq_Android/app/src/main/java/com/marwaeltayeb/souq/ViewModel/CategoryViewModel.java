@@ -1,10 +1,10 @@
 package com.marwaeltayeb.souq.ViewModel;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
-import android.arch.paging.LivePagedListBuilder;
-import android.arch.paging.PageKeyedDataSource;
-import android.arch.paging.PagedList;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PageKeyedDataSource;
+import androidx.paging.PagedList;
 
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.net.ProductDataSource;

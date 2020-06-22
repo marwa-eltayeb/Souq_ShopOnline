@@ -37,7 +37,7 @@
                 android:textSize="@dimen/dimen18sp" />
 
             <!-- Name Label -->
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen8dp"
@@ -53,10 +53,10 @@
                     android:background="@drawable/custom_border"
                     android:inputType="textPersonName"
                     android:padding="@dimen/dimen5dp" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--  Email Label -->
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen8dp"
@@ -72,10 +72,10 @@
                     android:background="@drawable/custom_border"
                     android:inputType="textEmailAddress"
                     android:padding="@dimen/dimen5dp" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Password Label -->
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen8dp"
@@ -96,7 +96,7 @@
                     android:maxLines="1"
                     android:padding="@dimen/dimen5dp"
                     android:singleLine="true" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <TextView
@@ -112,7 +112,7 @@
                 android:textSize="@dimen/dimen18sp" />
 
             <!-- Signup Button -->
-            <android.support.v7.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
