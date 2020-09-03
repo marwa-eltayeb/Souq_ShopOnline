@@ -1,4 +1,6 @@
 # Souq (Shop Online)
+[![GitHub forks](https://img.shields.io/github/forks/Marwa-Eltayeb/Souq_ShopOnline)](https://github.com/Marwa-Eltayeb/Souq_ShopOnline/network)
+[![GitHub stars](https://img.shields.io/github/stars/Marwa-Eltayeb/Souq_ShopOnline)](https://github.com/Marwa-Eltayeb/Souq_ShopOnline/stargazers)
 
   Online e-commerce Store implemented in MVVM Architecture using Backend Rest Api made by MySQL and NodeJS
 
