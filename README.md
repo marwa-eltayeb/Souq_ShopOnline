@@ -1,6 +1,6 @@
 # Souq (Shop Online)
 
-  Online e-commerce Store implemented in MVVM Architecture using Backend Rest Api made by MySQL and NodeJS
+  Online e-commerce Store implemented in MVVM Architecture using Backend Rest Api written in MySQL and NodeJS
 
 ## Features: 
 
