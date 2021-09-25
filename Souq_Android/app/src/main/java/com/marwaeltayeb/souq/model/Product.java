@@ -120,7 +120,6 @@ public class Product implements Parcelable {
         return 0;
     }
 
-    // Create the Parcelable.Creator<Product> CREATOR` constant for our class;
     public static final Parcelable.Creator<Product> CREATOR
             = new Parcelable.Creator<Product>() {
 

@@ -1,17 +1,18 @@
 package com.marwaeltayeb.souq.view;
 
+import static com.marwaeltayeb.souq.utils.Constant.ORDER;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
+
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivityStatusBinding;
 import com.marwaeltayeb.souq.model.Order;
-
-import static com.marwaeltayeb.souq.utils.Constant.ORDER;
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
 
 public class StatusActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,7 +23,7 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         ActivityStatusBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_status);
 
-        // Receive the order object
+        // Receive Order object
         Intent intent = getIntent();
         Order order = (Order) intent.getSerializableExtra(ORDER);
 

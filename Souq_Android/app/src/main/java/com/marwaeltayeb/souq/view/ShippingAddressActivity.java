@@ -1,26 +1,26 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
+
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.ShippingViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityShippingAddressBinding;
 import com.marwaeltayeb.souq.model.Shipping;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.viewmodel.ShippingViewModel;
 
 import java.io.IOException;
 
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
-
 public class ShippingAddressActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String TAG = "ShippingAddressActivity";
     private ActivityShippingAddressBinding binding;
 
     private ShippingViewModel shippingViewModel;

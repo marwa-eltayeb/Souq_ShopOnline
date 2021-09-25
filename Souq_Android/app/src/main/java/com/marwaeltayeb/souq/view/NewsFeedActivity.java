@@ -1,20 +1,20 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.NewsFeedViewModel;
 import com.marwaeltayeb.souq.adapter.NewsFeedAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityNewsFeedBinding;
+import com.marwaeltayeb.souq.viewmodel.NewsFeedViewModel;
 
 public class NewsFeedActivity extends AppCompatActivity {
 
-    private static final String TAG = "NewsFeedActivity";
     private ActivityNewsFeedBinding binding;
     private NewsFeedViewModel newsFeedViewModel;
     private NewsFeedAdapter newsFeedAdapter;
@@ -41,8 +41,8 @@ public class NewsFeedActivity extends AppCompatActivity {
     }
 
     private void getPosters() {
-        newsFeedViewModel.getPosters().observe(this, NewsFeedResponse -> {
-            newsFeedAdapter = new NewsFeedAdapter(getApplicationContext(), NewsFeedResponse.getPosters());
+        newsFeedViewModel.getPosters().observe(this, newsFeedResponse -> {
+            newsFeedAdapter = new NewsFeedAdapter(getApplicationContext(), newsFeedResponse.getPosters());
             binding.newsFeedList.setAdapter(newsFeedAdapter);
             newsFeedAdapter.notifyDataSetChanged();
         });

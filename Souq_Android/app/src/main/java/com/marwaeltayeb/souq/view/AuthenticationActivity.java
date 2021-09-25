@@ -1,21 +1,22 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
+import static com.marwaeltayeb.souq.utils.Constant.EMAIL;
+import static com.marwaeltayeb.souq.utils.Constant.OTP;
+
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.OtpViewModel;
-import com.marwaeltayeb.souq.databinding.ActivityAuthenticationBinding;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
-import static com.marwaeltayeb.souq.utils.Constant.EMAIL;
-import static com.marwaeltayeb.souq.utils.Constant.OTP;
+import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.databinding.ActivityAuthenticationBinding;
+import com.marwaeltayeb.souq.viewmodel.OtpViewModel;
 
 public class AuthenticationActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,7 +25,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     private OtpViewModel otpViewModel;
     private String email;
     private String correctOtpCode;
-    static boolean isActivityRunning = false;
+    public static boolean isActivityRunning = false;
     private int clickCount = 0;
 
     @Override
@@ -63,7 +64,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     private void getAnotherOtpCode() {
         otpViewModel.getOtpCode(email).observe(this, responseBody -> {
             if (!responseBody.isError()) {
-                correctOtpCode = responseBody.getOtp();
+                correctOtpCode = responseBody.getOptCode();
                 binding.reSend.setEnabled(false);
                 binding.countDownTimer.setVisibility(View.VISIBLE);
                 countDownTimer(binding.countDownTimer);

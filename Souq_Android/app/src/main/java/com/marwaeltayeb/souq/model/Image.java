@@ -1,10 +1,13 @@
 package com.marwaeltayeb.souq.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Image {
 
     private boolean error;
     private String message;
-    private String image;
+    @SerializedName("image")
+    private String imagePath;
 
     public boolean isError() {
         return error;
@@ -14,7 +17,7 @@ public class Image {
         return message;
     }
 
-    public String getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 }

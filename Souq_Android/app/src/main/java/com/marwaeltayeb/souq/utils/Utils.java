@@ -5,6 +5,8 @@ import android.content.Intent;
 
 public class Utils {
 
+    private Utils(){}
+
     public static void shareProduct(Context context,String productName ,String url) {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");

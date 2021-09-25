@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.utils.RequestCallback;
@@ -16,18 +16,13 @@ import retrofit2.Response;
 public class RemoveFavoriteRepository {
 
     private static final String TAG = RemoveFavoriteRepository.class.getSimpleName();
-    private Application application;
-
-    public RemoveFavoriteRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<ResponseBody> removeFavorite(int userId, int productId, RequestCallback callback) {
         final MutableLiveData<ResponseBody> mutableLiveData = new MutableLiveData<>();
         RetrofitClient.getInstance().getApi().removeFavorite(userId,productId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("onResponse", "" + response.code());
+                Log.d(TAG, "onResponse" + response.code());
 
                 if(response.code() == 200){
                     callback.onCallBack();
@@ -42,7 +37,7 @@ public class RemoveFavoriteRepository {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("onFailure", "" + t.getMessage());
+                Log.d(TAG, "onFailure"+ t.getMessage());
             }
         });
         return mutableLiveData;

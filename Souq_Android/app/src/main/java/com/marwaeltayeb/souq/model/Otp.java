@@ -2,7 +2,7 @@ package com.marwaeltayeb.souq.model;
 
 public class Otp {
 
-    private String otp;
+    private String optCode;
     private String email;
     private boolean error;
     private String message;
@@ -12,8 +12,8 @@ public class Otp {
         this.error = true;
     }
 
-    public String getOtp() {
-        return otp;
+    public String getOptCode() {
+        return optCode;
     }
 
     public String getEmail() {

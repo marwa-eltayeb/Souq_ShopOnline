@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 
 public class InternetUtils {
 
+    private InternetUtils(){}
+
     public static boolean isNetworkConnected(Context context) {
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

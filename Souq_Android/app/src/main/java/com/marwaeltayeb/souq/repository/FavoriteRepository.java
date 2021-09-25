@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.model.FavoriteApiResponse;
 import com.marwaeltayeb.souq.net.RetrofitClient;
@@ -15,11 +15,6 @@ import retrofit2.Response;
 public class FavoriteRepository {
 
     private static final String TAG = FavoriteRepository.class.getSimpleName();
-    private Application application;
-
-    public FavoriteRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<FavoriteApiResponse> getFavorites(int userId) {
         final MutableLiveData<FavoriteApiResponse> mutableLiveData = new MutableLiveData<>();

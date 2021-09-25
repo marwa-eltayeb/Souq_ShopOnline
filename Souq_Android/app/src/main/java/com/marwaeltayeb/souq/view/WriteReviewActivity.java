@@ -1,31 +1,30 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
+
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.WriteReviewViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityWriteReviewBinding;
 import com.marwaeltayeb.souq.model.Review;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.viewmodel.WriteReviewViewModel;
 
 import java.io.IOException;
 
-import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
-
 public class WriteReviewActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private static final String TAG = "WriteReviewActivity";
 
     private ActivityWriteReviewBinding binding;
     private int productId;
@@ -88,12 +87,12 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
         binding.editFeedback.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                // Do nothing
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                // Do nothing
             }
 
             @Override

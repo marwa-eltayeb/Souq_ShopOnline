@@ -1,26 +1,26 @@
 package com.marwaeltayeb.souq.view;
 
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+
 import android.app.ProgressDialog;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.LoginViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityLoginBinding;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.Validation;
-
-import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import com.marwaeltayeb.souq.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "LoginActivity";
     private ActivityLoginBinding binding;
     private LoginViewModel loginViewModel;
 
@@ -106,6 +106,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.forgetPassword:
                 goToPasswordAssistantActivity();
                 break;
+            default: // Should not get here
         }
     }
 

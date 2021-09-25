@@ -1,8 +1,9 @@
 package com.marwaeltayeb.souq.net;
 
-import androidx.paging.PageKeyedDataSource;
-import androidx.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.paging.PageKeyedDataSource;
 
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.model.ProductApiResponse;
@@ -13,10 +14,11 @@ import retrofit2.Response;
 
 public class ProductDataSource extends PageKeyedDataSource<Integer, Product> {
 
+    private static final String TAG = "ProductDataSource";
     private static final int FIRST_PAGE = 1;
     public static final int PAGE_SIZE = 20;
-    private String category;
-    private int userId;
+    private final String category;
+    private final int userId;
 
     ProductDataSource(String category, int userId) {
         this.category = category;
@@ -30,7 +32,7 @@ public class ProductDataSource extends PageKeyedDataSource<Integer, Product> {
                 .enqueue(new Callback<ProductApiResponse>() {
                     @Override
                     public void onResponse(Call<ProductApiResponse> call, Response<ProductApiResponse> response) {
-                        Log.v("onResponse", "Succeeded " + response.body().getProducts().size());
+                        Log.v(TAG, "Succeeded " + response.body().getProducts().size());
 
                         if (response.body().getProducts() == null) {
                             return;
@@ -43,7 +45,7 @@ public class ProductDataSource extends PageKeyedDataSource<Integer, Product> {
 
                     @Override
                     public void onFailure(Call<ProductApiResponse> call, Throwable t) {
-                        Log.v("onFailure", "Failed to get Products");
+                        Log.v(TAG, "Failed to get Products");
                     }
                 });
     }
@@ -64,7 +66,7 @@ public class ProductDataSource extends PageKeyedDataSource<Integer, Product> {
 
                     @Override
                     public void onFailure(Call<ProductApiResponse> call, Throwable t) {
-                        Log.v("onFailure", "Failed to previous Products");
+                        Log.v(TAG, "Failed to previous Products");
                     }
                 });
     }
@@ -87,7 +89,7 @@ public class ProductDataSource extends PageKeyedDataSource<Integer, Product> {
 
                     @Override
                     public void onFailure(Call<ProductApiResponse> call, Throwable t) {
-                        Log.v("onFailure", "Failed to get next Products");
+                        Log.v(TAG, "Failed to get next Products");
                     }
                 });
     }

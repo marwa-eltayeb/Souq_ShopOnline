@@ -1,63 +1,5 @@
 package com.marwaeltayeb.souq.view;
 
-import android.Manifest;
-import android.app.Dialog;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.paging.PagedList;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import androidx.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.HistoryViewModel;
-import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
-import com.marwaeltayeb.souq.ViewModel.UploadPhotoViewModel;
-import com.marwaeltayeb.souq.ViewModel.UserImageViewModel;
-import com.marwaeltayeb.souq.adapter.ProductAdapter;
-import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
-import com.marwaeltayeb.souq.model.Product;
-import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
-import com.marwaeltayeb.souq.storage.LoginUtils;
-import com.marwaeltayeb.souq.utils.OnNetworkListener;
-import com.marwaeltayeb.souq.utils.Slide;
-
-import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
 import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_PERMISSION_CODE;
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_REQUEST;
@@ -70,6 +12,63 @@ import static com.marwaeltayeb.souq.utils.ImageUtils.getImageUri;
 import static com.marwaeltayeb.souq.utils.ImageUtils.getRealPathFromURI;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 import static com.marwaeltayeb.souq.view.AccountActivity.historyIsDeleted;
+
+import android.Manifest;
+import android.app.Dialog;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.paging.PagedList;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.adapter.ProductAdapter;
+import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
+import com.marwaeltayeb.souq.model.Product;
+import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
+import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.utils.OnNetworkListener;
+import com.marwaeltayeb.souq.utils.Slide;
+import com.marwaeltayeb.souq.viewmodel.HistoryViewModel;
+import com.marwaeltayeb.souq.viewmodel.ProductViewModel;
+import com.marwaeltayeb.souq.viewmodel.UploadPhotoViewModel;
+import com.marwaeltayeb.souq.viewmodel.UserImageViewModel;
+
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProductActivity extends AppCompatActivity implements View.OnClickListener, OnNetworkListener, ProductAdapter.ProductAdapterOnClickHandler,
         NavigationView.OnNavigationItemSelectedListener {
@@ -89,7 +88,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     private Snackbar snack;
 
     private CircleImageView circleImageView;
-    private Uri selectedImage;
 
     private NetworkChangeReceiver mNetworkReceiver;
 
@@ -174,12 +172,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private void getMobiles() {
         if (isNetworkConnected(this)) {
-            productViewModel.productPagedList.observe(this, new Observer<PagedList<Product>>() {
-                @Override
-                public void onChanged(@Nullable PagedList<Product> products) {
-                    mobileAdapter.submitList(products);
-                }
-            });
+            productViewModel.productPagedList.observe(this, products -> mobileAdapter.submitList(products));
 
             binding.included.content.listOfMobiles.setAdapter(mobileAdapter);
             mobileAdapter.notifyDataSetChanged();
@@ -191,12 +184,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private void getLaptops() {
         if (isNetworkConnected(this)) {
-            productViewModel.laptopPagedList.observe(this, new Observer<PagedList<Product>>() {
-                @Override
-                public void onChanged(@Nullable PagedList<Product> products) {
-                    laptopAdapter.submitList(products);
-                }
-            });
+            productViewModel.laptopPagedList.observe(this, products -> laptopAdapter.submitList(products));
 
             binding.included.content.listOfLaptops.setAdapter(laptopAdapter);
             laptopAdapter.notifyDataSetChanged();
@@ -208,15 +196,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private void getHistory() {
         if (isNetworkConnected(this)) {
-            historyViewModel.historyPagedList.observe(this, new Observer<PagedList<Product>>() {
-                @Override
-                public void onChanged(@Nullable PagedList<Product> products) {
-                    binding.included.content.historyList.setAdapter(historyAdapter);
-                    historyAdapter.submitList(products);
-                    historyAdapter.notifyDataSetChanged();
+            historyViewModel.historyPagedList.observe(this, products -> {
+                binding.included.content.historyList.setAdapter(historyAdapter);
+                historyAdapter.submitList(products);
+                historyAdapter.notifyDataSetChanged();
 
-                    products.addWeakCallback(null, productCallback);
-                }
+                products.addWeakCallback(null, productCallback);
             });
         } else {
             showOrHideViews(View.INVISIBLE);
@@ -226,7 +211,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void flipImages(ArrayList<Integer> images) {
+    private void flipImages(List<Integer> images) {
         for (int image : images) {
             ImageView imageView = new ImageView(this);
             imageView.setBackgroundResource(image);
@@ -266,6 +251,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 Intent searchIntent = new Intent(ProductActivity.this, SearchActivity.class);
                 startActivity(searchIntent);
                 break;
+            default: // Should not get here
         }
     }
 
@@ -274,7 +260,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 .setMessage(message)
                 .setPositiveButton(R.string.ok, null).show();
 
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.darkGreen));
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.darkGreen));
     }
 
     private void showCustomAlertDialog() {
@@ -340,7 +326,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
-            selectedImage = data.getData();
+            Uri selectedImage = data.getData();
             circleImageView.setImageURI(selectedImage);
 
             String filePath = getRealPathFromURI(this, selectedImage);
@@ -363,13 +349,14 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     private void uploadPhoto(String pathname) {
         uploadPhotoViewModel.uploadPhoto(pathname).observe(this, responseBody -> {
             Toast.makeText(this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Image Uploaded");
         });
     }
 
     private void getUserImage() {
         userImageViewModel.getUserImage(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, response -> {
             if (response != null) {
-                String imageUrl = LOCALHOST + response.getImage().replaceAll("\\\\", "/");
+                String imageUrl = LOCALHOST + response.getImagePath().replaceAll("\\\\", "/");
 
                 RequestOptions options = new RequestOptions()
                         .centerCrop()
@@ -440,11 +427,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         getMenuInflater().inflate(R.menu.search, menu);
 
         MenuItem addMenu = menu.findItem(R.id.action_addProduct);
-        if (LoginUtils.getInstance(this).getUserInfo().isAdmin()) {
-            addMenu.setVisible(true);
-        } else {
-            addMenu.setVisible(false);
-        }
+        boolean isAdmin = LoginUtils.getInstance(this).getUserInfo().isAdmin();
+        addMenu.setVisible(isAdmin);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -460,8 +444,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 Intent addProductIntent = new Intent(this, AddProductActivity.class);
                 startActivity(addProductIntent);
                 return true;
+            default: return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void showOrHideViews(int view) {
@@ -528,8 +512,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 .setNegativeButton(R.string.cancel, null)
                 .show();
 
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.darkGreen));
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.darkGreen));
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this,R.color.darkGreen));
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.darkGreen));
     }
 
 

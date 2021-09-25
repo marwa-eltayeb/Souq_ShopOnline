@@ -1,25 +1,26 @@
 package com.marwaeltayeb.souq.view;
 
+import static com.marwaeltayeb.souq.utils.Constant.KEYWORD;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.preference.PreferenceManager;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.adapter.WordAdapter;
@@ -29,16 +30,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.marwaeltayeb.souq.utils.Constant.KEYWORD;
-
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
+    private static final String HISTORY_DATA = "history_data";
+    private static final int DRAWABLE_LEFT = 0;
+    private static final int DRAWABLE_RIGHT = 2;
+
     private ActivitySearchBinding binding;
-    private static String word;
+    private String word;
     private WordAdapter adapter;
     private List<String> list;
     private SharedPreferences sharedpreferences;
-    private SharedPreferences.OnSharedPreferenceChangeListener listener;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -61,10 +63,14 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
         binding.editQuery.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Do nothing
+            }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Do nothing
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -81,89 +87,64 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
         binding.editQuery.requestFocus();
 
-        binding.editQuery.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    // Your piece of code on keyboard search click
-                    Intent searchIntent = new Intent(SearchActivity.this, ResultActivity.class);
-                    word = binding.editQuery.getText().toString().trim();
-                    // Set Key with its specific key
-                    setWord(getApplicationContext(), word, word);
-                    searchIntent.putExtra(KEYWORD, word);
-                    startActivity(searchIntent);
+        binding.editQuery.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                // Your piece of code on keyboard search click
+                Intent searchIntent = new Intent(SearchActivity.this, ResultActivity.class);
+                word = binding.editQuery.getText().toString().trim();
+                // Set Key with its specific key
+                setWord(getApplicationContext(), word, word);
+                searchIntent.putExtra(KEYWORD, word);
+                startActivity(searchIntent);
+                return true;
+            }
+            return false;
+        });
+
+        binding.editQuery.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
+                if (event.getRawX() >= (binding.editQuery.getRight() - binding.editQuery.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    // your action here
+                    binding.editQuery.getText().clear();
+                    return true;
+                }else if ((event.getRawX() + binding.editQuery.getPaddingLeft()) <= (binding.editQuery.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width() + binding.editQuery.getLeft())) {
+                    Intent mainIntent = new Intent(SearchActivity.this, ProductActivity.class);
+                    startActivity(mainIntent);
                     return true;
                 }
-                return false;
             }
+            return false;
         });
 
-        binding.editQuery.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
-                final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
-
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
-                    if (event.getRawX() >= (binding.editQuery.getRight() - binding.editQuery.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // your action here
-                        binding.editQuery.getText().clear();
-                        return true;
-                    }else if ((event.getRawX() + binding.editQuery.getPaddingLeft()) <= (binding.editQuery.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width() + binding.editQuery.getLeft())) {
-                        Intent mainIntent = new Intent(SearchActivity.this, ProductActivity.class);
-                        startActivity(mainIntent);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-
-        SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if (key.equals(word)) {
-                    // Clear the adapter, then add list
-                    adapter.clear();
-                    list = new ArrayList<>(getWords(getApplicationContext()).keySet());
-                    adapter.addAll(list);
-                    binding.wordList.setAdapter(adapter);
-                }
-            }
-        };
-
-        sharedpreferences.registerOnSharedPreferenceChangeListener(listener);
-
+        sharedpreferences.registerOnSharedPreferenceChangeListener(prefChangeListener);
     }
 
     public void setWord(Context context , String key , String word){
-        sharedpreferences = context.getSharedPreferences("history_data", Context.MODE_PRIVATE);
+        sharedpreferences = context.getSharedPreferences(HISTORY_DATA, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(String.valueOf(key), word);
         editor.apply();
     }
 
     public Map<String, ?> getWords(Context context){
-        sharedpreferences = context.getSharedPreferences("history_data", Context.MODE_PRIVATE);
+        sharedpreferences = context.getSharedPreferences(HISTORY_DATA, Context.MODE_PRIVATE);
         // Returns a map containing a list of pairs key/value representing the preferences.
         return sharedpreferences.getAll();
     }
 
     public static void clearSharedPreferences(Context context){
-        context.getSharedPreferences("history_data", Context.MODE_PRIVATE).edit().clear().apply();
+        context.getSharedPreferences(HISTORY_DATA, Context.MODE_PRIVATE).edit().clear().apply();
     }
 
     public static void clearOneItemInSharedPreferences(String key, Context context){
-        context.getSharedPreferences("history_data", Context.MODE_PRIVATE).edit().remove(key).apply();
+        context.getSharedPreferences(HISTORY_DATA, Context.MODE_PRIVATE).edit().remove(key).apply();
     }
 
     @Override
     protected void onDestroy() {
         PreferenceManager.getDefaultSharedPreferences(this)
-                .unregisterOnSharedPreferenceChangeListener(listener);
+                .unregisterOnSharedPreferenceChangeListener(prefChangeListener);
         super.onDestroy();
     }
 
@@ -194,4 +175,14 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         Toast.makeText(this, "Removed", Toast.LENGTH_SHORT).show();
         return true;
     }
+
+    private final SharedPreferences.OnSharedPreferenceChangeListener prefChangeListener = (sharedPreferences, key) -> {
+        if (key.equals(word)) {
+            // Clear the adapter, then add list
+            adapter.clear();
+            list = new ArrayList<>(getWords(getApplicationContext()).keySet());
+            adapter.addAll(list);
+            binding.wordList.setAdapter(adapter);
+        }
+    };
 }

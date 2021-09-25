@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.model.CartApiResponse;
 import com.marwaeltayeb.souq.net.RetrofitClient;
@@ -15,11 +15,6 @@ import retrofit2.Response;
 public class CartRepository {
 
     private static final String TAG = CartRepository.class.getSimpleName();
-    private Application application;
-
-    public CartRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<CartApiResponse> getProductsInCart(int userId) {
         final MutableLiveData<CartApiResponse> mutableLiveData = new MutableLiveData<>();

@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.model.ProductApiResponse;
 import com.marwaeltayeb.souq.net.RetrofitClient;
@@ -15,11 +15,6 @@ import retrofit2.Response;
 public class SearchRepository {
 
     private static final String TAG = SearchRepository.class.getSimpleName();
-    private Application application;
-
-    public SearchRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<ProductApiResponse> getResponseDataBySearch(String keyword, int userId) {
         final MutableLiveData<ProductApiResponse> mutableLiveData = new MutableLiveData<>();

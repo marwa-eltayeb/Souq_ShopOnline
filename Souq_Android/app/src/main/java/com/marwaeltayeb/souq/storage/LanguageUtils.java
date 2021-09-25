@@ -1,14 +1,16 @@
 package com.marwaeltayeb.souq.storage;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 
 import java.util.Locale;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class LanguageUtils {
+
+    private LanguageUtils(){}
 
     public static void setEnglishState(Context context, boolean isEnglishEnabled){
         SharedPreferences sharedpreferences = context.getSharedPreferences("language_data", Context.MODE_PRIVATE);

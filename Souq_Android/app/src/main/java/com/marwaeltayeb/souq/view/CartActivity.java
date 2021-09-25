@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.CartViewModel;
+import com.marwaeltayeb.souq.viewmodel.CartViewModel;
 import com.marwaeltayeb.souq.adapter.CartAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityCartBinding;
 import com.marwaeltayeb.souq.model.Product;

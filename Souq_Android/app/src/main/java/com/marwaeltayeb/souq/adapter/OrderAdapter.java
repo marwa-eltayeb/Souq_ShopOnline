@@ -1,12 +1,12 @@
 package com.marwaeltayeb.souq.adapter;
 
-import android.content.Context;
-import androidx.databinding.DataBindingUtil;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.OrderListItemBinding;
@@ -17,7 +17,6 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
 
-    private Context mContext;
     private List<Order> orderList;
     private Order currentOrder;
 
@@ -30,8 +29,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         void onClick(Order order);
     }
 
-    public OrderAdapter(Context mContext, List<Order> orderList, OrderAdapter.OrderAdapterOnClickHandler clickHandler) {
-        this.mContext = mContext;
+    public OrderAdapter(List<Order> orderList, OrderAdapter.OrderAdapterOnClickHandler clickHandler) {
         this.orderList = orderList;
         this.clickHandler = clickHandler;
     }

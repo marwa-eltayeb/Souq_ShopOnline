@@ -1,30 +1,30 @@
 package com.marwaeltayeb.souq.view;
 
+import static android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+
 import android.app.ProgressDialog;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.RegisterViewModel;
 import com.marwaeltayeb.souq.databinding.ActivitySignupBinding;
 import com.marwaeltayeb.souq.model.User;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.Validation;
-
-import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import com.marwaeltayeb.souq.viewmodel.RegisterViewModel;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "SignUpActivity";
     private ActivitySignupBinding binding;
     private RegisterViewModel registerViewModel;
 
@@ -120,6 +120,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.textViewLogin:
                 goToLoginActivity();
                 break;
+            default: // Should not get here
         }
     }
 
@@ -139,7 +140,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String boldText = getString(R.string.boldText);
         String normalText = getString(R.string.normalText);
         SpannableString str = new SpannableString(boldText + normalText);
-        str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), SPAN_EXCLUSIVE_EXCLUSIVE);
         binding.textViewLogin.setText(str);
     }
 }

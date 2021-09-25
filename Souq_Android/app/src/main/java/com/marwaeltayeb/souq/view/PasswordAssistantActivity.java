@@ -1,22 +1,22 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
-import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-
-import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.OtpViewModel;
-import com.marwaeltayeb.souq.databinding.ActivityPasswordAssistantBinding;
-
 import static com.marwaeltayeb.souq.utils.Constant.EMAIL;
 import static com.marwaeltayeb.souq.utils.Constant.OTP;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.databinding.ActivityPasswordAssistantBinding;
+import com.marwaeltayeb.souq.viewmodel.OtpViewModel;
+
 public class PasswordAssistantActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "PasswordAssistantActivi";
     private ActivityPasswordAssistantBinding binding;
     private OtpViewModel otpViewModel;
     private String userEmail;
@@ -45,7 +45,7 @@ public class PasswordAssistantActivity extends AppCompatActivity implements View
         otpViewModel.getOtpCode(emailEntered).observe(this, responseBody -> {
             if (!responseBody.isError()) {
                 userEmail = responseBody.getEmail();
-                otpCode = responseBody.getOtp();
+                otpCode = responseBody.getOptCode();
                 goToAuthenticationActivity();
             } else {
                 binding.emailAddress.setError(responseBody.getMessage());

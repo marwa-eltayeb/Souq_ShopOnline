@@ -1,13 +1,12 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.model.Image;
 import com.marwaeltayeb.souq.net.RetrofitClient;
-import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,15 +15,10 @@ import retrofit2.Response;
 public class UserImageRepository {
 
     private static final String TAG = UserImageRepository.class.getSimpleName();
-    private Application application;
-
-    public UserImageRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<Image> getUserImage(int userId) {
         final MutableLiveData<Image> mutableLiveData = new MutableLiveData<>();
-        RetrofitClient.getInstance().getApi().getUserImage(LoginUtils.getInstance(application).getUserInfo().getId()).enqueue(new Callback<Image>() {
+        RetrofitClient.getInstance().getApi().getUserImage(userId).enqueue(new Callback<Image>() {
             @Override
             public void onResponse(Call<Image> call, Response<Image> response) {
                 Log.d("onResponse", "" + response.code());

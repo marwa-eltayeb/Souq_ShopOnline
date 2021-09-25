@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.net.RetrofitClient;
 
@@ -19,11 +19,6 @@ import retrofit2.Response;
 public class AddProductRepository {
 
     private static final String TAG = AddProductRepository.class.getSimpleName();
-    private Application application;
-
-    public AddProductRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<ResponseBody> addProduct(Map<String, RequestBody> productInfo, MultipartBody.Part image) {
         final MutableLiveData<ResponseBody> mutableLiveData = new MutableLiveData<>();

@@ -1,20 +1,25 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
+
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.bumptech.glide.Glide;
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.ReviewViewModel;
-import com.marwaeltayeb.souq.ViewModel.ToCartViewModel;
 import com.marwaeltayeb.souq.adapter.ReviewAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityDetailsBinding;
 import com.marwaeltayeb.souq.model.Cart;
@@ -22,14 +27,10 @@ import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.model.Review;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.RequestCallback;
+import com.marwaeltayeb.souq.viewmodel.ReviewViewModel;
+import com.marwaeltayeb.souq.viewmodel.ToCartViewModel;
 
 import java.util.List;
-
-import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
-import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
 
 public class DetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -95,9 +96,8 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         reviewViewModel.getReviews(product.getProductId()).observe(this, reviewApiResponse -> {
             if (reviewApiResponse != null) {
                 reviewList = reviewApiResponse.getReviewList();
-                reviewAdapter = new ReviewAdapter(getApplicationContext(), reviewList);
+                reviewAdapter = new ReviewAdapter(reviewList);
                 binding.listOfReviews.setAdapter(reviewAdapter);
-                //reviewAdapter.notifyOnInsertedItem();
                 reviewAdapter.notifyDataSetChanged();
             }
 
@@ -122,9 +122,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
             allReviewIntent.putExtra(PRODUCT_ID,product.getProductId());
             startActivity(allReviewIntent);
         }else if(view.getId() == R.id.addToCart){
-            insertToCart(() -> {
-                product.setIsInCart(true);
-            });
+            insertToCart(() -> product.setIsInCart(true));
             Intent cartIntent = new Intent(DetailsActivity.this, CartActivity.class);
             startActivity(cartIntent);
         }else if(view.getId() == R.id.buy){

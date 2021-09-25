@@ -1,26 +1,24 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.paging.PagedList;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+
 import android.content.Intent;
 import android.content.res.Configuration;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.ProductViewModel;
 import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityAllLaptopsBinding;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
-
-import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+import com.marwaeltayeb.souq.viewmodel.ProductViewModel;
 
 public class AllLaptopsActivity extends AppCompatActivity implements ProductAdapter.ProductAdapterOnClickHandler {
 
@@ -57,12 +55,7 @@ public class AllLaptopsActivity extends AppCompatActivity implements ProductAdap
     public void getAllLaptops() {
 
         // Observe the productPagedList from ViewModel
-        productViewModel.laptopPagedList.observe(this, new Observer<PagedList<Product>>() {
-            @Override
-            public void onChanged(@Nullable PagedList<Product> products) {
-                laptopAdapter.submitList(products);
-            }
-        });
+        productViewModel.laptopPagedList.observe(this, products -> laptopAdapter.submitList(products));
 
         binding.allLaptopsRecyclerView.setAdapter(laptopAdapter);
         laptopAdapter.notifyDataSetChanged();

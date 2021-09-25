@@ -1,16 +1,16 @@
 package com.marwaeltayeb.souq.view;
 
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import static com.marwaeltayeb.souq.utils.Constant.PICK_IMAGE;
+import static com.marwaeltayeb.souq.utils.Constant.READ_EXTERNAL_STORAGE_CODE;
+import static com.marwaeltayeb.souq.utils.ImageUtils.getRealPathFromURI;
+
 import android.Manifest;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -19,9 +19,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.AddProductViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityAddProductBinding;
+import com.marwaeltayeb.souq.viewmodel.AddProductViewModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,17 +38,12 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
-import static com.marwaeltayeb.souq.utils.Constant.PICK_IMAGE;
-import static com.marwaeltayeb.souq.utils.Constant.READ_EXTERNAL_STORAGE_CODE;
-import static com.marwaeltayeb.souq.utils.ImageUtils.getRealPathFromURI;
-
 public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "AddProductActivity";
+    private static final String IMAGE = "image/*";
     private ActivityAddProductBinding binding;
     private AddProductViewModel addProductViewModel;
-    private Uri selectedImage;
     private String filePath;
 
     @Override
@@ -105,7 +106,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 
         // Pathname
         File file = new File(pathname);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse(IMAGE), file);
         MultipartBody.Part photo = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
         addProductViewModel.addProduct(map, photo).observe(this, responseBody -> {
@@ -140,10 +141,10 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 
                 try {
                     Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                    getIntent.setType("image/*");
+                    getIntent.setType(IMAGE);
 
                     Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    pickIntent.setType("image/*");
+                    pickIntent.setType(IMAGE);
 
                     Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
                     chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
@@ -161,7 +162,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-            selectedImage = data.getData();
+            Uri selectedImage = data.getData();
             binding.imageOfProduct.setImageURI(selectedImage);
 
             filePath = getRealPathFromURI(this, selectedImage);

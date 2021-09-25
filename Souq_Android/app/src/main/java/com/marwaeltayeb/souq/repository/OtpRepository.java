@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.model.Otp;
 import com.marwaeltayeb.souq.net.RetrofitClient;
@@ -15,11 +15,6 @@ import retrofit2.Response;
 public class OtpRepository {
 
     private static final String TAG = OtpRepository.class.getSimpleName();
-    private Application application;
-
-    public OtpRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<Otp> getOtpCode(String email) {
         final MutableLiveData<Otp> mutableLiveData = new MutableLiveData<>();

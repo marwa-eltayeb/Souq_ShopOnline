@@ -1,29 +1,27 @@
 package com.marwaeltayeb.souq.adapter;
 
+import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
+import static com.marwaeltayeb.souq.utils.Utils.shareProduct;
+
 import android.annotation.SuppressLint;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.paging.PagedList;
-import androidx.paging.PagedListAdapter;
 import android.content.Context;
-import androidx.databinding.DataBindingUtil;
-import androidx.annotation.NonNull;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.AddFavoriteViewModel;
-import com.marwaeltayeb.souq.ViewModel.FromCartViewModel;
-import com.marwaeltayeb.souq.ViewModel.RemoveFavoriteViewModel;
-import com.marwaeltayeb.souq.ViewModel.ToCartViewModel;
-import com.marwaeltayeb.souq.ViewModel.ToHistoryViewModel;
 import com.marwaeltayeb.souq.databinding.ProductListItemBinding;
 import com.marwaeltayeb.souq.model.Cart;
 import com.marwaeltayeb.souq.model.Favorite;
@@ -31,21 +29,23 @@ import com.marwaeltayeb.souq.model.History;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.RequestCallback;
+import com.marwaeltayeb.souq.viewmodel.AddFavoriteViewModel;
+import com.marwaeltayeb.souq.viewmodel.FromCartViewModel;
+import com.marwaeltayeb.souq.viewmodel.RemoveFavoriteViewModel;
+import com.marwaeltayeb.souq.viewmodel.ToCartViewModel;
+import com.marwaeltayeb.souq.viewmodel.ToHistoryViewModel;
 
 import java.text.DecimalFormat;
 
-import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
-import static com.marwaeltayeb.souq.utils.Utils.shareProduct;
-
 public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.ProductViewHolder> {
 
-    private Context mContext;
-    public static Product product;
-    private AddFavoriteViewModel addFavoriteViewModel;
-    private RemoveFavoriteViewModel removeFavoriteViewModel;
-    private ToCartViewModel toCartViewModel;
-    private FromCartViewModel fromCartViewModel;
-    private ToHistoryViewModel toHistoryViewModel;
+    private final Context mContext;
+    private Product product;
+    private final AddFavoriteViewModel addFavoriteViewModel;
+    private final RemoveFavoriteViewModel removeFavoriteViewModel;
+    private final ToCartViewModel toCartViewModel;
+    private final FromCartViewModel fromCartViewModel;
+    private final ToHistoryViewModel toHistoryViewModel;
 
     // Create a final private MovieAdapterOnClickHandler called mClickHandler
     private ProductAdapterOnClickHandler clickHandler;
@@ -123,15 +123,6 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
         return position;
     }
 
-    @Override
-    public PagedList<Product> getCurrentList() {
-        return super.getCurrentList();
-    }
-
-    public Product getProductAt(int position) {
-        return getItem(position);
-    }
-
     public void notifyOnInsertedItem(int position) {
         notifyItemInserted(position);
         notifyItemRangeInserted(position, getCurrentList().size()-1);
@@ -139,7 +130,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
     }
 
     // It determine if two list objects are the same or not
-    private static DiffUtil.ItemCallback<Product> DIFF_CALLBACK = new DiffUtil.ItemCallback<Product>() {
+    private static final DiffUtil.ItemCallback<Product> DIFF_CALLBACK = new DiffUtil.ItemCallback<Product>() {
         @Override
         public boolean areItemsTheSame(@NonNull Product oldProduct, @NonNull Product newProduct) {
             return oldProduct.getProductName().equals(newProduct.getProductName());
@@ -183,6 +174,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
                 case R.id.imgCart:
                     toggleProductsInCart();
                     break;
+                default: // Should not get here
             }
         }
 

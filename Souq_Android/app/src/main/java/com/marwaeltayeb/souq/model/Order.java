@@ -25,8 +25,6 @@ public class Order implements Serializable {
     @SerializedName("phone")
     private String shippingPhone;
 
-    public Order(){}
-
     public int getProductId() {
         return productId;
     }

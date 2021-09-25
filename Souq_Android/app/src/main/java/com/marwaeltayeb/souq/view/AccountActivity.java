@@ -1,12 +1,15 @@
 package com.marwaeltayeb.souq.view;
 
+import static com.marwaeltayeb.souq.storage.LanguageUtils.getEnglishState;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.setEnglishState;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.setLocale;
+import static com.marwaeltayeb.souq.utils.CommunicateUtils.rateAppOnGooglePlay;
+import static com.marwaeltayeb.souq.utils.CommunicateUtils.shareApp;
+
 import android.app.Dialog;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,20 +18,18 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.DeleteUserViewModel;
-import com.marwaeltayeb.souq.ViewModel.FromHistoryViewModel;
+import com.marwaeltayeb.souq.viewmodel.DeleteUserViewModel;
+import com.marwaeltayeb.souq.viewmodel.FromHistoryViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityAccountBinding;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 
 import java.io.IOException;
-
-import static com.marwaeltayeb.souq.storage.LanguageUtils.getEnglishState;
-import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
-import static com.marwaeltayeb.souq.storage.LanguageUtils.setEnglishState;
-import static com.marwaeltayeb.souq.storage.LanguageUtils.setLocale;
-import static com.marwaeltayeb.souq.utils.CommunicateUtils.rateAppOnGooglePlay;
-import static com.marwaeltayeb.souq.utils.CommunicateUtils.shareApp;
 
 public class AccountActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -86,9 +87,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void deleteAllProductsInHistory() {
-       fromHistoryViewModel.removeAllFromHistory().observe(this, responseBody -> {
-           Log.d(TAG,getString(R.string.all_removed));
-       });
+       fromHistoryViewModel.removeAllFromHistory().observe(this, responseBody -> Log.d(TAG,getString(R.string.all_removed)));
        historyIsDeleted = true;
     }
 
@@ -123,6 +122,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.deleteAccount:
                 deleteAccount();
                 break;
+            default: // Should not get here
         }
     }
 

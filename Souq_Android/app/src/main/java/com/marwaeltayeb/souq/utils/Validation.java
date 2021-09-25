@@ -4,8 +4,10 @@ import android.util.Patterns;
 
 public class Validation {
 
-    private static int PASSWORD_MIN_LENGTH = 8;
-    private static int NAME_MIN_LENGTH = 3;
+    private static final int PASSWORD_MIN_LENGTH = 8;
+    private static final int NAME_MIN_LENGTH = 3;
+
+    private Validation(){ }
 
     public static boolean isValidEmail(String email){
         return !Patterns.EMAIL_ADDRESS.matcher(email).matches();

@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.model.NewsFeedResponse;
 import com.marwaeltayeb.souq.net.RetrofitClient;
@@ -15,11 +15,6 @@ import retrofit2.Response;
 public class NewsFeedRepository {
 
     private static final String TAG = NewsFeedRepository.class.getSimpleName();
-    private Application application;
-
-    public NewsFeedRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<NewsFeedResponse> getPosters() {
         final MutableLiveData<NewsFeedResponse> mutableLiveData = new MutableLiveData<>();

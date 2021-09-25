@@ -1,31 +1,32 @@
 package com.marwaeltayeb.souq.adapter;
 
-import androidx.lifecycle.ViewModelProviders;
+import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
+
 import android.content.Context;
-import androidx.databinding.DataBindingUtil;
-import androidx.annotation.NonNull;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.AddFavoriteViewModel;
-import com.marwaeltayeb.souq.ViewModel.FromCartViewModel;
-import com.marwaeltayeb.souq.ViewModel.RemoveFavoriteViewModel;
 import com.marwaeltayeb.souq.databinding.CartListItemBinding;
 import com.marwaeltayeb.souq.model.Favorite;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.RequestCallback;
+import com.marwaeltayeb.souq.viewmodel.AddFavoriteViewModel;
+import com.marwaeltayeb.souq.viewmodel.FromCartViewModel;
+import com.marwaeltayeb.souq.viewmodel.RemoveFavoriteViewModel;
 
 import java.text.DecimalFormat;
 import java.util.List;
-
-import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
@@ -124,6 +125,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 case R.id.imgCart:
                     deleteProductsInCart();
                     break;
+                default: // Should not get here
             }
         }
 

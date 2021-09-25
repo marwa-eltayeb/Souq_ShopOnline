@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.FavoriteViewModel;
+import com.marwaeltayeb.souq.viewmodel.FavoriteViewModel;
 import com.marwaeltayeb.souq.adapter.WishListAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityWishlistBinding;
 import com.marwaeltayeb.souq.model.Product;

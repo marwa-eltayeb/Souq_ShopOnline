@@ -4,7 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Review {
 
+    @SerializedName("userId")
     private int userId;
+    @SerializedName("productId")
     private int productId;
     @SerializedName("name")
     private String userName;

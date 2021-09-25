@@ -1,27 +1,28 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
-import androidx.databinding.DataBindingUtil;
-import android.os.Bundle;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Toast;
-
-import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.PasswordViewModel;
-import com.marwaeltayeb.souq.databinding.ActivityPasswordBinding;
-import com.marwaeltayeb.souq.storage.LoginUtils;
-import com.marwaeltayeb.souq.utils.Validation;
-
-import java.io.IOException;
-
 import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.view.AuthenticationActivity.isActivityRunning;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.marwaeltayeb.souq.R;
+import com.marwaeltayeb.souq.databinding.ActivityPasswordBinding;
+import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.utils.Validation;
+import com.marwaeltayeb.souq.viewmodel.PasswordViewModel;
+
+import java.io.IOException;
+
 public class PasswordActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String TAG = "PasswordActivity";
+
     private ActivityPasswordBinding binding;
     private PasswordViewModel passwordViewModel;
 
@@ -53,6 +54,7 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
             case R.id.cancel:
                 finish();
                 break;
+            default: // Should not get here
         }
     }
 

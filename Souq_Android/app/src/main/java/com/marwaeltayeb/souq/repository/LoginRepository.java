@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.model.LoginApiResponse;
 import com.marwaeltayeb.souq.net.RetrofitClient;
@@ -15,11 +15,6 @@ import retrofit2.Response;
 public class LoginRepository {
 
     private static final String TAG = LoginRepository.class.getSimpleName();
-    private Application application;
-
-    public LoginRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<LoginApiResponse> getLoginResponseData(String email, String password) {
         final MutableLiveData<LoginApiResponse> mutableLiveData = new MutableLiveData<>();

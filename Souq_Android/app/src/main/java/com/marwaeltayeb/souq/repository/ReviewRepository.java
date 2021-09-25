@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.model.ReviewApiResponse;
 import com.marwaeltayeb.souq.net.RetrofitClient;
@@ -15,12 +15,7 @@ import retrofit2.Response;
 public class ReviewRepository {
 
     private static final String TAG = ReviewRepository.class.getSimpleName();
-    private Application application;
-
-    public ReviewRepository(Application application) {
-        this.application = application;
-    }
-
+    
     public LiveData<ReviewApiResponse> getReviews(int productId) {
         final MutableLiveData<ReviewApiResponse> mutableLiveData = new MutableLiveData<>();
         RetrofitClient.getInstance().getApi().getAllReviews(productId).enqueue(new Callback<ReviewApiResponse>() {

@@ -1,24 +1,25 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.paging.PagedList;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
+
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import androidx.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.content.ContextCompat;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.CategoryViewModel;
 import com.marwaeltayeb.souq.adapter.ProductAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityCategoryBinding;
 import com.marwaeltayeb.souq.model.Product;
@@ -26,14 +27,10 @@ import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
 import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.Constant;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
-
-import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
-import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
+import com.marwaeltayeb.souq.viewmodel.CategoryViewModel;
 
 public class CategoryActivity extends AppCompatActivity implements ProductAdapter.ProductAdapterOnClickHandler, OnNetworkListener {
 
-    private static final String TAG = "CategoryActivity";
     private ActivityCategoryBinding binding;
     private ProductAdapter productAdapter;
     private CategoryViewModel categoryViewModel;
@@ -83,12 +80,9 @@ public class CategoryActivity extends AppCompatActivity implements ProductAdapte
 
     public void getProductsByCategory() {
         if (isNetworkConnected(this)) {
-            categoryViewModel.categoryPagedList.observe(this, new Observer<PagedList<Product>>() {
-                @Override
-                public void onChanged(@Nullable PagedList<Product> products) {
-                    productAdapter.notifyDataSetChanged();
-                    productAdapter.submitList(products);
-                }
+            categoryViewModel.categoryPagedList.observe(this, products -> {
+                productAdapter.notifyDataSetChanged();
+                productAdapter.submitList(products);
             });
 
             binding.categoryList.setAdapter(productAdapter);

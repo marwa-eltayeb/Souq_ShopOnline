@@ -14,7 +14,9 @@ public class Shipping {
     private String zip;
     @SerializedName("phone")
     private String phone;
+    @SerializedName("userId")
     private int userId;
+    @SerializedName("productId")
     private int productId;
 
     public Shipping(String address, String city, String country, String zip, String phone, int userId, int productId) {

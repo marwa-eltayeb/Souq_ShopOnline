@@ -1,21 +1,22 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
+import static com.marwaeltayeb.souq.utils.Constant.ORDER;
+
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.OrderViewModel;
 import com.marwaeltayeb.souq.adapter.OrderAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityOrdersBinding;
 import com.marwaeltayeb.souq.model.Order;
 import com.marwaeltayeb.souq.storage.LoginUtils;
-
-import static com.marwaeltayeb.souq.utils.Constant.ORDER;
+import com.marwaeltayeb.souq.viewmodel.OrderViewModel;
 
 public class OrdersActivity extends AppCompatActivity implements OrderAdapter.OrderAdapterOnClickHandler {
 
@@ -47,7 +48,7 @@ public class OrdersActivity extends AppCompatActivity implements OrderAdapter.Or
 
     private void getOrders() {
         orderViewModel.getOrders(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, orderApiResponse -> {
-            orderAdapter = new OrderAdapter(getApplicationContext(), orderApiResponse.getOrderList(),this);
+            orderAdapter = new OrderAdapter( orderApiResponse.getOrderList(),this);
             binding.orderList.setAdapter(orderAdapter);
             orderAdapter.notifyDataSetChanged();
         });

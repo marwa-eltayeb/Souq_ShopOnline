@@ -1,27 +1,28 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
+import static com.marwaeltayeb.souq.utils.Constant.KEYWORD;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
+
 import android.content.Intent;
 import android.content.res.Configuration;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.SearchViewModel;
 import com.marwaeltayeb.souq.adapter.SearchAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityResultBinding;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.viewmodel.SearchViewModel;
 
 import java.util.List;
-
-import static com.marwaeltayeb.souq.utils.Constant.KEYWORD;
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
-import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -47,11 +48,11 @@ public class ResultActivity extends AppCompatActivity {
         userId = LoginUtils.getInstance(this).getUserInfo().getId();
 
         if (isNetworkConnected(getApplicationContext())) {
-            Search(keyword);
+            search(keyword);
         }
     }
 
-    private void Search(String query) {
+    private void search(String query) {
 
         binding.listOfSearchedList.setHasFixedSize(true);
         binding.listOfSearchedList.setLayoutManager(new GridLayoutManager(this, (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 2 : 4));
@@ -68,7 +69,7 @@ public class ResultActivity extends AppCompatActivity {
                     public void onClick(Product product) {
                         Intent intent = new Intent(ResultActivity.this, DetailsActivity.class);
                         // Pass an object of product class
-                        intent.putExtra(PRODUCT, (product));
+                        intent.putExtra(PRODUCT, product);
                         startActivity(intent);
                     }
                 },this);

@@ -1,11 +1,11 @@
 package com.marwaeltayeb.souq.adapter;
 
-import android.content.Context;
-import androidx.databinding.DataBindingUtil;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ReviewListItemBinding;
@@ -15,11 +15,9 @@ import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
 
-    private Context mContext;
     private List<Review> reviewList;
 
-    public ReviewAdapter(Context mContext, List<Review> reviewList) {
-        this.mContext = mContext;
+    public ReviewAdapter(List<Review> reviewList) {
         this.reviewList = reviewList;
     }
 

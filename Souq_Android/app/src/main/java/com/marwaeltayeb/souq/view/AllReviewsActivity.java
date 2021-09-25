@@ -1,23 +1,24 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
+
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.ReviewViewModel;
 import com.marwaeltayeb.souq.adapter.ReviewAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityAllReviewsBinding;
 import com.marwaeltayeb.souq.model.Review;
+import com.marwaeltayeb.souq.viewmodel.ReviewViewModel;
 
 import java.util.List;
-
-import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCT_ID;
 
 public class AllReviewsActivity extends AppCompatActivity {
 
@@ -57,7 +58,7 @@ public class AllReviewsActivity extends AppCompatActivity {
                 binding.rateProduct.setRating(reviewApiResponse.getAverageReview());
                 binding.rateNumber.setText(reviewApiResponse.getAverageReview() + getString(R.string.highestNumber));
                 reviewList = reviewApiResponse.getReviewList();
-                reviewAdapter = new ReviewAdapter(getApplicationContext(), reviewList);
+                reviewAdapter = new ReviewAdapter(reviewList);
                 binding.allReviewsList.setAdapter(reviewAdapter);
                 reviewAdapter.notifyDataSetChanged();
             }

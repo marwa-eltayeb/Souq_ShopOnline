@@ -10,7 +10,9 @@ public class Ordering {
     private String cardNumber;
     @SerializedName("expiration_date")
     private String fullDate;
+    @SerializedName("userId")
     private int userId;
+    @SerializedName("productId")
     private int productId;
 
     public Ordering(String nameOnCard, String cardNumber, String fullDate, int userId, int productId) {
@@ -21,3 +23,6 @@ public class Ordering {
         this.productId = productId;
     }
 }
+
+
+

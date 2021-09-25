@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.model.Ordering;
 import com.marwaeltayeb.souq.net.RetrofitClient;
@@ -16,11 +16,6 @@ import retrofit2.Response;
 public class OrderingRepository {
 
     private static final String TAG = OrderingRepository.class.getSimpleName();
-    private Application application;
-
-    public OrderingRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<ResponseBody> orderProduct(Ordering ordering) {
         final MutableLiveData<ResponseBody> mutableLiveData = new MutableLiveData<>();

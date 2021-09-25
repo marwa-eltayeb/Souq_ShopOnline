@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.model.RegisterApiResponse;
 import com.marwaeltayeb.souq.model.User;
@@ -15,12 +15,6 @@ import retrofit2.Response;
 public class RegisterRepository {
 
     private static final String TAG = RegisterRepository.class.getSimpleName();
-    private Application application;
-
-    public RegisterRepository(Application application) {
-        this.application = application;
-    }
-
 
     public LiveData<RegisterApiResponse> getRegisterResponseData(User user) {
         final MutableLiveData<RegisterApiResponse> mutableLiveData = new MutableLiveData<>();

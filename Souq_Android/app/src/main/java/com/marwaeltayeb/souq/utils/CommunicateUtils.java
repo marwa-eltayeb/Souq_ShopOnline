@@ -7,6 +7,8 @@ import android.net.Uri;
 
 public class CommunicateUtils {
 
+    private CommunicateUtils(){}
+
     public static void shareApp(Context context) {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");

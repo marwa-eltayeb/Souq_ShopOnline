@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.net.RetrofitClient;
 
@@ -15,11 +15,6 @@ import retrofit2.Response;
 public class DeleteUserRepository{
 
     private static final String TAG = DeleteUserRepository.class.getSimpleName();
-    private Application application;
-
-    public DeleteUserRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<ResponseBody> deleteUser(int userId) {
         final MutableLiveData<ResponseBody> mutableLiveData = new MutableLiveData<>();

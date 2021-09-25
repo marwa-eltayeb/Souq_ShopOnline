@@ -1,9 +1,9 @@
 package com.marwaeltayeb.souq.repository;
 
-import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.net.RetrofitClient;
 
@@ -15,18 +15,13 @@ import retrofit2.Response;
 public class FromHistoryRepository {
 
     private static final String TAG = FromHistoryRepository.class.getSimpleName();
-    private Application application;
-
-    public FromHistoryRepository(Application application) {
-        this.application = application;
-    }
 
     public LiveData<ResponseBody> removeAllFromHistory() {
         final MutableLiveData<ResponseBody> mutableLiveData = new MutableLiveData<>();
         RetrofitClient.getInstance().getApi().removeAllFromHistory().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("onResponse", "" + response.code());
+                Log.d(TAG, "onResponse" + response.code());
 
                 ResponseBody responseBody = response.body();
 
@@ -37,7 +32,7 @@ public class FromHistoryRepository {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("onFailure", "" + t.getMessage());
+                Log.d(TAG, "onFailure" + t.getMessage());
             }
         });
         return mutableLiveData;

@@ -1,25 +1,26 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
+
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.ViewModel.OrderingViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityOrderProductBinding;
 import com.marwaeltayeb.souq.model.Ordering;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.viewmodel.OrderingViewModel;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCTID;
 
 public class OrderProductActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -73,12 +74,12 @@ public class OrderProductActivity extends AppCompatActivity implements View.OnCl
 
     private void populateSpinner() {
         String[] years = {"2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030"};
-        ArrayAdapter<CharSequence> langAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, years );
+        ArrayAdapter<CharSequence> langAdapter = new ArrayAdapter<>(this, R.layout.spinner_text, years );
         langAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
         binding.spinnerYear.setAdapter(langAdapter);
 
         String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
-        ArrayAdapter<CharSequence> langAdapter2 = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, months );
+        ArrayAdapter<CharSequence> langAdapter2 = new ArrayAdapter<>(this, R.layout.spinner_text, months );
         langAdapter2.setDropDownViewResource(R.layout.simple_spinner_dropdown);
         binding.spinnerMonth.setAdapter(langAdapter2);
 

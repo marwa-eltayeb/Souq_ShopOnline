@@ -1,8 +1,9 @@
 package com.marwaeltayeb.souq.net;
 
-import androidx.paging.PageKeyedDataSource;
-import androidx.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.paging.PageKeyedDataSource;
 
 import com.marwaeltayeb.souq.model.HistoryApiResponse;
 import com.marwaeltayeb.souq.model.Product;
@@ -13,9 +14,10 @@ import retrofit2.Response;
 
 public class HistoryDataSource extends PageKeyedDataSource<Integer, Product> {
 
+    private static final String TAG = "HistoryDataSource";
     private static final int FIRST_PAGE = 1;
     public static final int PAGE_SIZE = 20;
-    private int userId;
+    private final int userId;
 
     public HistoryDataSource(int userId) {
         this.userId = userId;
@@ -28,7 +30,7 @@ public class HistoryDataSource extends PageKeyedDataSource<Integer, Product> {
                 .enqueue(new Callback<HistoryApiResponse>() {
                     @Override
                     public void onResponse(Call<HistoryApiResponse> call, Response<HistoryApiResponse> response) {
-                        Log.v("onResponse", "Succeeded " + response.body().getHistoryList().size());
+                        Log.v(TAG, "Succeeded " + response.body().getHistoryList().size());
 
                         if (response.body().getHistoryList()== null) {
                             return;
@@ -41,7 +43,7 @@ public class HistoryDataSource extends PageKeyedDataSource<Integer, Product> {
 
                     @Override
                     public void onFailure(Call<HistoryApiResponse> call, Throwable t) {
-                        Log.v("onFailure", "Failed to get Products");
+                        Log.v(TAG, "Failed to get Products");
                     }
                 });
     }
@@ -62,7 +64,7 @@ public class HistoryDataSource extends PageKeyedDataSource<Integer, Product> {
 
                     @Override
                     public void onFailure(Call<HistoryApiResponse> call, Throwable t) {
-                        Log.v("onFailure", "Failed to previous Products");
+                        Log.v(TAG, "Failed to previous Products");
                     }
                 });
     }
@@ -85,7 +87,7 @@ public class HistoryDataSource extends PageKeyedDataSource<Integer, Product> {
 
                     @Override
                     public void onFailure(Call<HistoryApiResponse> call, Throwable t) {
-                        Log.v("onFailure", "Failed to get next Products");
+                        Log.v(TAG, "Failed to get next Products");
                     }
                 });
     }
