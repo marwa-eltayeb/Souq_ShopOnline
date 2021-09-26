@@ -158,7 +158,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
             // Get position of the product
             product = getItem(position);
 

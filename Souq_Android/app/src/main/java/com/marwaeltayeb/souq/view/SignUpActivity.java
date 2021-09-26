@@ -2,8 +2,9 @@ package com.marwaeltayeb.souq.view;
 
 import static android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
 import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import static com.marwaeltayeb.souq.utils.ProgressDialog.createAlertDialog;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -91,19 +92,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppTheme_Dialog);
-        progressDialog.setMessage(getString(R.string.create_account));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        AlertDialog alert = createAlertDialog(this);
 
         registerViewModel.getRegisterResponseLiveData(new User(name, email, password)).observe(this, registerApiResponse -> {
             if (!registerApiResponse.isError()) {
                 Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_LONG).show();
                 LoginUtils.getInstance(this).saveUserInfo(registerApiResponse.getUser());
-                progressDialog.dismiss();
+                alert.dismiss();
                 goToProductActivity();
             }else {
-                progressDialog.cancel();
+                alert.dismiss();
                 Toast.makeText(this, registerApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

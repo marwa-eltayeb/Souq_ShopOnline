@@ -1,11 +1,11 @@
 package com.marwaeltayeb.souq.view;
 
 import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
-import static com.marwaeltayeb.souq.utils.Constant.PICK_IMAGE;
 import static com.marwaeltayeb.souq.utils.Constant.READ_EXTERNAL_STORAGE_CODE;
 import static com.marwaeltayeb.souq.utils.ImageUtils.getRealPathFromURI;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -19,6 +19,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -99,7 +101,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         map.put("supplier", toRequestBody(supplierString));
         map.put("category", toRequestBody(categoryString));
 
-        if(TextUtils.isEmpty(pathname)){
+        if (TextUtils.isEmpty(pathname)) {
             Toast.makeText(this, "No picture is chosen", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -149,7 +151,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                     Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
                     chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
 
-                    startActivityForResult(chooserIntent, PICK_IMAGE);
+                    addProductActivityResultLauncher.launch(chooserIntent);
                 } catch (Exception exp) {
                     Log.i("Error", exp.toString());
                 }
@@ -157,18 +159,18 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    ActivityResultLauncher<Intent> addProductActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    Uri selectedImage = data.getData();
+                    binding.imageOfProduct.setImageURI(selectedImage);
 
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-            Uri selectedImage = data.getData();
-            binding.imageOfProduct.setImageURI(selectedImage);
-
-            filePath = getRealPathFromURI(this, selectedImage);
-            Log.d(TAG, "onActivityResult: " + filePath);
-        }
-    }
+                    filePath = getRealPathFromURI(getApplicationContext(), selectedImage);
+                    Log.d(TAG, "onActivityResult: " + filePath);
+                }
+            });
 
     @Override
     public void onClick(View view) {

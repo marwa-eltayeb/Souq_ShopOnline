@@ -1,8 +1,9 @@
 package com.marwaeltayeb.souq.view;
 
 import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import static com.marwaeltayeb.souq.utils.ProgressDialog.createAlertDialog;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -76,19 +77,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        ProgressDialog progressDialog = new ProgressDialog(this, R.style.AppTheme_Dialog);
-        progressDialog.setMessage(getString(R.string.loading));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        AlertDialog alert = createAlertDialog(this);
 
         loginViewModel.getLoginResponseLiveData(email,password).observe(this, loginApiResponse -> {
             if (!loginApiResponse.isError()) {
                 LoginUtils.getInstance(this).saveUserInfo(loginApiResponse);
                 Toast.makeText(this, loginApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
+                alert.dismiss();
                 goToProductActivity();
             }else {
-                progressDialog.cancel();
+                alert.dismiss();
                 Toast.makeText(this, loginApiResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

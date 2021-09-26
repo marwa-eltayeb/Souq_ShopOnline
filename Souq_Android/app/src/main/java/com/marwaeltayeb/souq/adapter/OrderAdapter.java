@@ -75,7 +75,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
             // Get position of the product
             currentOrder = orderList.get(position);
             // Send product through click

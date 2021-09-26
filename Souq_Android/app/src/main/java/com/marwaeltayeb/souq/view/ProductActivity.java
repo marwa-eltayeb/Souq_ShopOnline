@@ -2,9 +2,7 @@ package com.marwaeltayeb.souq.view;
 
 import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 import static com.marwaeltayeb.souq.utils.Constant.CAMERA_PERMISSION_CODE;
-import static com.marwaeltayeb.souq.utils.Constant.CAMERA_REQUEST;
 import static com.marwaeltayeb.souq.utils.Constant.CATEGORY;
-import static com.marwaeltayeb.souq.utils.Constant.GALLERY_REQUEST;
 import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
 import static com.marwaeltayeb.souq.utils.Constant.READ_EXTERNAL_STORAGE_CODE;
@@ -14,6 +12,7 @@ import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 import static com.marwaeltayeb.souq.view.AccountActivity.historyIsDeleted;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -34,6 +33,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -301,8 +302,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
                     Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
                     chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
-
-                    startActivityForResult(chooserIntent, GALLERY_REQUEST);
+                    getImageFromGallery.launch(chooserIntent);
                 } catch (Exception exp) {
                     Log.i("Error", exp.toString());
                 }
@@ -316,35 +316,43 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
             } else {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                getImageFromCamera.launch(cameraIntent);
             }
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    ActivityResultLauncher<Intent> getImageFromGallery = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    Uri selectedImage = data.getData();
+                    circleImageView.setImageURI(selectedImage);
 
-        if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
-            Uri selectedImage = data.getData();
-            circleImageView.setImageURI(selectedImage);
+                    String filePath = getRealPathFromURI(this, selectedImage);
+                    Log.d(TAG, "onActivityResult: " + filePath);
 
-            String filePath = getRealPathFromURI(this, selectedImage);
-            Log.d(TAG, "onActivityResult: " + filePath);
+                    uploadPhoto(String.valueOf(filePath));
+                }
+            });
 
-            uploadPhoto(String.valueOf(filePath));
-        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            circleImageView.setImageBitmap(photo);
 
-            Uri uriForImage = getImageUri(this, photo);
-            String filePath = getRealPathFromURI(this, uriForImage);
-            Log.d(TAG, "onActivityResult: Camera" + filePath);
+    ActivityResultLauncher<Intent> getImageFromCamera = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    circleImageView.setImageBitmap(photo);
 
-            uploadPhoto(String.valueOf(filePath));
+                    Uri uriForImage = getImageUri(this, photo);
+                    String filePath = getRealPathFromURI(this, uriForImage);
+                    Log.d(TAG, "onActivityResult: Camera" + filePath);
 
-        }
-    }
+                    uploadPhoto(String.valueOf(filePath));
+                }
+            });
+
 
     private void uploadPhoto(String pathname) {
         uploadPhotoViewModel.uploadPhoto(pathname).observe(this, responseBody -> {
@@ -407,6 +415,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         showOrHideViews(View.VISIBLE);
         getMobiles();
         getLaptops();
+        getHistory();
+        getUserImage();
     }
 
     @Override

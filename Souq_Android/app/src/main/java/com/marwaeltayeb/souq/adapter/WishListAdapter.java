@@ -112,7 +112,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
             // Get position of the product
             currentProduct = favoriteList.get(position);
 
@@ -136,9 +136,9 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishLi
                 currentProduct.setIsFavourite(false);
                 notifyDataSetChanged();
             });
-            favoriteList.remove(getAdapterPosition());
-            notifyItemRemoved(getAdapterPosition());
-            notifyItemRangeChanged(getAdapterPosition(), favoriteList.size());
+            favoriteList.remove(getBindingAdapterPosition());
+            notifyItemRemoved(getBindingAdapterPosition());
+            notifyItemRangeChanged(getBindingAdapterPosition(), favoriteList.size());
             showSnackBar("Bookmark Removed");
         }
 

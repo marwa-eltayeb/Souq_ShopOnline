@@ -135,7 +135,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
             // Get position of the product
             currentProduct = productList.get(position);
 

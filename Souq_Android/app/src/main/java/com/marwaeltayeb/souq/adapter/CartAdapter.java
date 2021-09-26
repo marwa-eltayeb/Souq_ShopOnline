@@ -110,7 +110,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
             // Get position of the product
             currentProduct = productsInCart.get(position);
 
@@ -153,9 +153,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 currentProduct.setIsInCart(false);
                 notifyDataSetChanged();
             });
-            productsInCart.remove(getAdapterPosition());
-            notifyItemRemoved(getAdapterPosition());
-            notifyItemRangeChanged(getAdapterPosition(), productsInCart.size());
+            productsInCart.remove(getBindingAdapterPosition());
+            notifyItemRemoved(getBindingAdapterPosition());
+            notifyItemRangeChanged(getBindingAdapterPosition(), productsInCart.size());
             showSnackBar("Removed From Cart");
         }
 
