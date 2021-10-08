@@ -152,7 +152,10 @@
                 android:value=".view.ProductActivity" />
         </activity>
         <activity android:name=".view.ShippingAddressActivity" />
-        <activity android:name=".view.OrderProductActivity" />
+
+        <activity android:name=".view.OrderProductActivity"
+                  android:theme="@style/OrderProductTheme"/>
+
         <activity
             android:name=".view.OrdersActivity"
             android:label="@string/orders"

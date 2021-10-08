@@ -82,9 +82,6 @@ router.get("/", (request, response) => {
     // OFFSET * LIMIT
     page = offset * page_size; // 20
 
-    console.log(user_id)
-    console.log(category)
-    
     const args = [
         user_id,
         user_id,

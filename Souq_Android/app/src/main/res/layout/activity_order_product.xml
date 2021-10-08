@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -18,12 +19,12 @@
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/dimen25sp" />
 
-
         <EditText
             android:id="@+id/nameOnCard"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="10dp"
+            android:autofillHints="none"
             android:background="@drawable/custom_border"
             android:hint="@string/name_on_card"
             android:inputType="text"
@@ -31,13 +32,15 @@
             android:paddingStart="@dimen/dimen10dp"
             android:paddingEnd="@dimen/dimen10dp"
             android:singleLine="true"
-            android:textColorHint="@color/vDarkGray" />
+            android:textColorHint="@color/vDarkGray"
+            tools:ignore="TextContrastCheck" />
 
         <EditText
             android:id="@+id/cardNumber"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="10dp"
+            android:autofillHints="none"
             android:background="@drawable/custom_border"
             android:hint="@string/card_number"
             android:inputType="number"
@@ -45,7 +48,8 @@
             android:paddingStart="@dimen/dimen10dp"
             android:paddingEnd="@dimen/dimen10dp"
             android:singleLine="true"
-            android:textColorHint="@color/vDarkGray" />
+            android:textColorHint="@color/vDarkGray"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/expirationDate"
@@ -61,64 +65,53 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
-            <RelativeLayout
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="@dimen/dimen10dp"
-                android:layout_marginEnd="@dimen/dimen10dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/spinner_month_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen5dp"
                 android:layout_weight="1"
-                android:background="@drawable/spinner">
+                android:hint="@string/months"
+                app:boxBackgroundColor="@color/white"
+                app:hintTextColor="@color/blue">
 
-                <Spinner
-                    android:id="@+id/spinnerMonth"
+                <AutoCompleteTextView
+                    android:id="@+id/spinnerMonthMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="5dp"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:spinnerMode="dropdown" />
+                    android:dropDownHeight="150dp"
+                    android:fontFamily="serif"
+                    android:inputType="none"
+                    android:minHeight="50dp"
+                    android:text="@string/_01" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@string/drop_down_menu"
-                    android:src="@drawable/ic_drop_down" />
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="@dimen/dimen10dp"
-                android:layout_marginEnd="@dimen/dimen10dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/spinner_year_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen5dp"
                 android:layout_weight="1"
-                android:background="@drawable/spinner">
+                android:hint="@string/years"
+                app:boxBackgroundColor="@color/white"
+                app:hintTextColor="@color/blue">
 
-                <Spinner
-                    android:id="@+id/spinnerYear"
+                <AutoCompleteTextView
+                    android:id="@+id/spinnerYearMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="5dp"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:spinnerMode="dropdown" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@string/drop_down_menu"
-                    android:src="@drawable/ic_drop_down" />
-            </RelativeLayout>
+                    android:dropDownHeight="150dp"
+                    android:fontFamily="serif"
+                    android:inputType="none"
+                    android:minHeight="50dp"
+                    android:text="@string/_2020" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
