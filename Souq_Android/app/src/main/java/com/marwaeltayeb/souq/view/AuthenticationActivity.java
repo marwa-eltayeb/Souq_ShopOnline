@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivityAuthenticationBinding;
+import com.marwaeltayeb.souq.utils.FlagsManager;
 import com.marwaeltayeb.souq.viewmodel.OtpViewModel;
 
 public class AuthenticationActivity extends AppCompatActivity implements View.OnClickListener {
@@ -25,7 +26,6 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     private OtpViewModel otpViewModel;
     private String email;
     private String correctOtpCode;
-    public static boolean isActivityRunning = false;
     private int clickCount = 0;
 
     @Override
@@ -87,13 +87,13 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     @Override
     public void onStart() {
         super.onStart();
-        isActivityRunning = true;
+        FlagsManager.getInstance().setActivityRunning(true);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        isActivityRunning = false;
+        FlagsManager.getInstance().setActivityRunning(false);
     }
 
     private void countDownTimer(TextView textView) {

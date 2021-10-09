@@ -1,7 +1,6 @@
 package com.marwaeltayeb.souq.view;
 
 import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
-import static com.marwaeltayeb.souq.view.AuthenticationActivity.isActivityRunning;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivityPasswordBinding;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.utils.FlagsManager;
 import com.marwaeltayeb.souq.utils.Validation;
 import com.marwaeltayeb.souq.viewmodel.PasswordViewModel;
 
@@ -40,7 +40,7 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
         binding.saveChanges.setOnClickListener(this);
         binding.cancel.setOnClickListener(this);
 
-        if(isActivityRunning){
+        if(FlagsManager.getInstance().isActivityRunning()){
             binding.currentPassword.setVisibility(View.GONE);
         }
     }

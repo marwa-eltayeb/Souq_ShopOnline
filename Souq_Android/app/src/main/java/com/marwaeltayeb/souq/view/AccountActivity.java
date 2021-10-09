@@ -24,10 +24,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.viewmodel.DeleteUserViewModel;
-import com.marwaeltayeb.souq.viewmodel.FromHistoryViewModel;
 import com.marwaeltayeb.souq.databinding.ActivityAccountBinding;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.utils.FlagsManager;
+import com.marwaeltayeb.souq.viewmodel.DeleteUserViewModel;
+import com.marwaeltayeb.souq.viewmodel.FromHistoryViewModel;
 
 import java.io.IOException;
 
@@ -36,7 +37,6 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     private static final String TAG = "AccountActivity";
     private DeleteUserViewModel deleteUserViewModel;
     private FromHistoryViewModel fromHistoryViewModel;
-    public static boolean historyIsDeleted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +88,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
     private void deleteAllProductsInHistory() {
        fromHistoryViewModel.removeAllFromHistory().observe(this, responseBody -> Log.d(TAG,getString(R.string.all_removed)));
-       historyIsDeleted = true;
+       FlagsManager.getInstance().setHistoryDeleted(true);
     }
 
     @Override

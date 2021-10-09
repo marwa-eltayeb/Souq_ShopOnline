@@ -9,7 +9,6 @@ import static com.marwaeltayeb.souq.utils.Constant.READ_EXTERNAL_STORAGE_CODE;
 import static com.marwaeltayeb.souq.utils.ImageUtils.getImageUri;
 import static com.marwaeltayeb.souq.utils.ImageUtils.getRealPathFromURI;
 import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
-import static com.marwaeltayeb.souq.view.AccountActivity.historyIsDeleted;
 
 import android.Manifest;
 import android.app.Activity;
@@ -60,6 +59,7 @@ import com.marwaeltayeb.souq.databinding.ActivityProductBinding;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.receiver.NetworkChangeReceiver;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.utils.FlagsManager;
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
 import com.marwaeltayeb.souq.utils.Slide;
 import com.marwaeltayeb.souq.viewmodel.HistoryViewModel;
@@ -166,7 +166,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         laptopAdapter = new ProductAdapter(this, this);
         historyAdapter = new ProductAdapter(this, this);
 
-        if (historyIsDeleted) {
+        if (FlagsManager.getInstance().isHistoryDeleted()) {
             binding.included.content.textViewHistory.setVisibility(View.GONE);
         }
     }
