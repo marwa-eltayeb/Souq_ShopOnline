@@ -5,9 +5,7 @@ public class FlagsManager {
     private static FlagsManager instance = null;
 
     private boolean isHistoryDeleted = false;
-
-    public  boolean isActivityRunning = false;
-
+    private boolean isActivityRunning = false;
 
     public static FlagsManager getInstance() {
         if (instance == null)
