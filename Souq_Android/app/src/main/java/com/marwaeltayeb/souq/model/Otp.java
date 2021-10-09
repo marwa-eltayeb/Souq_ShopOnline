@@ -1,7 +1,10 @@
 package com.marwaeltayeb.souq.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Otp {
 
+    @SerializedName("otp")
     private String optCode;
     private String email;
     private boolean error;
