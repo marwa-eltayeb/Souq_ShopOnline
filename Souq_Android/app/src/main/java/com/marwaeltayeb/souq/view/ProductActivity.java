@@ -30,7 +30,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -290,8 +289,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private void getImageFromGallery() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ProductActivity.this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_CODE);
             } else {
                 try {
@@ -312,8 +311,11 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     private void launchCamera() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_CODE);
             } else {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 getImageFromCamera.launch(cameraIntent);
@@ -326,16 +328,15 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
-                    Uri selectedImage = data.getData();
-                    circleImageView.setImageURI(selectedImage);
+                    Uri imageUri = data.getData();
+                    circleImageView.setImageURI(imageUri);
 
-                    String filePath = getRealPathFromURI(this, selectedImage);
-                    Log.d(TAG, "onActivityResult: " + filePath);
+                    String filePath = getRealPathFromURI(this, imageUri);
+                    Log.d(TAG, "getImageFromGallery: " + filePath);
 
-                    uploadPhoto(String.valueOf(filePath));
+                    uploadPhoto(filePath);
                 }
             });
-
 
     ActivityResultLauncher<Intent> getImageFromCamera = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -345,24 +346,26 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
                     circleImageView.setImageBitmap(photo);
 
-                    Uri uriForImage = getImageUri(this, photo);
-                    String filePath = getRealPathFromURI(this, uriForImage);
-                    Log.d(TAG, "onActivityResult: Camera" + filePath);
+                    Uri imageUri = getImageUri(this, photo);
+                    String filePath = getRealPathFromURI(this, imageUri);
+                    Log.d(TAG, "getImageFromCamera: " + filePath);
 
-                    uploadPhoto(String.valueOf(filePath));
+                    uploadPhoto(filePath);
                 }
             });
 
 
     private void uploadPhoto(String pathname) {
         uploadPhotoViewModel.uploadPhoto(pathname).observe(this, responseBody -> {
-            Toast.makeText(this, "Image Uploaded", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Image Uploaded");
+            getUserImage();
         });
     }
 
     private void getUserImage() {
         userImageViewModel.getUserImage(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, response -> {
+            Log.d(TAG,  "getUserImage");
+
             if (response != null) {
                 String imageUrl = LOCALHOST + response.getImagePath().replaceAll("\\\\", "/");
 
@@ -416,6 +419,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         getMobiles();
         getLaptops();
         getHistory();
+        Log.d(TAG, "onNetworkConnected");
         getUserImage();
     }
 
