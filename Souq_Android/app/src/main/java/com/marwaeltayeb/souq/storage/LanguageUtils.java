@@ -28,7 +28,6 @@ public class LanguageUtils {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
-        config.locale = locale;
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
         // Save data to shared preferences
         SharedPreferences.Editor editor = context.getSharedPreferences("Settings", MODE_PRIVATE).edit();

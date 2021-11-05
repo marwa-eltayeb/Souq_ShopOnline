@@ -32,7 +32,10 @@ public class ImageUtils {
         int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
 
-        return cursor.getString(columnIndex);
+        String result = cursor.getString(columnIndex);
+        cursor.close();
+
+        return result;
     }
 
 
