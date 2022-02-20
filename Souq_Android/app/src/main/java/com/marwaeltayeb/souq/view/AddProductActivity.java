@@ -29,6 +29,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivityAddProductBinding;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.viewmodel.AddProductViewModel;
 
 import java.io.File;
@@ -111,7 +112,9 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         RequestBody requestFile = RequestBody.create(MediaType.parse(IMAGE), file);
         MultipartBody.Part photo = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
-        addProductViewModel.addProduct(map, photo).observe(this, responseBody -> {
+        String token = LoginUtils.getInstance(this).getUserToken();
+
+        addProductViewModel.addProduct(token,map, photo).observe(this, responseBody -> {
             try {
                 if (responseBody != null) {
                     Toast.makeText(AddProductActivity.this, responseBody.string() + "", Toast.LENGTH_SHORT).show();

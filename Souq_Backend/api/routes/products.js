@@ -25,6 +25,7 @@ const uploadImage = multer({
 
 // import file
 const database = require("../../config")
+const checkAuth = require('../../middleware/check_auth');
 
 
 // Get All products
@@ -172,7 +173,7 @@ router.get("/search", (request, response) => {
 }); 
 
 // Insert Product
-router.post("/insert",uploadImage.single('image'), (request, response) => {
+router.post("/insert", checkAuth, uploadImage.single('image'), (request, response) => {
     const name = request.body.name
     const price = request.body.price
     const quantity = request.body.quantity

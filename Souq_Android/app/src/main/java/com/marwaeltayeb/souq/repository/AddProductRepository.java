@@ -20,10 +20,10 @@ public class AddProductRepository {
 
     private static final String TAG = AddProductRepository.class.getSimpleName();
 
-    public LiveData<ResponseBody> addProduct(Map<String, RequestBody> productInfo, MultipartBody.Part image) {
+    public LiveData<ResponseBody> addProduct(String token, Map<String, RequestBody> productInfo, MultipartBody.Part image) {
         final MutableLiveData<ResponseBody> mutableLiveData = new MutableLiveData<>();
 
-        RetrofitClient.getInstance().getApi().insertProduct(productInfo,image).enqueue(new Callback<ResponseBody>() {
+        RetrofitClient.getInstance().getApi().insertProduct(token,productInfo,image).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d(TAG, "onResponse: " + "Product Inserted");

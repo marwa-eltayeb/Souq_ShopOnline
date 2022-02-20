@@ -19,7 +19,7 @@ public class AddProductViewModel extends ViewModel {
         addProductRepository = new AddProductRepository();
     }
 
-    public LiveData<ResponseBody> addProduct(Map<String, RequestBody> productInfo, MultipartBody.Part image) {
-        return addProductRepository.addProduct(productInfo,image);
+    public LiveData<ResponseBody> addProduct(String token, Map<String, RequestBody> productInfo, MultipartBody.Part image) {
+        return addProductRepository.addProduct(token,productInfo,image);
     }
 }

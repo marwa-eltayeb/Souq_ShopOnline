@@ -57,7 +57,7 @@ public interface Api {
 
     @Multipart
     @POST("products/insert")
-    Call<ResponseBody> insertProduct(@PartMap Map<String, RequestBody> productInfo, @Part MultipartBody.Part image);
+    Call<ResponseBody> insertProduct(@Header("authorization") String token, @PartMap Map<String, RequestBody> productInfo, @Part MultipartBody.Part image);
 
     @GET("users/getImage")
     Call<Image> getUserImage(@Query("id") int userId);
