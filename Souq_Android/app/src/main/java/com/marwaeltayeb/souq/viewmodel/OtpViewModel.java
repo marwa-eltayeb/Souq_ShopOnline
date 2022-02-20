@@ -14,7 +14,7 @@ public class OtpViewModel extends ViewModel {
         otpRepository = new OtpRepository();
     }
 
-    public LiveData<Otp> getOtpCode(String email) {
-        return otpRepository.getOtpCode(email);
+    public LiveData<Otp> getOtpCode(String token,String email) {
+        return otpRepository.getOtpCode(token,email);
     }
 }

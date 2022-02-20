@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivityPasswordAssistantBinding;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.viewmodel.OtpViewModel;
 
 public class PasswordAssistantActivity extends AppCompatActivity implements View.OnClickListener {
@@ -41,8 +42,9 @@ public class PasswordAssistantActivity extends AppCompatActivity implements View
 
     private void checkUserEmail() {
         String emailEntered = binding.emailAddress.getText().toString();
+        String token = LoginUtils.getInstance(this).getUserToken();
 
-        otpViewModel.getOtpCode(emailEntered).observe(this, responseBody -> {
+        otpViewModel.getOtpCode(token,emailEntered).observe(this, responseBody -> {
             if (!responseBody.isError()) {
                 userEmail = responseBody.getEmail();
                 otpCode = responseBody.getOptCode();

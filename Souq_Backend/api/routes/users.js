@@ -271,7 +271,7 @@ router.get("/getImage", (request, response) => {
 
 
 // Get OTP
-router.get("/otp", (request, response) => {
+router.get("/otp", checkAuth, (request, response) => {
     const email = request.query.email
 
     const args = [email];

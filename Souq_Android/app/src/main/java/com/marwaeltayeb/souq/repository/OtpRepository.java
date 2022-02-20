@@ -2,6 +2,7 @@ package com.marwaeltayeb.souq.repository;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -16,12 +17,12 @@ public class OtpRepository {
 
     private static final String TAG = OtpRepository.class.getSimpleName();
 
-    public LiveData<Otp> getOtpCode(String email) {
+    public LiveData<Otp> getOtpCode(String token , String email) {
         final MutableLiveData<Otp> mutableLiveData = new MutableLiveData<>();
 
-        RetrofitClient.getInstance().getApi().getOtp(email).enqueue(new Callback<Otp>() {
+        RetrofitClient.getInstance().getApi().getOtp(token,email).enqueue(new Callback<Otp>() {
             @Override
-            public void onResponse(Call<Otp> call, Response<Otp> response) {
+            public void onResponse(@NonNull Call<Otp> call, @NonNull Response<Otp> response) {
 
                 Log.d(TAG, "onResponse: Succeeded");
 
@@ -36,7 +37,7 @@ public class OtpRepository {
             }
 
             @Override
-            public void onFailure(Call<Otp> call, Throwable t) {
+            public void onFailure(@NonNull Call<Otp> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });

@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.ActivityAuthenticationBinding;
+import com.marwaeltayeb.souq.storage.LoginUtils;
 import com.marwaeltayeb.souq.utils.FlagsManager;
 import com.marwaeltayeb.souq.viewmodel.OtpViewModel;
 
@@ -62,7 +63,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     }
 
     private void getAnotherOtpCode() {
-        otpViewModel.getOtpCode(email).observe(this, responseBody -> {
+        otpViewModel.getOtpCode(LoginUtils.getInstance(this).getUserToken(), email).observe(this, responseBody -> {
             if (!responseBody.isError()) {
                 correctOtpCode = responseBody.getOptCode();
                 binding.reSend.setEnabled(false);

@@ -197,7 +197,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             historyViewModel.historyPagedList.observe(this, products -> {
                 binding.included.content.historyList.setAdapter(historyAdapter);
                 historyAdapter.submitList(products);
-
+                historyAdapter.notifyDataSetChanged();
+                
                 products.addWeakCallback(null, productCallback);
             });
         } else {

@@ -63,7 +63,7 @@ public interface Api {
     Call<Image> getUserImage(@Query("id") int userId);
 
     @GET("users/otp")
-    Call<Otp> getOtp(@Query("email") String email);
+    Call<Otp> getOtp(@Header("authorization") String token, @Query("email") String email);
 
     @GET("products")
     Call<ProductApiResponse> getProductsByCategory(@Query("category") String category, @Query("userId") int userId,@Query("page") int page);
