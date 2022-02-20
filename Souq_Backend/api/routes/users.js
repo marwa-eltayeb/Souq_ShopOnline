@@ -4,6 +4,7 @@ const router = express.Router()
 const jwt = require('jsonwebtoken')
 // For encrypted password
 const bcrypt = require('bcrypt');
+const checkAuth = require('../../middleware/check_auth');
 
 // Deal with file
 const fileSystem = require('fs');
@@ -77,7 +78,7 @@ router.get("/login", (request, response) => {
             bcrypt.compare(password, dataPassword, (err, isSame) => {
                 if(isSame){
                     // Return Token
-                    jwt.sign(email, "key", (err, token) => {
+                    jwt.sign(email, process.env.JWT_KEY, (err, token) => {
                         if (err) throw err;
                         response.status(200).json({
                            "id" : result[0]["id"],
@@ -206,8 +207,8 @@ router.put("/info", (request, response) => {
     });
 });
 
-// Update image of user                  // Image file key in request body
-router.put("/upload", uploadImage.single('image'), (request, response) => {
+// Update image of user                 
+router.put("/upload", checkAuth, uploadImage.single('image'), (request, response) => {
     const id = request.body.id;
     console.log(id);
 

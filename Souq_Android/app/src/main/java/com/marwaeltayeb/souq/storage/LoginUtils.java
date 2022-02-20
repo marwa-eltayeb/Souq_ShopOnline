@@ -16,14 +16,12 @@ public class LoginUtils {
     private static final String TOKEN = "token";
     private static final String IS_ADMIN = "isAdmin";
 
-
     private static LoginUtils mInstance;
     private final Context mCtx;
 
     private LoginUtils(Context mCtx) {
         this.mCtx = mCtx;
     }
-
 
     public static synchronized LoginUtils getInstance(Context mCtx) {
         if (mInstance == null) {
@@ -71,6 +69,12 @@ public class LoginUtils {
                 sharedPreferences.getString(PASSWORD, null),
                 sharedPreferences.getBoolean(IS_ADMIN, false)
         );
+    }
+
+
+    public String getUserToken() {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(TOKEN, "");
     }
 
     public void clearAll() {

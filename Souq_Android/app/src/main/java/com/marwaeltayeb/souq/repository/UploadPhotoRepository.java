@@ -1,9 +1,10 @@
 package com.marwaeltayeb.souq.repository;
 
 import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.marwaeltayeb.souq.net.RetrofitClient;
 import com.marwaeltayeb.souq.storage.LoginUtils;
@@ -21,7 +22,7 @@ import retrofit2.Response;
 public class UploadPhotoRepository {
 
     private static final String TAG = UploadPhotoRepository.class.getSimpleName();
-    private Application application;
+    private final Application application;
 
     public UploadPhotoRepository(Application application) {
         this.application = application;
@@ -38,7 +39,10 @@ public class UploadPhotoRepository {
 
         RequestBody id = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(LoginUtils.getInstance(application).getUserInfo().getId()));
 
-        RetrofitClient.getInstance().getApi().uploadPhoto(photo, id).enqueue(new Callback<ResponseBody>() {
+        String token = String.valueOf(LoginUtils.getInstance(application).getUserToken());
+        Log.d(TAG, "token: " + token);
+
+        RetrofitClient.getInstance().getApi().uploadPhoto(token,photo, id).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d(TAG, "onResponse: " + "Image Updated");
@@ -48,6 +52,11 @@ public class UploadPhotoRepository {
                 if (response.body() != null) {
                     mutableLiveData.setValue(responseBody);
                 }
+
+                if (response.code()!= 200) {
+                    //
+                }
+
             }
 
             @Override
