@@ -16,9 +16,9 @@ public class PasswordRepository {
 
     private static final String TAG = PasswordRepository.class.getSimpleName();
 
-    public LiveData<ResponseBody> updatePassword(String newPassword, int userId) {
+    public LiveData<ResponseBody> updatePassword(String token, String newPassword, int userId) {
         final MutableLiveData<ResponseBody> mutableLiveData = new MutableLiveData<>();
-        RetrofitClient.getInstance().getApi().updatePassword(newPassword, userId).enqueue(new Callback<ResponseBody>() {
+        RetrofitClient.getInstance().getApi().updatePassword(token, newPassword, userId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d(TAG,"onResponse"+ response.code());

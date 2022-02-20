@@ -53,7 +53,7 @@ public interface Api {
     Call<ResponseBody> uploadPhoto(@Header("authorization") String token , @Part MultipartBody.Part userPhoto, @Part("id") RequestBody userId);
 
     @PUT("users/info")
-    Call<ResponseBody> updatePassword(@Query("password") String password, @Query("id") int userId);
+    Call<ResponseBody> updatePassword(@Header("authorization") String token, @Query("password") String password, @Query("id") int userId);
 
     @Multipart
     @POST("products/insert")

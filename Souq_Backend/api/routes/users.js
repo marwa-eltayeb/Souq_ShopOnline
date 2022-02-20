@@ -184,7 +184,7 @@ router.delete("/:id", checkAuth, (request, response) => {
 });
  
 // Update Password
-router.put("/info", (request, response) => {
+router.put("/info", checkAuth, (request, response) => {
     const id = request.query.id;
     const password = request.query.password;
 

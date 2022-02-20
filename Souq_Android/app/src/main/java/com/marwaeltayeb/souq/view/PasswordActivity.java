@@ -60,6 +60,7 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
 
     private void updatePassword() {
         int userId = LoginUtils.getInstance(this).getUserInfo().getId();
+        String token = LoginUtils.getInstance(this).getUserToken();
         String oldPassword = LoginUtils.getInstance(this).getUserInfo().getPassword();
         String currentPassword = binding.currentPassword.getText().toString();
         String newPassword = binding.newPassword.getText().toString();
@@ -83,9 +84,10 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-        passwordViewModel.updatePassword(newPassword, userId).observe(this, responseBody -> {
+        passwordViewModel.updatePassword(token,newPassword, userId).observe(this, responseBody -> {
             try {
                 Toast.makeText(PasswordActivity.this, responseBody.string(), Toast.LENGTH_SHORT).show();
+                finish();
             } catch (IOException e) {
                 e.printStackTrace();
             }

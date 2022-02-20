@@ -15,7 +15,7 @@ public class PasswordViewModel extends ViewModel {
         passwordRepository = new PasswordRepository();
     }
 
-    public LiveData<ResponseBody> updatePassword(String newPassword, int userId) {
-        return passwordRepository.updatePassword(newPassword,userId);
+    public LiveData<ResponseBody> updatePassword(String token, String newPassword, int userId) {
+        return passwordRepository.updatePassword(token, newPassword, userId);
     }
 }
