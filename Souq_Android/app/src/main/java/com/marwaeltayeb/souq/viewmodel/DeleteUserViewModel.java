@@ -15,8 +15,8 @@ public class DeleteUserViewModel extends ViewModel {
         deleteUserRepository = new DeleteUserRepository();
     }
 
-    public LiveData<ResponseBody> deleteUser(int userId) {
-        return deleteUserRepository.deleteUser(userId);
+    public LiveData<ResponseBody> deleteUser(String token, int userId) {
+        return deleteUserRepository.deleteUser(token, userId);
     }
 }
 

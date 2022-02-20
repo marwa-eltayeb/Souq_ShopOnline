@@ -172,7 +172,7 @@ router.post("/register",uploadImage.single('image'), (request, response) => {
 });
     
 // Delete User
-router.delete("/:id", (request, response) => {
+router.delete("/:id", checkAuth, (request, response) => {
     const id = request.params.id;
     const query = "DELETE FROM user WHERE id = ?"
     const args = [id]

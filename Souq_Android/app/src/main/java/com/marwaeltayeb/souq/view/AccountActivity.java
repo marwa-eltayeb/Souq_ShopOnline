@@ -127,7 +127,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void deleteAccount() {
-        deleteUserViewModel.deleteUser(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, responseBody -> {
+        deleteUserViewModel.deleteUser(LoginUtils.getInstance(this).getUserToken(), LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, responseBody -> {
             if(responseBody!= null){
                 LoginUtils.getInstance(getApplicationContext()).clearAll();
                 try {

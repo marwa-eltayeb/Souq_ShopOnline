@@ -2,6 +2,7 @@ package com.marwaeltayeb.souq.repository;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -16,11 +17,11 @@ public class DeleteUserRepository{
 
     private static final String TAG = DeleteUserRepository.class.getSimpleName();
 
-    public LiveData<ResponseBody> deleteUser(int userId) {
+    public LiveData<ResponseBody> deleteUser(String token, int userId) {
         final MutableLiveData<ResponseBody> mutableLiveData = new MutableLiveData<>();
-        RetrofitClient.getInstance().getApi().deleteAccount(userId).enqueue(new Callback<ResponseBody>() {
+        RetrofitClient.getInstance().getApi().deleteAccount(token, userId).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 Log.d(TAG, "onResponse: Succeeded");
                 ResponseBody responseBody = response.body();
                 if (response.body() != null) {
@@ -29,12 +30,11 @@ public class DeleteUserRepository{
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
 
         return mutableLiveData;
     }
-
 }

@@ -46,7 +46,7 @@ public interface Api {
     Call<LoginApiResponse> logInUser(@Query("email") String email, @Query("password") String password);
 
     @DELETE("users/{userId}")
-    Call<ResponseBody> deleteAccount(@Path("userId") int userId);
+    Call<ResponseBody> deleteAccount(@Header("authorization") String token , @Path("userId") int userId);
 
     @Multipart
     @PUT("users/upload")
@@ -64,9 +64,6 @@ public interface Api {
 
     @GET("users/otp")
     Call<Otp> getOtp(@Query("email") String email);
-
-    @GET("products")
-    Call<ProductApiResponse> getProducts(@Query("page") int page);
 
     @GET("products")
     Call<ProductApiResponse> getProductsByCategory(@Query("category") String category, @Query("userId") int userId,@Query("page") int page);
