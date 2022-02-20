@@ -53,13 +53,8 @@ public class AllLaptopsActivity extends AppCompatActivity implements ProductAdap
     }
 
     public void getAllLaptops() {
-
-        // Observe the productPagedList from ViewModel
         productViewModel.laptopPagedList.observe(this, products -> laptopAdapter.submitList(products));
-
         binding.allLaptopsRecyclerView.setAdapter(laptopAdapter);
-        laptopAdapter.notifyDataSetChanged();
-
     }
 
     @Override

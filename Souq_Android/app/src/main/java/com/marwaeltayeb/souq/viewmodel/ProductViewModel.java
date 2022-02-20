@@ -13,7 +13,6 @@ import com.marwaeltayeb.souq.net.LaptopDataSourceFactory;
 import com.marwaeltayeb.souq.net.ProductDataSource;
 import com.marwaeltayeb.souq.net.ProductDataSourceFactory;
 
-
 public class ProductViewModel extends ViewModel {
 
     // Create liveData for PagedList and PagedKeyedDataSource

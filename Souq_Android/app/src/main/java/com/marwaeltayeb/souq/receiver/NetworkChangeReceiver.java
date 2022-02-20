@@ -1,12 +1,12 @@
 package com.marwaeltayeb.souq.receiver;
 
+import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 import com.marwaeltayeb.souq.utils.OnNetworkListener;
-
-import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
 public class NetworkChangeReceiver extends BroadcastReceiver {
 
@@ -24,6 +24,4 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
             onNetworkListener.onNetworkConnected();
         }
     }
-
-
 }

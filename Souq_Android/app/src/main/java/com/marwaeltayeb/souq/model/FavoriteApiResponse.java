@@ -12,8 +12,4 @@ public class FavoriteApiResponse {
     public List<Product> getFavorites() {
         return favorites;
     }
-
-    public void setFavorites(List<Product> favorites) {
-        this.favorites = favorites;
-    }
 }

@@ -12,8 +12,4 @@ public class CartApiResponse {
     public List<Product> getProductsInCart() {
         return carts;
     }
-
-    public void setProductsInCart(List<Product> carts) {
-        this.carts = carts;
-    }
 }

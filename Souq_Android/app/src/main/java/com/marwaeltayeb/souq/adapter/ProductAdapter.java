@@ -47,8 +47,7 @@ public class ProductAdapter extends PagedListAdapter<Product, ProductAdapter.Pro
     private final FromCartViewModel fromCartViewModel;
     private final ToHistoryViewModel toHistoryViewModel;
 
-    // Create a final private MovieAdapterOnClickHandler called mClickHandler
-    private ProductAdapterOnClickHandler clickHandler;
+    private final ProductAdapterOnClickHandler clickHandler;
 
     /**
      * The interface that receives onClick messages.

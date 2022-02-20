@@ -1,8 +1,5 @@
 package com.marwaeltayeb.souq.viewmodel;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -12,7 +9,7 @@ import okhttp3.ResponseBody;
 
 public class DeleteUserViewModel extends ViewModel {
 
-    private DeleteUserRepository deleteUserRepository;
+    private final DeleteUserRepository deleteUserRepository;
 
     public DeleteUserViewModel() {
         deleteUserRepository = new DeleteUserRepository();

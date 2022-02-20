@@ -18,5 +18,4 @@ public class PasswordViewModel extends ViewModel {
     public LiveData<ResponseBody> updatePassword(String newPassword, int userId) {
         return passwordRepository.updatePassword(newPassword,userId);
     }
-
 }

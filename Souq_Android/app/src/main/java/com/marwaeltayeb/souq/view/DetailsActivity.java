@@ -98,7 +98,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
                 reviewList = reviewApiResponse.getReviewList();
                 reviewAdapter = new ReviewAdapter(reviewList);
                 binding.listOfReviews.setAdapter(reviewAdapter);
-                reviewAdapter.notifyDataSetChanged();
             }
 
             if(reviewList.size() == 0){
@@ -142,6 +141,4 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         super.onResume();
         getReviewsOfProduct();
     }
-
-
 }

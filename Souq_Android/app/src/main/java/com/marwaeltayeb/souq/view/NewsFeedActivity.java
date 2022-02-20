@@ -44,8 +44,6 @@ public class NewsFeedActivity extends AppCompatActivity {
         newsFeedViewModel.getPosters().observe(this, newsFeedResponse -> {
             newsFeedAdapter = new NewsFeedAdapter(getApplicationContext(), newsFeedResponse.getPosters());
             binding.newsFeedList.setAdapter(newsFeedAdapter);
-            newsFeedAdapter.notifyDataSetChanged();
         });
     }
-
 }

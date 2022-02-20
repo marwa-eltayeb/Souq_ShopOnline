@@ -1,15 +1,15 @@
 package com.marwaeltayeb.souq.net;
 
+import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.marwaeltayeb.souq.utils.Constant.LOCALHOST;
 
 public class RetrofitClient {
 
     private static final String BASE_URL = LOCALHOST;
     private static RetrofitClient mInstance;
-    private Retrofit retrofit;
+    private final Retrofit retrofit;
 
 
     private RetrofitClient() {

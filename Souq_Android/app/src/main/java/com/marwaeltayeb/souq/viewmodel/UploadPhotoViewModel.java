@@ -11,7 +11,7 @@ import okhttp3.ResponseBody;
 
 public class UploadPhotoViewModel extends AndroidViewModel {
 
-    private UploadPhotoRepository uploadPhotoRepository;
+    private final UploadPhotoRepository uploadPhotoRepository;
 
     public UploadPhotoViewModel(@NonNull Application application) {
         super(application);

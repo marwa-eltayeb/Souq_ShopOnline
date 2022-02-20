@@ -37,9 +37,7 @@ public class Product implements Parcelable {
         this.productCategory = productCategory;
     }
 
-    public Product() {
-
-    }
+    public Product() { }
 
     public int getProductId() {
         return productId;
@@ -53,22 +51,9 @@ public class Product implements Parcelable {
         return productPrice;
     }
 
-    public int getProductQuantity() {
-        return productQuantity;
-    }
-
-    public String getProductSupplier() {
-        return productSupplier;
-    }
-
-    public String getProductCategory() {
-        return productCategory;
-    }
-
     public String getProductImage() {
         return productImage;
     }
-
 
     public int isFavourite() {
         return isFavourite;

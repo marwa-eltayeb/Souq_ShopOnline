@@ -9,10 +9,6 @@ public class Image {
     @SerializedName("image")
     private String imagePath;
 
-    public boolean isError() {
-        return error;
-    }
-
     public String getMessage() {
         return message;
     }

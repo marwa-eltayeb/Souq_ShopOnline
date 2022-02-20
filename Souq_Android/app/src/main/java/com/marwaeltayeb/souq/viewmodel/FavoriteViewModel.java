@@ -17,5 +17,4 @@ public class FavoriteViewModel extends ViewModel {
     public LiveData<FavoriteApiResponse> getFavorites(int userId) {
         return favoriteRepository.getFavorites(userId);
     }
-
 }

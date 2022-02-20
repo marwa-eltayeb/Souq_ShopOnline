@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
 
-    private List<Review> reviewList;
+    private final List<Review> reviewList;
 
     public ReviewAdapter(List<Review> reviewList) {
         this.reviewList = reviewList;
@@ -45,13 +45,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         return reviewList.size();
     }
 
-    public void notifyOnInsertedItem(){
-        notifyItemInserted(reviewList.size() - 1);
-        notifyItemRangeInserted(reviewList.size() - 1,reviewList.size());
-    }
-
-    class ReviewViewHolder extends RecyclerView.ViewHolder {
-
+    static class ReviewViewHolder extends RecyclerView.ViewHolder {
         // Create view instances
         private final ReviewListItemBinding binding;
 

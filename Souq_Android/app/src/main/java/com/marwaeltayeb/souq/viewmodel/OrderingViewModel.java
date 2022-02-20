@@ -19,5 +19,4 @@ public class OrderingViewModel extends ViewModel {
     public LiveData<ResponseBody> orderProduct(Ordering ordering) {
         return orderingRepository.orderProduct(ordering);
     }
-
 }

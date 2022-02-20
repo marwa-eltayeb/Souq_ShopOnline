@@ -60,7 +60,6 @@ public class AllReviewsActivity extends AppCompatActivity {
                 reviewList = reviewApiResponse.getReviewList();
                 reviewAdapter = new ReviewAdapter(reviewList);
                 binding.allReviewsList.setAdapter(reviewAdapter);
-                reviewAdapter.notifyDataSetChanged();
             }
         });
     }

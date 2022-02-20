@@ -28,5 +28,4 @@ public class CategoryViewModel extends ViewModel {
         // Build the paged list
         categoryPagedList = (new LivePagedListBuilder<>(productDataSourceFactory, pagedListConfig)).build();
     }
-
 }

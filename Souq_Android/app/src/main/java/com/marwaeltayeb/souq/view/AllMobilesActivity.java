@@ -55,7 +55,6 @@ public class AllMobilesActivity extends AppCompatActivity implements ProductAdap
     public void getAllMobiles() {
         // Observe the productPagedList from ViewModel
         productViewModel.productPagedList.observe(this, products -> {
-            productAdapter.notifyDataSetChanged();
             productAdapter.submitList(products);
         });
 

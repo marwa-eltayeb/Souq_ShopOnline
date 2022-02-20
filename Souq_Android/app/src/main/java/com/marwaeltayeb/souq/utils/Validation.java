@@ -20,5 +20,4 @@ public class Validation {
     public static boolean isValidName(String name){
         return name.length() >= NAME_MIN_LENGTH;
     }
-
 }

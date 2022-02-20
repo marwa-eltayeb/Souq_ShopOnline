@@ -77,7 +77,7 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-        if (!Validation.isValidPassword(newPassword) || !(retypePassword.equals(newPassword))) {
+        if (!(retypePassword.equals(newPassword))) {
             binding.retypePassword.setError(getString(R.string.password_not_match));
             binding.retypePassword.requestFocus();
             return;

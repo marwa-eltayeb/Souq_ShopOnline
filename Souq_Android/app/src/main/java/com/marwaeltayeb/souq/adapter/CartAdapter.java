@@ -30,17 +30,17 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
-    private Context mContext;
+    private final Context mContext;
 
-    private List<Product> productsInCart;
+    private final List<Product> productsInCart;
 
     private Product currentProduct;
 
-    private AddFavoriteViewModel addFavoriteViewModel;
-    private RemoveFavoriteViewModel removeFavoriteViewModel;
-    private FromCartViewModel fromCartViewModel;
+    private final AddFavoriteViewModel addFavoriteViewModel;
+    private final RemoveFavoriteViewModel removeFavoriteViewModel;
+    private final FromCartViewModel fromCartViewModel;
 
-    private CartAdapter.CartAdapterOnClickHandler clickHandler;
+    private final CartAdapter.CartAdapterOnClickHandler clickHandler;
 
     /**
      * The interface that receives onClick messages.

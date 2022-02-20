@@ -50,7 +50,6 @@ public class OrdersActivity extends AppCompatActivity implements OrderAdapter.Or
         orderViewModel.getOrders(LoginUtils.getInstance(this).getUserInfo().getId()).observe(this, orderApiResponse -> {
             orderAdapter = new OrderAdapter( orderApiResponse.getOrderList(),this);
             binding.orderList.setAdapter(orderAdapter);
-            orderAdapter.notifyDataSetChanged();
         });
     }
 

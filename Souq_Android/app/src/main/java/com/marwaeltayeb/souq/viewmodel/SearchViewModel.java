@@ -18,6 +18,4 @@ public class SearchViewModel  extends ViewModel {
     public LiveData<ProductApiResponse> getProductsBySearch(String keyword, int userId) {
         return searchRepository.getResponseDataBySearch(keyword, userId);
     }
-
-
 }

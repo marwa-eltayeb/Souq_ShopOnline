@@ -27,5 +27,4 @@ public class RegisterApiResponse {
     public User getUser() {
         return user;
     }
-
 }

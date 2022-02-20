@@ -30,17 +30,15 @@ import java.util.List;
 
 public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.WishListViewHolder> {
 
-    private Context mContext;
-    // Declare an arrayList for favorite products
-    private List<Product> favoriteList;
+    private final Context mContext;
+    private final List<Product> favoriteList;
 
     private Product currentProduct;
 
-    private RemoveFavoriteViewModel removeFavoriteViewModel;
-    private ToCartViewModel toCartViewModel;
-    private FromCartViewModel fromCartViewModel;
+    private final RemoveFavoriteViewModel removeFavoriteViewModel;
+    private final ToCartViewModel toCartViewModel;
+    private final FromCartViewModel fromCartViewModel;
 
-    // Create a final private SearchAdapterOnClickHandler called mClickHandler
     private WishListAdapter.WishListAdapterOnClickHandler clickHandler;
 
     /**

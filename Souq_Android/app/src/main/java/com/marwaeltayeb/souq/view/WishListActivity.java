@@ -1,26 +1,27 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.lifecycle.ViewModelProviders;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
+import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
+
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.marwaeltayeb.souq.R;
-import com.marwaeltayeb.souq.viewmodel.FavoriteViewModel;
 import com.marwaeltayeb.souq.adapter.WishListAdapter;
 import com.marwaeltayeb.souq.databinding.ActivityWishlistBinding;
 import com.marwaeltayeb.souq.model.Product;
 import com.marwaeltayeb.souq.storage.LoginUtils;
+import com.marwaeltayeb.souq.viewmodel.FavoriteViewModel;
 
 import java.util.List;
-
-import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
-import static com.marwaeltayeb.souq.utils.Constant.PRODUCT;
-import static com.marwaeltayeb.souq.utils.InternetUtils.isNetworkConnected;
 
 public class WishListActivity extends AppCompatActivity {
 
@@ -69,7 +70,6 @@ public class WishListActivity extends AppCompatActivity {
                 }
                 binding.loadingIndicator.setVisibility(View.GONE);
                 binding.favoriteList.setAdapter(wishListAdapter);
-                wishListAdapter.notifyDataSetChanged();
             });
         }else {
             binding.emptyWishlist.setVisibility(View.VISIBLE);

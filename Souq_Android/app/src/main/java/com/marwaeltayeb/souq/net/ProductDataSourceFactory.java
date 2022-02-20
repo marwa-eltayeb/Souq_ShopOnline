@@ -9,12 +9,12 @@ import com.marwaeltayeb.souq.model.Product;
 public class ProductDataSourceFactory extends DataSource.Factory{
 
     // Creating the mutable live database
-    private MutableLiveData<PageKeyedDataSource<Integer, Product>> productLiveDataSource = new MutableLiveData<>();
+    private final MutableLiveData<PageKeyedDataSource<Integer, Product>> productLiveDataSource = new MutableLiveData<>();
 
     public static ProductDataSource productDataSource;
 
-    private String category;
-    private int userId;
+    private final String category;
+    private final int userId;
 
     public ProductDataSourceFactory(String category, int userId){
         this.category = category;
@@ -31,11 +31,5 @@ public class ProductDataSourceFactory extends DataSource.Factory{
 
         // Returning the Data source
         return productDataSource;
-    }
-
-
-    // Getter for Product live DataSource
-    public MutableLiveData<PageKeyedDataSource<Integer, Product>> getProductLiveDataSource() {
-        return productLiveDataSource;
     }
 }

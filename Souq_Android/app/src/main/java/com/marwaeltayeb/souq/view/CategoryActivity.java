@@ -34,7 +34,6 @@ public class CategoryActivity extends AppCompatActivity implements ProductAdapte
     private ActivityCategoryBinding binding;
     private ProductAdapter productAdapter;
     private CategoryViewModel categoryViewModel;
-    private String category;
     private Snackbar snack;
     private NetworkChangeReceiver mNetworkReceiver;
     
@@ -54,7 +53,7 @@ public class CategoryActivity extends AppCompatActivity implements ProductAdapte
 
         // Get Category from ProductActivity Intent
         Intent intent = getIntent();
-        category = intent.getStringExtra(Constant.CATEGORY);
+        String category = intent.getStringExtra(Constant.CATEGORY);
 
         // Update Toolbar
         getSupportActionBar().setTitle(category);
@@ -81,7 +80,6 @@ public class CategoryActivity extends AppCompatActivity implements ProductAdapte
     public void getProductsByCategory() {
         if (isNetworkConnected(this)) {
             categoryViewModel.categoryPagedList.observe(this, products -> {
-                productAdapter.notifyDataSetChanged();
                 productAdapter.submitList(products);
             });
 

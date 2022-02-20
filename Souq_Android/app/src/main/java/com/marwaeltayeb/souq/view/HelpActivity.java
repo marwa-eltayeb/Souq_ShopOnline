@@ -1,9 +1,12 @@
 package com.marwaeltayeb.souq.view;
 
-import androidx.databinding.DataBindingUtil;
+import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
+
 import android.os.Bundle;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -13,8 +16,6 @@ import com.marwaeltayeb.souq.databinding.ActivityHelpBinding;
 import com.marwaeltayeb.souq.model.Help;
 
 import java.util.ArrayList;
-
-import static com.marwaeltayeb.souq.storage.LanguageUtils.loadLocale;
 
 public class HelpActivity extends AppCompatActivity {
 
@@ -30,7 +31,6 @@ public class HelpActivity extends AppCompatActivity {
         actionBar.setTitle(getResources().getString(R.string.help_center));
 
         setUpRecyclerView();
-
     }
 
     private void setUpRecyclerView(){

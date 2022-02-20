@@ -1,12 +1,13 @@
 package com.marwaeltayeb.souq.adapter;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.marwaeltayeb.souq.R;
 
@@ -14,11 +15,9 @@ import java.util.List;
 
 public class WordAdapter extends ArrayAdapter<String> {
 
-
     public WordAdapter(Context context, List<String> words) {
         super(context, 0, words);
     }
-
 
     @NonNull
     @Override

@@ -175,7 +175,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             productViewModel.productPagedList.observe(this, products -> mobileAdapter.submitList(products));
 
             binding.included.content.listOfMobiles.setAdapter(mobileAdapter);
-            mobileAdapter.notifyDataSetChanged();
         } else {
             showOrHideViews(View.INVISIBLE);
             showSnackBar();
@@ -187,7 +186,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             productViewModel.laptopPagedList.observe(this, products -> laptopAdapter.submitList(products));
 
             binding.included.content.listOfLaptops.setAdapter(laptopAdapter);
-            laptopAdapter.notifyDataSetChanged();
         } else {
             showOrHideViews(View.INVISIBLE);
             showSnackBar();
@@ -199,7 +197,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
             historyViewModel.historyPagedList.observe(this, products -> {
                 binding.included.content.historyList.setAdapter(historyAdapter);
                 historyAdapter.submitList(products);
-                historyAdapter.notifyDataSetChanged();
 
                 products.addWeakCallback(null, productCallback);
             });
@@ -541,7 +538,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         getHistory();
     }
 
-    private PagedList.Callback productCallback = new PagedList.Callback() {
+    private final PagedList.Callback productCallback = new PagedList.Callback() {
         @Override
         public void onChanged(int position, int count) {
             Log.d(TAG, "onChanged: "+ count);

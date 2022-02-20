@@ -11,17 +11,10 @@ public class LoginApiResponse {
     private String token;
     private boolean isAdmin;
 
-
-    public LoginApiResponse(int id, String token) {
-        this.id = id;
-        this.token = token;
-    }
-
     public LoginApiResponse(String message) {
         this.message = message;
         this.error = true;
     }
-
 
     public int getId() {
         return id;

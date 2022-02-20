@@ -17,10 +17,10 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
 
-    private List<Order> orderList;
+    private final List<Order> orderList;
     private Order currentOrder;
 
-    private OrderAdapter.OrderAdapterOnClickHandler clickHandler;
+    private final OrderAdapter.OrderAdapterOnClickHandler clickHandler;
 
     /**
      * The interface that receives onClick messages.

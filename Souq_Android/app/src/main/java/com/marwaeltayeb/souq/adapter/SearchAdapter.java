@@ -34,19 +34,18 @@ import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder>{
 
-    private Context mContext;
-    // Declare an arrayList for products
-    private List<Product> productList;
+    private final Context mContext;
+    private final List<Product> productList;
 
     private Product currentProduct;
-    private AddFavoriteViewModel addFavoriteViewModel;
-    private RemoveFavoriteViewModel removeFavoriteViewModel;
-    private ToCartViewModel toCartViewModel;
-    private FromCartViewModel fromCartViewModel;
-    private ToHistoryViewModel toHistoryViewModel;
+    private final AddFavoriteViewModel addFavoriteViewModel;
+    private final RemoveFavoriteViewModel removeFavoriteViewModel;
+    private final ToCartViewModel toCartViewModel;
+    private final FromCartViewModel fromCartViewModel;
+    private final ToHistoryViewModel toHistoryViewModel;
 
     // Create a final private SearchAdapterOnClickHandler called mClickHandler
-    private SearchAdapterOnClickHandler clickHandler;
+    private final SearchAdapterOnClickHandler clickHandler;
 
     /**
      * The interface that receives onClick messages.
@@ -110,12 +109,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @Override
     public int getItemViewType(int position) {
         return position;
-    }
-
-    public void clear() {
-        int size = productList.size();
-        productList.clear();
-        notifyItemRangeRemoved(0, size);
     }
 
     class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

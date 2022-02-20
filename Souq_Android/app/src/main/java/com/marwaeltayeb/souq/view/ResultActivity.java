@@ -64,14 +64,11 @@ public class ResultActivity extends AppCompatActivity {
                     Toast.makeText(ResultActivity.this, "No Result", Toast.LENGTH_SHORT).show();
                 }
 
-                searchAdapter = new SearchAdapter(getApplicationContext(), searchedList, new SearchAdapter.SearchAdapterOnClickHandler() {
-                    @Override
-                    public void onClick(Product product) {
-                        Intent intent = new Intent(ResultActivity.this, DetailsActivity.class);
-                        // Pass an object of product class
-                        intent.putExtra(PRODUCT, product);
-                        startActivity(intent);
-                    }
+                searchAdapter = new SearchAdapter(getApplicationContext(), searchedList, product -> {
+                    Intent intent = new Intent(ResultActivity.this, DetailsActivity.class);
+                    // Pass an object of product class
+                    intent.putExtra(PRODUCT, product);
+                    startActivity(intent);
                 },this);
             }
             binding.listOfSearchedList.setAdapter(searchAdapter);

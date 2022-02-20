@@ -1,10 +1,11 @@
 package com.marwaeltayeb.souq.adapter;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.marwaeltayeb.souq.R;
 import com.marwaeltayeb.souq.databinding.HelpListItemBinding;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.HelpCenterHolder>{
 
-    private List<Help> helpList;
+    private final List<Help> helpList;
 
     public HelpAdapter(List<Help> helpList) {
         this.helpList = helpList;
@@ -43,7 +44,7 @@ public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.HelpCenterHold
         return helpList.size();
     }
 
-    class HelpCenterHolder extends RecyclerView.ViewHolder{
+    static class HelpCenterHolder extends RecyclerView.ViewHolder{
 
         private final HelpListItemBinding binding;
 

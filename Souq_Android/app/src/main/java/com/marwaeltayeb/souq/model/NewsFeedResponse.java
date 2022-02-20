@@ -12,8 +12,4 @@ public class NewsFeedResponse {
     public List<NewsFeed> getPosters() {
         return posters;
     }
-
-    public void setPosters(List<NewsFeed> posters) {
-        this.posters = posters;
-    }
 }

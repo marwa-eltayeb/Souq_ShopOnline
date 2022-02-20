@@ -9,12 +9,12 @@ import com.marwaeltayeb.souq.model.Product;
 public class LaptopDataSourceFactory extends DataSource.Factory{
 
     // Creating the mutable live database
-    private MutableLiveData<PageKeyedDataSource<Integer, Product>> laptopLiveDataSource = new MutableLiveData<>();
+    private final MutableLiveData<PageKeyedDataSource<Integer, Product>> laptopLiveDataSource = new MutableLiveData<>();
 
     public static ProductDataSource laptopDataSource;
 
-    private String category;
-    private int userId;
+    private final String category;
+    private final int userId;
 
     public LaptopDataSourceFactory(String category, int userId){
         this.category = category;
@@ -31,11 +31,5 @@ public class LaptopDataSourceFactory extends DataSource.Factory{
 
         // Returning the Data source
         return laptopDataSource;
-    }
-
-
-    // Getter for Product live DataSource
-    public MutableLiveData<PageKeyedDataSource<Integer, Product>> getLaptopLiveDataSource() {
-        return laptopLiveDataSource;
     }
 }

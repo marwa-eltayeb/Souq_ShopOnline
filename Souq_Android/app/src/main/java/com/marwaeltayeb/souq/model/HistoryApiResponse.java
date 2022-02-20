@@ -12,8 +12,4 @@ public class HistoryApiResponse {
     public List<Product> getHistoryList() {
         return historyList;
     }
-
-    public void setHistoryList(List<Product> historyList) {
-        this.historyList = historyList;
-    }
 }

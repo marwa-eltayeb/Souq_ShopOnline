@@ -41,7 +41,6 @@ public class Order implements Serializable {
         return orderDate;
     }
 
-
     public String getProductName() {
         return productName;
     }
@@ -61,5 +60,4 @@ public class Order implements Serializable {
     public String getShippingPhone() {
         return shippingPhone;
     }
-
 }
