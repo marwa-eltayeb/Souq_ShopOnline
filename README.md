@@ -20,7 +20,7 @@
 - Rate application on play store.
 - Provide Support through help center.
 - Change language of the application.
-- Get OTP via email to varify your identity if user forgets password.
+- Get OTP via email to verify your identity if user forgets password.
 - Get newsfeed about new offers.
 - Add user's shipping address.
 - Track status of user's orders.
